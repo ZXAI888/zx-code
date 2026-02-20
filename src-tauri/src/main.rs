@@ -12,5 +12,5 @@ fn main() {
         }
     }
 
-    cc_switch_lib::run();
+    zx_code_lib::run();
 }
