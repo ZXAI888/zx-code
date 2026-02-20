@@ -289,7 +289,7 @@ fn proxy_points_to_loopback(value: &str) -> bool {
     // 只有指向自己的代理才需要跳过，避免递归
     fn is_zxcode_proxy_port(port: Option<u16>) -> bool {
         let zxcode_port = get_proxy_port();
-        port == Some(cc_switch_port)
+        port == Some(zxcode_port)
     }
 
     if let Ok(parsed) = url::Url::parse(value) {

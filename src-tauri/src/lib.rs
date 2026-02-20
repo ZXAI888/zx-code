@@ -1326,7 +1326,7 @@ fn show_database_init_error_dialog(
             常见原因包括：数据库版本过新、文件损坏、权限不足、磁盘空间不足等。\n\n\
             建议：\n\
             1) 先备份整个配置目录（包含 zx-code.db）\n\
-            2) 如果提示"数据库版本过新"，请升级到更新版本\n\
+            2) 如果提示'数据库版本过新'，请升级到更新版本\n\
             3) 如果刚升级出现异常，可回退旧版本导出/备份后再升级\n\n\
             点击「重试」重新尝试初始化\n\
             点击「退出」关闭程序",
@@ -1340,7 +1340,7 @@ fn show_database_init_error_dialog(
             Common causes include: newer database version, corrupted file, permission issues, or low disk space.\n\n\
             Suggestions:\n\
             1) Back up the entire config directory (including zx-code.db)\n\
-            2) If you see "database version is newer", please upgrade ZX Code\n\
+            2) If you see 'database version is newer', please upgrade ZX Code\n\
             3) If this happened right after upgrading, consider rolling back to export/backup then upgrade again\n\n\
             Click 'Retry' to attempt initialization again\n\
             Click 'Exit' to close the program",
