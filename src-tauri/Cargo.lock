@@ -700,7 +700,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "cc-switch"
+name = "zx-code"
 version = "3.10.3"
 dependencies = [
  "anyhow",

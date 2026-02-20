@@ -92,7 +92,7 @@ const DRAG_BAR_HEIGHT = isWindows() || isLinux() ? 0 : 28; // px
 const HEADER_HEIGHT = 64; // px
 const CONTENT_TOP_OFFSET = DRAG_BAR_HEIGHT + HEADER_HEIGHT;
 
-const STORAGE_KEY = "cc-switch-last-app";
+const STORAGE_KEY = "zx-code-last-app";
 const VALID_APPS: AppId[] = [
   "claude",
   "codex",
@@ -109,7 +109,7 @@ const getInitialApp = (): AppId => {
   return "claude";
 };
 
-const VIEW_STORAGE_KEY = "cc-switch-last-view";
+const VIEW_STORAGE_KEY = "zx-code-last-view";
 const VALID_VIEWS: View[] = [
   "providers",
   "settings",
@@ -875,7 +875,7 @@ function App() {
               <div className="flex items-center gap-2">
                 <div className="relative inline-flex items-center">
                   <a
-                    href="https://github.com/farion1231/cc-switch"
+                    href="https://github.com/farion1231/zx-code"
                     target="_blank"
                     rel="noreferrer"
                     className={cn(
@@ -885,7 +885,7 @@ function App() {
                         : "text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300",
                     )}
                   >
-                    CC Switch
+                    ZX Code
                   </a>
                 </div>
                 <Button

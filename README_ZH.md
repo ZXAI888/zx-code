@@ -2,76 +2,13 @@
 
 # Claude Code / Codex / Gemini CLI 全方位辅助工具
 
-[![Version](https://img.shields.io/badge/version-3.10.2-blue.svg)](https://github.com/farion1231/cc-switch/releases)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/farion1231/cc-switch/releases)
+[![Version](https://img.shields.io/badge/version-3.10.2-blue.svg)](https://github.com/farion1231/zx-code/releases)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/farion1231/zx-code/releases)
 [![Built with Tauri](https://img.shields.io/badge/built%20with-Tauri%202-orange.svg)](https://tauri.app/)
-[![Downloads](https://img.shields.io/endpoint?url=https://api.pinstudios.net/api/badges/downloads/farion1231/cc-switch/total)](https://github.com/farion1231/cc-switch/releases/latest)
-
-<a href="https://trendshift.io/repositories/15372" target="_blank"><img src="https://trendshift.io/api/badge/repositories/15372" alt="farion1231%2Fcc-switch | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
 [English](README.md) | 中文 | [日本語](README_JA.md) | [更新日志](CHANGELOG.md) | [v3.9.0 发布说明](docs/release-note-v3.9.0-zh.md)
 
 </div>
-
-## ❤️赞助商
-
-[![MiniMax](assets/partners/banners/minimax-zh.jpeg)](https://platform.minimaxi.com/subscribe/coding-plan?code=7kYF2VoaCn&source=link)
-
-MiniMax M2.5 在编程、工具调用与搜索、办公等核心生产力场景均达到或刷新行业 SOTA，拥有架构师级代码能力与高效任务拆解能力，推理速度较上一代提升 37%、token 消耗更优；100 token/s 连续工作一小时仅需 1 美金，让复杂 Agent 规模化部署经济可行，已在企业多职能场景深度落地，加速全民 Agent 时代到来。
-
-[点击](https://platform.minimaxi.com/subscribe/coding-plan?code=7kYF2VoaCn&source=link)即可领取 MiniMax Coding Plan 专属 88 折优惠！
-
----
-
-<table>
-<tr>
-<td width="180"><a href="https://www.packyapi.com/register?aff=cc-switch"><img src="assets/partners/logos/packycode.png" alt="PackyCode" width="150"></a></td>
-<td>感谢 PackyCode 赞助了本项目！PackyCode 是一家稳定、高效的API中转服务商，提供 Claude Code、Codex、Gemini 等多种中转服务。PackyCode 为本软件的用户提供了特别优惠，使用<a href="https://www.packyapi.com/register?aff=cc-switch">此链接</a>注册并在充值时填写"cc-switch"优惠码，首次充值可以享受9折优惠！</td>
-</tr>
-
-<tr>
-<td width="180"><a href="https://aigocode.com/invite/CC-SWITCH"><img src="assets/partners/logos/aigocode.png" alt="AIGoCode" width="150"></a></td>
-<td>感谢 AIGoCode 赞助了本项目！AIGoCode 是一个集成了 Claude Code、Codex 以及 Gemini 最新模型的一站式平台，为你提供稳定、高效且高性价比的AI编程服务。本站提供灵活的订阅计划，零封号风险，国内直连，无需魔法，极速响应。AIGoCode 为 CC Switch 的用户提供了特别福利，通过<a href="https://aigocode.com/invite/CC-SWITCH">此链接</a>注册的用户首次充值可以获得额外10%奖励额度！</td>
-</tr>
-
-<tr>
-<td width="180"><a href="https://www.aicodemirror.com/register?invitecode=9915W3"><img src="assets/partners/logos/aicodemirror.jpg" alt="AICodeMirror" width="150"></a></td>
-<td>感谢 AICodeMirror 赞助了本项目！AICodeMirror 提供 Claude Code / Codex / Gemini CLI 官方高稳定中转服务，支持企业级高并发、极速开票、7×24 专属技术支持。
-Claude Code / Codex / Gemini 官方渠道低至 3.8 / 0.2 / 0.9 折，充值更有折上折！AICodeMirror 为 CCSwitch 的用户提供了特别福利，通过<a href="https://www.aicodemirror.com/register?invitecode=9915W3">此链接</a>注册的用户，可享受首充8折，企业客户最高可享 7.5 折！</td>
-</tr>
-
-<tr>
-<td width="180"><a href="https://cubence.com/signup?code=CCSWITCH&source=ccs"><img src="assets/partners/logos/cubence.png" alt="Cubence" width="150"></a></td>
-<td>感谢 Cubence 赞助本项目！Cubence 是一家可靠高效的 API 中继服务提供商，提供对 Claude Code、Codex、Gemini 等模型的中继服务，并提供按量、包月等灵活的计费方式。Cubence 为 CC Switch 的用户提供了特别优惠：使用 <a href="https://cubence.com/signup?code=CCSWITCH&source=ccs">此链接</a> 注册，并在充值时输入 "CCSWITCH" 优惠码，每次充值均可享受九折优惠！</td>
-</tr>
-
-<tr>
-<td width="180"><a href="https://www.dmxapi.cn/register?aff=bUHu"><img src="assets/partners/logos/dmx-zh.jpeg" alt="DMXAPI" width="150"></a></td>
-<td>感谢 DMXAPI（大模型API）赞助了本项目！ DMXAPI，一个Key用全球大模型。
-为200多家企业用户提供全球大模型API服务。· 充值即开票 ·当天开票 ·并发不限制  ·1元起充 ·  7x24 在线技术辅导，GPT/Claude/Gemini全部6.8折，国内模型5~8折，Claude Code 专属模型3.4折进行中！<a href="https://www.dmxapi.cn/register?aff=bUHu">点击这里注册</a></td>
-</tr>
-
-<tr>
-<td width="180"><a href="https://www.right.codes/register?aff=CCSWITCH"><img src="assets/partners/logos/rightcode.jpg" alt="RightCode" width="150"></a></td>
-<td>感谢 Right Code 赞助了本项目！Right Code 稳定提供 Claude Code、Codex、Gemini 等模型的中转服务。主打<strong>极高性价比</strong>的Codex包月套餐，<strong>提供额度转结，套餐当天用不完的额度，第二天还能接着用！</strong>充值即可开票，企业、团队用户一对一对接。同时为 CC Switch 的用户提供了特别优惠：通过<a href="https://www.right.codes/register?aff=CCSWITCH">此链接</a>注册，每次充值均可获得实付金额25%的按量额度！</td>
-</tr>
-
-<tr>
-<td width="180"><a href="https://aicoding.sh/i/CCSWITCH"><img src="assets/partners/logos/aicoding.jpg" alt="AICoding" width="150"></a></td>
-<td>感谢 AICoding.sh 赞助了本项目！AICoding.sh —— 全球大模型 API 超值中转服务！Claude Code 1.9 折，GPT 0.1 折，已为数百家企业提供高性价比 AI 服务。支持 Claude Code、GPT、Gemini 及国内主流模型，企业级高并发、极速开票、7×24 专属技术支持，通过<a href="https://aicoding.sh/i/CCSWITCH">此链接</a> 注册的 CC Switch 用户，首充可享受九折优惠！</td>
-</tr>
-
-<tr>
-<td width="180"><a href="https://crazyrouter.com/register?aff=OZcm&ref=cc-switch"><img src="assets/partners/logos/crazyrouter.jpg" alt="AICoding" width="150"></a></td>
-<td>感谢 Crazyrouter 赞助了本项目！Crazyrouter 是一个高性能 AI API 聚合平台——一个 API Key 即可访问 300+ 模型，包括 Claude Code、Codex、Gemini CLI 等。全部模型低至官方定价的 55%，支持自动故障转移、智能路由和无限并发。Crazyrouter 为 CC Switch 用户提供了专属优惠：通过<a href="https://crazyrouter.com/register?aff=OZcm&ref=cc-switch">此链接</a>注册即可获得 <strong>$2 免费额度</strong>，首次充值时输入优惠码 `CCSWITCH` 还可获得额外 <strong>30% 奖励额度</strong>！</td>
-</tr>
-
-<tr>
-<td width="180"><a href="https://www.sssaicode.com/register?ref=DCP0SM"><img src="assets/partners/logos/sssaicode.png" alt="SSSAiCode" width="150"></a></td>
-<td>感谢 SSSAiCode 赞助了本项目！SSSAiCode 是一家稳定可靠的API中转站，致力于提供稳定、可靠、平价的Claude、CodeX模型服务，<strong>提供高性价比折合0.5￥/$的官方Claude服务</strong>，支持包月、Paygo多种计费方式、支持当日快速开票，SSSAiCode为本软件的用户提供特别优惠，使用<a href="https://www.sssaicode.com/register?ref=DCP0SM">此链接</a>注册每次充值均可享受10$的额外奖励！</td>
-</tr>
-
-</table>
 
 ## 界面预览
 
@@ -145,7 +82,7 @@ Claude Code / Codex / Gemini 官方渠道低至 3.8 / 0.2 / 0.9 折，充值更�
   - 统一导入/导出 + 双向同步
 
 - **深度链接协议**
-  - `ccswitch://` 协议注册（全平台）
+  - `zxcode://` 协议注册（全平台）
   - 通过共享链接一键导入供应商配置
   - 安全验证 + 生命周期集成
 
@@ -187,26 +124,26 @@ Claude Code / Codex / Gemini 官方渠道低至 3.8 / 0.2 / 0.9 折，充值更�
 
 ### Windows 用户
 
-从 [Releases](../../releases) 页面下载最新版本的 `CC-Switch-v{版本号}-Windows.msi` 安装包或者 `CC-Switch-v{版本号}-Windows-Portable.zip` 绿色版。
+从 [Releases](../../releases) 页面下载最新版本的 `ZX-Code-v{版本号}-Windows.msi` 安装包或者 `ZX-Code-v{版本号}-Windows-Portable.zip` 绿色版。
 
 ### macOS 用户
 
 **方式一：通过 Homebrew 安装（推荐）**
 
 ```bash
-brew tap farion1231/ccswitch
-brew install --cask cc-switch
+brew tap farion1231/zxcode
+brew install --cask zx-code
 ```
 
 更新：
 
 ```bash
-brew upgrade --cask cc-switch
+brew upgrade --cask zx-code
 ```
 
 **方式二：手动下载**
 
-从 [Releases](../../releases) 页面下载 `CC-Switch-v{版本号}-macOS.zip` 解压使用。
+从 [Releases](../../releases) 页面下载 `ZX-Code-v{版本号}-macOS.zip` 解压使用。
 
 > **注意**：由于作者没有苹果开发者账号，首次打开可能出现"未知开发者"警告，请先关闭，然后前往"系统设置" → "隐私与安全性" → 点击"仍要打开"，之后便可以正常打开
 
@@ -215,23 +152,23 @@ brew upgrade --cask cc-switch
 **通过 paru 安装（推荐）**
 
 ```bash
-paru -S cc-switch-bin
+paru -S zx-code-bin
 ```
 
 ### Linux 用户
 
 从 [Releases](../../releases) 页面下载最新版本的 Linux 安装包：
 
-- `CC-Switch-v{版本号}-Linux.deb`（Debian/Ubuntu）
-- `CC-Switch-v{版本号}-Linux.rpm`（Fedora/RHEL/openSUSE）
-- `CC-Switch-v{版本号}-Linux.AppImage`（通用）
-- `CC-Switch-v{版本号}-Linux.flatpak`（Flatpak）
+- `ZX-Code-v{版本号}-Linux.deb`（Debian/Ubuntu）
+- `ZX-Code-v{版本号}-Linux.rpm`（Fedora/RHEL/openSUSE）
+- `ZX-Code-v{版本号}-Linux.AppImage`（通用）
+- `ZX-Code-v{版本号}-Linux.flatpak`（Flatpak）
 
 Flatpak 安装与运行：
 
 ```bash
-flatpak install --user ./CC-Switch-v{版本号}-Linux.flatpak
-flatpak run com.ccswitch.desktop
+flatpak install --user ./ZX-Code-v{版本号}-Linux.flatpak
+flatpak run com.zxcode.desktop
 ```
 
 ## 快速开始
@@ -301,11 +238,11 @@ flatpak run com.ccswitch.desktop
 - MCP 服务器：`~/.gemini/settings.json` → `mcpServers`
 - 托盘快速切换：每次切换供应商都会重写 `~/.gemini/.env`，无需重启 Gemini CLI 即可生效
 
-**CC Switch 存储（v3.8.0 新架构）**
+**ZX Code 存储（v3.8.0 新架构）**
 
-- 数据库（SSOT）：`~/.cc-switch/cc-switch.db`（SQLite，存储供应商、MCP、Prompts、Skills）
-- 本地设置：`~/.cc-switch/settings.json`（设备级设置）
-- 备份：`~/.cc-switch/backups/`（自动轮换，保留 10 个）
+- 数据库（SSOT）：`~/.zx-code/zx-code.db`（SQLite，存储供应商、MCP、Prompts、Skills）
+- 本地设置：`~/.zx-code/settings.json`（设备级设置）
+- 备份：`~/.zx-code/backups/`（自动轮换，保留 10 个）
 
 ### 云同步设置
 
@@ -340,7 +277,7 @@ flatpak run com.ccswitch.desktop
 
 **核心设计模式**
 
-- **SSOT**（单一事实源）：所有数据存储在 `~/.cc-switch/cc-switch.db`（SQLite）
+- **SSOT**（单一事实源）：所有数据存储在 `~/.zx-code/zx-code.db`（SQLite）
 - **双层存储**：SQLite 存储可同步数据，JSON 存储设备级设置
 - **双向同步**：切换时写入 live 文件，编辑当前供应商时从 live 回填
 - **原子写入**：临时文件 + 重命名模式防止配置损坏
@@ -508,10 +445,6 @@ pnpm test:unit --coverage
 - 通过格式检查：`pnpm format:check`
 - 通过单元测试：`pnpm test:unit`
 - 💡 新功能开发前，欢迎先开 issue 讨论实现方案
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=farion1231/cc-switch&type=Date)](https://www.star-history.com/#farion1231/cc-switch&Date)
 
 ## License
 

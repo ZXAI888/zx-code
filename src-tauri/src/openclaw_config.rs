@@ -7,7 +7,7 @@
 //!
 //! ```json5
 //! {
-//!   // 模型供应商配置（映射为 CC Switch 的"供应商"）
+//!   // 模型供应商配置（映射为 ZX Code 的"供应商"）
 //!   models: {
 //!     mode: "merge",
 //!     providers: {

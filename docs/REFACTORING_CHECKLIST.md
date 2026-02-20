@@ -1,4 +1,4 @@
-# CC Switch 重构实施清单
+# ZX Code 重构实施清单
 
 > 用于跟踪重构进度的详细检查清单
 
@@ -14,7 +14,7 @@
 
 - [ ] 创建新分支 `refactor/modernization`
 - [ ] 创建备份标签 `git tag backup-before-refactor`
-- [ ] 备份用户配置文件 `~/.cc-switch/config.json`
+- [ ] 备份用户配置文件 `~/.zx-code/config.json`
 - [ ] 通知团队成员重构开始
 
 ### 依赖安装

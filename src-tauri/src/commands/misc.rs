@@ -39,7 +39,7 @@ pub async fn check_for_updates(handle: AppHandle) -> Result<bool, String> {
     handle
         .opener()
         .open_url(
-            "https://github.com/farion1231/cc-switch/releases/latest",
+            "https://github.com/farion1231/zx-code/releases/latest",
             None::<String>,
         )
         .map_err(|e| format!("打开更新页面失败: {e}"))?;
@@ -154,7 +154,7 @@ async fn fetch_github_latest_version(client: &reqwest::Client, repo: &str) -> Op
     let url = format!("https://api.github.com/repos/{repo}/releases/latest");
     match client
         .get(&url)
-        .header("User-Agent", "cc-switch")
+        .header("User-Agent", "zx-code")
         .header("Accept", "application/vnd.github+json")
         .send()
         .await
@@ -708,7 +708,7 @@ fn launch_macos_terminal(config_file: &std::path::Path) -> Result<(), String> {
     let terminal = preferred.as_deref().unwrap_or("terminal");
 
     let temp_dir = std::env::temp_dir();
-    let script_file = temp_dir.join(format!("cc_switch_launcher_{}.sh", std::process::id()));
+    let script_file = temp_dir.join(format!("zx_code_launcher_{}.sh", std::process::id()));
     let config_path = config_file.to_string_lossy();
 
     // Write the shell script to a temp file
@@ -877,7 +877,7 @@ fn launch_linux_terminal(config_file: &std::path::Path) -> Result<(), String> {
 
     // Create temp script file
     let temp_dir = std::env::temp_dir();
-    let script_file = temp_dir.join(format!("cc_switch_launcher_{}.sh", std::process::id()));
+    let script_file = temp_dir.join(format!("zx_code_launcher_{}.sh", std::process::id()));
     let config_path = config_file.to_string_lossy();
 
     let script_content = format!(
@@ -972,7 +972,7 @@ fn launch_windows_terminal(
     let preferred = crate::settings::get_preferred_terminal();
     let terminal = preferred.as_deref().unwrap_or("cmd");
 
-    let bat_file = temp_dir.join(format!("cc_switch_claude_{}.bat", std::process::id()));
+    let bat_file = temp_dir.join(format!("zx_code_claude_{}.bat", std::process::id()));
     let config_path_for_batch = config_file.to_string_lossy().replace('&', "^&");
 
     let content = format!(

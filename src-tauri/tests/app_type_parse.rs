@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use cc_switch_lib::AppType;
+use zx_code_lib::AppType;
 
 #[test]
 fn parse_known_apps_case_insensitive_and_trim() {

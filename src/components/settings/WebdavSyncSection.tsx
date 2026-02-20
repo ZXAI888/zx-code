@@ -161,7 +161,7 @@ export function WebdavSyncSection({ config }: WebdavSyncSectionProps) {
     baseUrl: config?.baseUrl ?? "",
     username: config?.username ?? "",
     password: config?.password ?? "",
-    remoteRoot: config?.remoteRoot ?? "cc-switch-sync",
+    remoteRoot: config?.remoteRoot ?? "zx-code-sync",
     profile: config?.profile ?? "default",
     autoSync: config?.autoSync ?? false,
   }));
@@ -196,7 +196,7 @@ export function WebdavSyncSection({ config }: WebdavSyncSectionProps) {
       baseUrl: config.baseUrl ?? "",
       username: config.username ?? "",
       password: config.password ?? "",
-      remoteRoot: config.remoteRoot ?? "cc-switch-sync",
+      remoteRoot: config.remoteRoot ?? "zx-code-sync",
       profile: config.profile ?? "default",
       autoSync: config.autoSync ?? false,
     });
@@ -258,7 +258,7 @@ export function WebdavSyncSection({ config }: WebdavSyncSectionProps) {
       baseUrl,
       username: form.username.trim(),
       password: form.password,
-      remoteRoot: form.remoteRoot.trim() || "cc-switch-sync",
+      remoteRoot: form.remoteRoot.trim() || "zx-code-sync",
       profile: form.profile.trim() || "default",
       autoSync: form.autoSync,
     };
@@ -554,7 +554,7 @@ export function WebdavSyncSection({ config }: WebdavSyncSectionProps) {
             <Input
               value={form.remoteRoot}
               onChange={(e) => updateField("remoteRoot", e.target.value)}
-              placeholder="cc-switch-sync"
+              placeholder="zx-code-sync"
               className="text-xs flex-1"
               disabled={isLoading}
             />
@@ -720,7 +720,7 @@ export function WebdavSyncSection({ config }: WebdavSyncSectionProps) {
                   {t("settings.webdavSync.confirmUpload.targetPath")}
                   {": "}
                   <code className="ml-1 text-xs bg-muted px-1.5 py-0.5 rounded">
-                    /{form.remoteRoot.trim() || "cc-switch-sync"}/v2/
+                    /{form.remoteRoot.trim() || "zx-code-sync"}/v2/
                     {form.profile.trim() || "default"}
                   </code>
                 </p>

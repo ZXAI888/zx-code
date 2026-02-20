@@ -1,4 +1,4 @@
-# CC Switch 现代化重构完整方案
+# ZX Code 现代化重构完整方案
 
 > Breaking Change 提醒（后续示例如仍出现 `app_type/appType` 字样，请按本规范理解与替换）：
 >
@@ -1372,7 +1372,7 @@ import { Toaster } from '@/components/ui/sonner'
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="system" storageKey="cc-switch-theme">
+      <ThemeProvider defaultTheme="system" storageKey="zx-code-theme">
         <UpdateProvider>
           <App />
           <Toaster />
@@ -1641,7 +1641,7 @@ fn backup_config_before_refactor() -> Result<()> {
 - [react-hook-form 文档](https://react-hook-form.com/)
 - [shadcn/ui 文档](https://ui.shadcn.com/)
 - [Zod 文档](https://zod.dev/)
-- [原始 PR #76](https://github.com/farion1231/cc-switch/pull/76)
+- [原始 PR #76](https://github.com/farion1231/zx-code/pull/76)
 
 ---
 

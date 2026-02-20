@@ -186,13 +186,13 @@ jobs:
             exit 1
           fi
           # 重命名 tar.gz 为统一格式
-          NEW_TAR_GZ="CC-Switch-${VERSION}-macOS.tar.gz"
+          NEW_TAR_GZ="ZX-Code-${VERSION}-macOS.tar.gz"
           cp "$TAR_GZ" "release-assets/$NEW_TAR_GZ"
           [ -f "$TAR_GZ.sig" ] && cp "$TAR_GZ.sig" "release-assets/$NEW_TAR_GZ.sig" || echo ".sig for macOS not found yet"
           echo "macOS updater artifact copied: $NEW_TAR_GZ"
           if [ -n "$APP_PATH" ]; then
             APP_DIR=$(dirname "$APP_PATH"); APP_NAME=$(basename "$APP_PATH")
-            NEW_ZIP="CC-Switch-${VERSION}-macOS.zip"
+            NEW_ZIP="ZX-Code-${VERSION}-macOS.zip"
             cd "$APP_DIR"
             ditto -c -k --sequesterRsrc --keepParent "$APP_NAME" "$NEW_ZIP"
             mv "$NEW_ZIP" "$GITHUB_WORKSPACE/release-assets/"
@@ -215,7 +215,7 @@ jobs:
             $msi = Get-ChildItem -Path 'src-tauri/target/release/bundle' -Recurse -Include *.msi -ErrorAction SilentlyContinue | Select-Object -First 1
           }
           if ($null -ne $msi) {
-            $dest = "CC-Switch-$VERSION-Windows.msi"
+            $dest = "ZX-Code-$VERSION-Windows.msi"
             Copy-Item $msi.FullName (Join-Path release-assets $dest)
             Write-Host "Installer copied: $dest"
             $sigPath = "$($msi.FullName).sig"
@@ -230,24 +230,24 @@ jobs:
           }
           # 绿色版（portable）：仅可执行文件打 zip（不参与 Updater）
           $exeCandidates = @(
-            'src-tauri/target/release/cc-switch.exe',
-            'src-tauri/target/x86_64-pc-windows-msvc/release/cc-switch.exe'
+            'src-tauri/target/release/zx-code.exe',
+            'src-tauri/target/x86_64-pc-windows-msvc/release/zx-code.exe'
           )
           $exePath = $exeCandidates | Where-Object { Test-Path $_ } | Select-Object -First 1
           if ($null -ne $exePath) {
-            $portableDir = 'release-assets/CC-Switch-Portable'
+            $portableDir = 'release-assets/ZX-Code-Portable'
             New-Item -ItemType Directory -Force -Path $portableDir | Out-Null
             Copy-Item $exePath $portableDir
             $portableIniPath = Join-Path $portableDir 'portable.ini'
             $portableContent = @(
-              '# CC Switch portable build marker',
+              '# ZX Code portable build marker',
               'portable=true'
             )
             $portableContent | Set-Content -Path $portableIniPath -Encoding UTF8
-            $portableZip = "release-assets/CC-Switch-$VERSION-Windows-Portable.zip"
+            $portableZip = "release-assets/ZX-Code-$VERSION-Windows-Portable.zip"
             Compress-Archive -Path "$portableDir/*" -DestinationPath $portableZip -Force
             Remove-Item -Recurse -Force $portableDir
-            Write-Host "Windows portable zip created: CC-Switch-$VERSION-Windows-Portable.zip"
+            Write-Host "Windows portable zip created: ZX-Code-$VERSION-Windows-Portable.zip"
           } else {
             Write-Warning 'Portable exe not found'
           }
@@ -263,7 +263,7 @@ jobs:
           # Updater artifact: AppImage（含对应 .sig）
           APPIMAGE=$(find src-tauri/target/release/bundle -name "*.AppImage" | head -1 || true)
           if [ -n "$APPIMAGE" ]; then
-            NEW_APPIMAGE="CC-Switch-${VERSION}-Linux-${ARCH}.AppImage"
+            NEW_APPIMAGE="ZX-Code-${VERSION}-Linux-${ARCH}.AppImage"
             cp "$APPIMAGE" "release-assets/$NEW_APPIMAGE"
             [ -f "$APPIMAGE.sig" ] && cp "$APPIMAGE.sig" "release-assets/$NEW_APPIMAGE.sig" || echo ".sig for AppImage not found"
             echo "AppImage copied: $NEW_APPIMAGE"
@@ -273,16 +273,16 @@ jobs:
           # 额外上传 .deb（用于手动安装，不参与 Updater）
           DEB=$(find src-tauri/target/release/bundle -name "*.deb" | head -1 || true)
           if [ -n "$DEB" ]; then
-            cp "$DEB" "release-assets/CC-Switch-${VERSION}-Linux-${ARCH}.deb"
-            echo "Deb package copied: CC-Switch-${VERSION}-Linux-${ARCH}.deb"
+            cp "$DEB" "release-assets/ZX-Code-${VERSION}-Linux-${ARCH}.deb"
+            echo "Deb package copied: ZX-Code-${VERSION}-Linux-${ARCH}.deb"
           else
             echo "No .deb found (optional)"
           fi
           # 额外上传 .rpm（用于 Fedora/RHEL/openSUSE 等，不参与 Updater）
           RPM=$(find src-tauri/target/release/bundle -name "*.rpm" | head -1 || true)
           if [ -n "$RPM" ]; then
-            cp "$RPM" "release-assets/CC-Switch-${VERSION}-Linux-${ARCH}.rpm"
-            echo "RPM package copied: CC-Switch-${VERSION}-Linux-${ARCH}.rpm"
+            cp "$RPM" "release-assets/ZX-Code-${VERSION}-Linux-${ARCH}.rpm"
+            echo "RPM package copied: ZX-Code-${VERSION}-Linux-${ARCH}.rpm"
           else
             echo "No .rpm found (optional)"
           fi
@@ -303,22 +303,22 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          name: CC Switch ${{ github.ref_name }}
+          name: ZX Code ${{ github.ref_name }}
           prerelease: true
           body: |
-            ## CC Switch ${{ github.ref_name }}
+            ## ZX Code ${{ github.ref_name }}
 
             Claude Code 供应商切换工具
 
             ### 下载
 
-            - **macOS**: `CC-Switch-${{ github.ref_name }}-macOS.zip`（解压即用）或 `CC-Switch-${{ github.ref_name }}-macOS.tar.gz`（Homebrew）
-            - **Windows**: `CC-Switch-${{ github.ref_name }}-Windows.msi`（安装版）或 `CC-Switch-${{ github.ref_name }}-Windows-Portable.zip`（绿色版）
-            - **Linux (x86_64)**: `CC-Switch-${{ github.ref_name }}-Linux-x86_64.AppImage` / `.deb` / `.rpm`
-            - **Linux (ARM64)**: `CC-Switch-${{ github.ref_name }}-Linux-arm64.AppImage` / `.deb` / `.rpm`
+            - **macOS**: `ZX-Code-${{ github.ref_name }}-macOS.zip`（解压即用）或 `ZX-Code-${{ github.ref_name }}-macOS.tar.gz`（Homebrew）
+            - **Windows**: `ZX-Code-${{ github.ref_name }}-Windows.msi`（安装版）或 `ZX-Code-${{ github.ref_name }}-Windows-Portable.zip`（绿色版）
+            - **Linux (x86_64)**: `ZX-Code-${{ github.ref_name }}-Linux-x86_64.AppImage` / `.deb` / `.rpm`
+            - **Linux (ARM64)**: `ZX-Code-${{ github.ref_name }}-Linux-arm64.AppImage` / `.deb` / `.rpm`
 
             ---
-            提示：macOS 如遇"已损坏"提示，可在终端执行：`xattr -cr "/Applications/CC Switch.app"`
+            提示：macOS 如遇"已损坏"提示，可在终端执行：`xattr -cr "/Applications/ZX Code.app"`
           files: release-assets/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

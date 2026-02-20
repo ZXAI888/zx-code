@@ -4,7 +4,7 @@
 
 ## 概述
 
-为 CC Switch 添加 OpenCode 支持，这是第四个受管理的 CLI 应用。OpenCode 的核心差异在于采用**累加式**供应商管理（多供应商共存，应用内热切换），而非现有三应用的**替换式**管理。
+为 ZX Code 添加 OpenCode 支持，这是第四个受管理的 CLI 应用。OpenCode 的核心差异在于采用**累加式**供应商管理（多供应商共存，应用内热切换），而非现有三应用的**替换式**管理。
 
 ## 关键设计决策
 
@@ -186,7 +186,7 @@ pub fn import_from_opencode(config: &mut MultiAppConfig) -> Result<usize, AppErr
 ```
 
 **格式转换**：
-| CC Switch 统一格式 | OpenCode 格式 |
+| ZX Code 统一格式 | OpenCode 格式 |
 |-------------------|---------------|
 | `type: "stdio"` | `type: "local"` |
 | `command` + `args` | `command: [cmd, ...args]` |

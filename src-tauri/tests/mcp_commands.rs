@@ -3,7 +3,7 @@ use std::fs;
 
 use serde_json::json;
 
-use cc_switch_lib::{
+use zx_code_lib::{
     get_claude_mcp_path, get_claude_settings_path, import_default_config_test_hook, AppError,
     AppType, McpApps, McpServer, McpService, MultiAppConfig,
 };
@@ -58,10 +58,10 @@ fn import_default_config_claude_persists_provider() {
     );
 
     // 验证数据已持久化到数据库（v3.7.0+ 使用 SQLite 而非 config.json）
-    let db_path = home.join(".cc-switch").join("cc-switch.db");
+    let db_path = home.join(".zx-code").join("zx-code.db");
     assert!(
         db_path.exists(),
-        "importing default config should persist to cc-switch.db"
+        "importing default config should persist to zx-code.db"
     );
 }
 
@@ -141,10 +141,10 @@ fn import_mcp_from_claude_creates_config_and_enables_servers() {
     );
 
     // 验证数据已持久化到数据库
-    let db_path = home.join(".cc-switch").join("cc-switch.db");
+    let db_path = home.join(".zx-code").join("zx-code.db");
     assert!(
         db_path.exists(),
-        "state.save should persist to cc-switch.db when changes detected"
+        "state.save should persist to zx-code.db when changes detected"
     );
 }
 
@@ -236,7 +236,7 @@ fn set_mcp_enabled_for_codex_writes_live_config() {
         "server should have Codex app enabled after toggle"
     );
 
-    let toml_path = cc_switch_lib::get_codex_config_path();
+    let toml_path = zx_code_lib::get_codex_config_path();
     assert!(
         toml_path.exists(),
         "enabling server should trigger sync to ~/.codex/config.toml"

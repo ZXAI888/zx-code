@@ -90,7 +90,7 @@ fn redact_url_for_log(url_str: &str) -> String {
     }
 }
 
-/// 统一处理 ccswitch:// 深链接 URL
+/// 统一处理 zxcode:// 深链接 URL
 ///
 /// - 解析 URL
 /// - 向前端发射 `deeplink-import` / `deeplink-error` 事件
@@ -101,7 +101,7 @@ fn handle_deeplink_url(
     focus_main_window: bool,
     source: &str,
 ) -> bool {
-    if !url_str.starts_with("ccswitch://") {
+    if !url_str.starts_with("zxcode://") {
         return false;
     }
 
@@ -188,7 +188,7 @@ fn macos_tray_icon() -> Option<Image<'static>> {
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    // 设置 panic hook，在应用崩溃时记录日志到 <app_config_dir>/crash.log（默认 ~/.cc-switch/crash.log）
+    // 设置 panic hook，在应用崩溃时记录日志到 <app_config_dir>/crash.log（默认 ~/.zx-code/crash.log）
     panic_hook::setup_panic_hook();
 
     let mut builder = tauri::Builder::default();
@@ -268,7 +268,7 @@ pub fn run() {
                     log::warn!("初始化 Updater 插件失败，已跳过：{e}");
                 }
             }
-            // 初始化日志（单文件输出到 <app_config_dir>/logs/cc-switch.log）
+            // 初始化日志（单文件输出到 <app_config_dir>/logs/zx-code.log）
             {
                 use tauri_plugin_log::{RotationStrategy, Target, TargetKind, TimezoneStrategy};
 
@@ -280,7 +280,7 @@ pub fn run() {
                 }
 
                 // 启动时删除旧日志文件，实现单文件覆盖效果
-                let log_file_path = log_dir.join("cc-switch.log");
+                let log_file_path = log_dir.join("zx-code.log");
                 let _ = std::fs::remove_file(&log_file_path);
 
                 app.handle().plugin(
@@ -291,7 +291,7 @@ pub fn run() {
                             Target::new(TargetKind::Stdout),
                             Target::new(TargetKind::Folder {
                                 path: log_dir,
-                                file_name: Some("cc-switch".into()),
+                                file_name: Some("zx-code".into()),
                             }),
                         ])
                         // 单文件模式：启动时删除旧文件，达到大小时轮转
@@ -307,7 +307,7 @@ pub fn run() {
 
             // 初始化数据库
             let app_config_dir = crate::config::get_app_config_dir();
-            let db_path = app_config_dir.join("cc-switch.db");
+            let db_path = app_config_dir.join("zx-code.db");
             let json_path = app_config_dir.join("config.json");
 
             // 检查是否需要从 config.json 迁移到 SQLite
@@ -614,12 +614,12 @@ pub fn run() {
                 #[cfg(target_os = "linux")]
                 {
                     // Use Tauri's path API to get correct path (includes app identifier)
-                    // tauri-plugin-deep-link writes to: ~/.local/share/com.ccswitch.desktop/applications/cc-switch-handler.desktop
+                    // tauri-plugin-deep-link writes to: ~/.local/share/com.zxcode.desktop/applications/zx-code-handler.desktop
                     // Only register if .desktop file doesn't exist to avoid overwriting user customizations
                     let should_register = app
                         .path()
                         .data_dir()
-                        .map(|d| !d.join("applications/cc-switch-handler.desktop").exists())
+                        .map(|d| !d.join("applications/zx-code-handler.desktop").exists())
                         .unwrap_or(true);
 
                     if should_register {
@@ -656,7 +656,7 @@ pub fn run() {
                         log::debug!("  URL[{i}]: {}", redact_url_for_log(url_str));
 
                         if handle_deeplink_url(&app_handle, url_str, true, "on_open_url") {
-                            break; // Process only first ccswitch:// URL
+                            break; // Process only first zxcode:// URL
                         }
                     }
                 }
@@ -1081,13 +1081,13 @@ pub fn run() {
                         tray::apply_tray_policy(app_handle, true);
                     }
                 }
-                // 处理通过自定义 URL 协议触发的打开事件（例如 ccswitch://...）
+                // 处理通过自定义 URL 协议触发的打开事件（例如 zxcode://...）
                 RunEvent::Opened { urls } => {
                     if let Some(url) = urls.first() {
                         let url_str = url.to_string();
                         log::info!("RunEvent::Opened with URL: {url_str}");
 
-                        if url_str.starts_with("ccswitch://") {
+                        if url_str.starts_with("zxcode://") {
                             // 解析并广播深链接事件，复用与 single_instance 相同的逻辑
                             match crate::deeplink::parse_deeplink_url(&url_str) {
                                 Ok(request) => {
@@ -1151,7 +1151,7 @@ pub fn run() {
 /// 应用退出前的清理工作
 ///
 /// 在应用退出前检查代理服务器状态，如果正在运行则停止代理并恢复 Live 配置。
-/// 确保 Claude Code/Codex/Gemini 的配置不会处于损坏状态。
+/// 确保 ZX Code/Codex/Gemini 的配置不会处于损坏状态。
 /// 使用 stop_with_restore_keep_state 保留 settings 表中的代理状态，下次启动时自动恢复。
 pub async fn cleanup_before_exit(app_handle: &tauri::AppHandle) {
     if let Some(state) = app_handle.try_state::<store::AppState>() {
@@ -1267,7 +1267,7 @@ fn show_migration_error_dialog(app: &tauri::AppHandle, error: &str) -> bool {
         format!(
             "从旧版本迁移配置时发生错误：\n\n{error}\n\n\
             您的数据尚未丢失，旧配置文件仍然保留。\n\
-            建议回退到旧版本 CC Switch 以保护数据。\n\n\
+            建议回退到旧版本 ZX Code 以保护数据。\n\n\
             点击「重试」重新尝试迁移\n\
             点击「退出」关闭程序（可回退版本后重新打开）"
         )
@@ -1275,7 +1275,7 @@ fn show_migration_error_dialog(app: &tauri::AppHandle, error: &str) -> bool {
         format!(
             "An error occurred while migrating configuration:\n\n{error}\n\n\
             Your data is NOT lost - the old config file is still preserved.\n\
-            Consider rolling back to an older CC Switch version.\n\n\
+            Consider rolling back to an older ZX Code version.\n\n\
             Click 'Retry' to attempt migration again\n\
             Click 'Exit' to close the program"
         )
@@ -1325,8 +1325,8 @@ fn show_database_init_error_dialog(
             您的数据尚未丢失，应用不会自动删除数据库文件。\n\
             常见原因包括：数据库版本过新、文件损坏、权限不足、磁盘空间不足等。\n\n\
             建议：\n\
-            1) 先备份整个配置目录（包含 cc-switch.db）\n\
-            2) 如果提示“数据库版本过新”，请升级到更新版本\n\
+            1) 先备份整个配置目录（包含 zx-code.db）\n\
+            2) 如果提示"数据库版本过新"，请升级到更新版本\n\
             3) 如果刚升级出现异常，可回退旧版本导出/备份后再升级\n\n\
             点击「重试」重新尝试初始化\n\
             点击「退出」关闭程序",
@@ -1339,8 +1339,8 @@ fn show_database_init_error_dialog(
             Your data is NOT lost - the app will not delete the database automatically.\n\
             Common causes include: newer database version, corrupted file, permission issues, or low disk space.\n\n\
             Suggestions:\n\
-            1) Back up the entire config directory (including cc-switch.db)\n\
-            2) If you see “database version is newer”, please upgrade CC Switch\n\
+            1) Back up the entire config directory (including zx-code.db)\n\
+            2) If you see "database version is newer", please upgrade ZX Code\n\
             3) If this happened right after upgrading, consider rolling back to export/backup then upgrade again\n\n\
             Click 'Retry' to attempt initialization again\n\
             Click 'Exit' to close the program",

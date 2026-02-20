@@ -87,7 +87,7 @@ export const providerPresets: ProviderPreset[] = [
   {
     name: "Zhipu GLM",
     websiteUrl: "https://open.bigmodel.cn",
-    apiKeyUrl: "https://www.bigmodel.cn/claude-code?ic=RRVJPB5SII",
+    apiKeyUrl: "https://www.bigmodel.cn/claude-code",
     settingsConfig: {
       env: {
         ANTHROPIC_BASE_URL: "https://open.bigmodel.cn/api/anthropic",
@@ -105,7 +105,7 @@ export const providerPresets: ProviderPreset[] = [
   {
     name: "Zhipu GLM en",
     websiteUrl: "https://z.ai",
-    apiKeyUrl: "https://z.ai/subscribe?ic=8JVLJQFSKB",
+    apiKeyUrl: "https://z.ai/subscribe",
     settingsConfig: {
       env: {
         ANTHROPIC_BASE_URL: "https://api.z.ai/api/anthropic",
@@ -243,8 +243,6 @@ export const providerPresets: ProviderPreset[] = [
       },
     },
     category: "cn_official",
-    isPartner: true,
-    partnerPromotionKey: "minimax_cn",
     theme: {
       backgroundColor: "#f64551",
       textColor: "#FFFFFF",
@@ -269,8 +267,6 @@ export const providerPresets: ProviderPreset[] = [
       },
     },
     category: "cn_official",
-    isPartner: true,
-    partnerPromotionKey: "minimax_en",
     theme: {
       backgroundColor: "#f64551",
       textColor: "#FFFFFF",
@@ -313,24 +309,6 @@ export const providerPresets: ProviderPreset[] = [
     category: "cn_official",
   },
   {
-    name: "AiHubMix",
-    websiteUrl: "https://aihubmix.com",
-    apiKeyUrl: "https://aihubmix.com",
-    // 说明：该供应商使用 ANTHROPIC_API_KEY（而非 ANTHROPIC_AUTH_TOKEN）
-    apiKeyField: "ANTHROPIC_API_KEY",
-    settingsConfig: {
-      env: {
-        ANTHROPIC_BASE_URL: "https://aihubmix.com",
-        ANTHROPIC_API_KEY: "",
-      },
-    },
-    // 请求地址候选（用于地址管理/测速），用户可自行选择/覆盖
-    endpointCandidates: ["https://aihubmix.com", "https://api.aihubmix.com"],
-    category: "aggregator",
-    icon: "aihubmix",
-    iconColor: "#006FFB",
-  },
-  {
     name: "SiliconFlow",
     websiteUrl: "https://siliconflow.cn",
     apiKeyUrl: "https://cloud.siliconflow.cn/me/account/ak",
@@ -364,118 +342,6 @@ export const providerPresets: ProviderPreset[] = [
     },
     category: "aggregator",
     icon: "siliconflow",
-    iconColor: "#000000",
-  },
-  {
-    name: "DMXAPI",
-    websiteUrl: "https://www.dmxapi.cn",
-    apiKeyUrl: "https://www.dmxapi.cn",
-    settingsConfig: {
-      env: {
-        ANTHROPIC_BASE_URL: "https://www.dmxapi.cn",
-        ANTHROPIC_AUTH_TOKEN: "",
-      },
-    },
-    // 请求地址候选（用于地址管理/测速），用户可自行选择/覆盖
-    endpointCandidates: ["https://www.dmxapi.cn", "https://api.dmxapi.cn"],
-    category: "aggregator",
-    isPartner: true, // 合作伙伴
-    partnerPromotionKey: "dmxapi", // 促销信息 i18n key
-  },
-  {
-    name: "PackyCode",
-    websiteUrl: "https://www.packyapi.com",
-    apiKeyUrl: "https://www.packyapi.com/register?aff=cc-switch",
-    settingsConfig: {
-      env: {
-        ANTHROPIC_BASE_URL: "https://www.packyapi.com",
-        ANTHROPIC_AUTH_TOKEN: "",
-      },
-    },
-    // 请求地址候选（用于地址管理/测速）
-    endpointCandidates: [
-      "https://www.packyapi.com",
-      "https://api-slb.packyapi.com",
-    ],
-    category: "third_party",
-    isPartner: true, // 合作伙伴
-    partnerPromotionKey: "packycode", // 促销信息 i18n key
-    icon: "packycode",
-  },
-  {
-    name: "Cubence",
-    websiteUrl: "https://cubence.com",
-    apiKeyUrl: "https://cubence.com/signup?code=CCSWITCH&source=ccs",
-    settingsConfig: {
-      env: {
-        ANTHROPIC_BASE_URL: "https://api.cubence.com",
-        ANTHROPIC_AUTH_TOKEN: "",
-      },
-    },
-    endpointCandidates: [
-      "https://api.cubence.com",
-      "https://api-cf.cubence.com",
-      "https://api-dmit.cubence.com",
-      "https://api-bwg.cubence.com",
-    ],
-    category: "third_party",
-    isPartner: true, // 合作伙伴
-    partnerPromotionKey: "cubence", // 促销信息 i18n key
-    icon: "cubence",
-    iconColor: "#000000",
-  },
-  {
-    name: "AIGoCode",
-    websiteUrl: "https://aigocode.com",
-    apiKeyUrl: "https://aigocode.com/invite/CC-SWITCH",
-    settingsConfig: {
-      env: {
-        ANTHROPIC_BASE_URL: "https://api.aigocode.com",
-        ANTHROPIC_AUTH_TOKEN: "",
-      },
-    },
-    // 请求地址候选（用于地址管理/测速）
-    endpointCandidates: ["https://api.aigocode.com"],
-    category: "third_party",
-    isPartner: true, // 合作伙伴
-    partnerPromotionKey: "aigocode", // 促销信息 i18n key
-    icon: "aigocode",
-    iconColor: "#5B7FFF",
-  },
-  {
-    name: "RightCode",
-    websiteUrl: "https://www.right.codes",
-    apiKeyUrl: "https://www.right.codes/register?aff=CCSWITCH",
-    settingsConfig: {
-      env: {
-        ANTHROPIC_BASE_URL: "https://www.right.codes/claude",
-        ANTHROPIC_AUTH_TOKEN: "",
-      },
-    },
-    category: "third_party",
-    isPartner: true,
-    partnerPromotionKey: "rightcode",
-    icon: "rc",
-    iconColor: "#E96B2C",
-  },
-  {
-    name: "AICodeMirror",
-    websiteUrl: "https://www.aicodemirror.com",
-    apiKeyUrl: "https://www.aicodemirror.com/register?invitecode=9915W3",
-    settingsConfig: {
-      env: {
-        ANTHROPIC_BASE_URL: "https://api.aicodemirror.com/api/claudecode",
-        ANTHROPIC_AUTH_TOKEN: "",
-      },
-    },
-    endpointCandidates: [
-      "https://api.aicodemirror.com/api/claudecode",
-      "https://api.claudecode.net.cn/api/claudecode",
-    ],
-    category: "third_party",
-    isPartner: true, // 合作伙伴
-    partnerPromotionKey: "aicodemirror", // 促销信息 i18n key
-    icon: "aicodemirror",
     iconColor: "#000000",
   },
   {

@@ -1,11 +1,11 @@
-# CC Switch 用户手册
+# ZX Code 用户手册
 
 > Claude Code / Codex / Gemini CLI / OpenCode 全方位辅助工具
 
 ## 目录结构
 
 ```
-📚 CC Switch 用户手册
+📚 ZX Code 用户手册
 │
 ├── 1. 快速入门
 │   ├── 1.1 软件介绍
@@ -84,7 +84,7 @@
 
 | 文件 | 内容 |
 |------|------|
-| [5.1-config-files.md](./5-faq/5.1-config-files.md) | CC Switch 存储、CLI 配置文件格式 |
+| [5.1-config-files.md](./5-faq/5.1-config-files.md) | ZX Code 存储、CLI 配置文件格式 |
 | [5.2-questions.md](./5-faq/5.2-questions.md) | 常见问题解答 |
 | [5.3-deeplink.md](./5-faq/5.3-deeplink.md) | 深度链接协议、生成和使用方法 |
 | [5.4-env-conflict.md](./5-faq/5.4-env-conflict.md) | 环境变量冲突检测与处理 |
@@ -101,11 +101,11 @@
 
 - 文档版本：v3.10.3
 - 最后更新：2026-02-09
-- 适用于 CC Switch v3.10.0+
+- 适用于 ZX Code v3.10.0+
 
 ## 贡献
 
 欢迎提交 Issue 或 PR 改进文档：
 
-- [GitHub Issues](https://github.com/farion1231/cc-switch/issues)
-- [GitHub Repository](https://github.com/farion1231/cc-switch)
+- [GitHub Issues](https://github.com/farion1231/zx-code/issues)
+- [GitHub Repository](https://github.com/farion1231/zx-code)

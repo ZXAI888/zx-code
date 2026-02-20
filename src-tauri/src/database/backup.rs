@@ -13,7 +13,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use tempfile::NamedTempFile;
 
-const CC_SWITCH_SQL_EXPORT_HEADER: &str = "-- CC Switch SQLite 导出";
+const CC_SWITCH_SQL_EXPORT_HEADER: &str = "-- ZX Code SQLite 导出";
 
 impl Database {
     /// 导出为 SQLite 兼容的 SQL 文本（内存字符串）
@@ -115,14 +115,14 @@ impl Database {
 
         Err(AppError::localized(
             "backup.sql.invalid_format",
-            "仅支持导入由 CC Switch 导出的 SQL 备份文件。",
-            "Only SQL backups exported by CC Switch are supported.",
+            "仅支持导入由 ZX Code 导出的 SQL 备份文件。",
+            "Only SQL backups exported by ZX Code are supported.",
         ))
     }
 
     /// 生成一致性快照备份，返回备份文件路径（不存在主库时返回 None）
     fn backup_database_file(&self) -> Result<Option<PathBuf>, AppError> {
-        let db_path = get_app_config_dir().join("cc-switch.db");
+        let db_path = get_app_config_dir().join("zx-code.db");
         if !db_path.exists() {
             return Ok(None);
         }
@@ -217,7 +217,7 @@ impl Database {
             .unwrap_or(0);
 
         output.push_str(&format!(
-            "-- CC Switch SQLite 导出\n-- 生成时间: {timestamp}\n-- user_version: {user_version}\n"
+            "-- ZX Code SQLite 导出\n-- 生成时间: {timestamp}\n-- user_version: {user_version}\n"
         ));
         output.push_str("PRAGMA foreign_keys=OFF;\n");
         output.push_str(&format!("PRAGMA user_version={user_version};\n"));

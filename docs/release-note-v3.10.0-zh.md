@@ -1,4 +1,4 @@
-# CC Switch v3.10.0
+# ZX Code v3.10.0
 
 > OpenCode 支持、全局代理、Claude Rectifier 与多应用体验增强
 
@@ -8,7 +8,7 @@
 
 ## 概览
 
-CC Switch v3.10.0 新增 OpenCode 支持，成为第四个受管理的 CLI 应用。
+ZX Code v3.10.0 新增 OpenCode 支持，成为第四个受管理的 CLI 应用。
 同时带来全局代理设置、Claude Rectifier（thinking 签名修正器）、健康检查增强、按供应商配置等多项重要功能，并对多应用工作流与终端体验做了全面改进。
 
 **发布日期**：2026-01-21
@@ -156,7 +156,7 @@ CC Switch v3.10.0 新增 OpenCode 支持，成为第四个受管理的 CLI 应�
 
 ## 下载与安装
 
-访问 [Releases](https://github.com/farion1231/cc-switch/releases/latest) 下载对应版本。
+访问 [Releases](https://github.com/farion1231/zx-code/releases/latest) 下载对应版本。
 
 ### 系统要求
 
@@ -170,37 +170,37 @@ CC Switch v3.10.0 新增 OpenCode 支持，成为第四个受管理的 CLI 应�
 
 | 文件                                     | 说明                                |
 | ---------------------------------------- | ----------------------------------- |
-| `CC-Switch-v3.10.0-Windows.msi`          | **推荐** - MSI 安装包，支持自动更新 |
-| `CC-Switch-v3.10.0-Windows-Portable.zip` | 便携版，解压即用，不写入注册表      |
+| `ZX-Code-v3.10.0-Windows.msi`          | **推荐** - MSI 安装包，支持自动更新 |
+| `ZX-Code-v3.10.0-Windows-Portable.zip` | 便携版，解压即用，不写入注册表      |
 
 ### macOS
 
 | 文件                             | 说明                                                      |
 | -------------------------------- | --------------------------------------------------------- |
-| `CC-Switch-v3.10.0-macOS.zip`    | **推荐** - 解压后拖入 Applications 即可，Universal Binary |
-| `CC-Switch-v3.10.0-macOS.tar.gz` | 用于 Homebrew 安装和自动更新                              |
+| `ZX-Code-v3.10.0-macOS.zip`    | **推荐** - 解压后拖入 Applications 即可，Universal Binary |
+| `ZX-Code-v3.10.0-macOS.tar.gz` | 用于 Homebrew 安装和自动更新                              |
 
 > **注意**：由于作者没有苹果开发者账号，首次打开可能出现"未知开发者"警告，请先关闭，然后前往"系统设置" → "隐私与安全性" → 点击"仍要打开"，之后便可以正常打开
 
 ### Homebrew（macOS）
 
 ```bash
-brew tap farion1231/ccswitch
-brew install --cask cc-switch
+brew tap farion1231/zxcode
+brew install --cask zx-code
 ```
 
 更新：
 
 ```bash
-brew upgrade --cask cc-switch
+brew upgrade --cask zx-code
 ```
 
 ### Linux
 
 | 发行版                                  | 推荐格式    | 安装方式                                                               |
 | --------------------------------------- | ----------- | ---------------------------------------------------------------------- |
-| Ubuntu / Debian / Linux Mint / Pop!\_OS | `.deb`      | `sudo dpkg -i CC-Switch-*.deb` 或 `sudo apt install ./CC-Switch-*.deb` |
-| Fedora / RHEL / CentOS / Rocky Linux    | `.rpm`      | `sudo rpm -i CC-Switch-*.rpm` 或 `sudo dnf install ./CC-Switch-*.rpm`  |
-| openSUSE                                | `.rpm`      | `sudo zypper install ./CC-Switch-*.rpm`                                |
+| Ubuntu / Debian / Linux Mint / Pop!\_OS | `.deb`      | `sudo dpkg -i ZX-Code-*.deb` 或 `sudo apt install ./ZX-Code-*.deb` |
+| Fedora / RHEL / CentOS / Rocky Linux    | `.rpm`      | `sudo rpm -i ZX-Code-*.rpm` 或 `sudo dnf install ./ZX-Code-*.rpm`  |
+| openSUSE                                | `.rpm`      | `sudo zypper install ./ZX-Code-*.rpm`                                |
 | Arch Linux / Manjaro                    | `.AppImage` | 添加执行权限后直接运行，或使用 AUR                                     |
-| 其他发行版 / 不确定                     | `.AppImage` | `chmod +x CC-Switch-*.AppImage && ./CC-Switch-*.AppImage`              |
+| 其他发行版 / 不确定                     | `.AppImage` | `chmod +x ZX-Code-*.AppImage && ./ZX-Code-*.AppImage`              |

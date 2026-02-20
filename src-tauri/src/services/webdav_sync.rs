@@ -29,7 +29,7 @@ use archive::{
 
 // ─── Protocol constants ──────────────────────────────────────
 
-const PROTOCOL_FORMAT: &str = "cc-switch-webdav-sync";
+const PROTOCOL_FORMAT: &str = "zx-code-webdav-sync";
 const PROTOCOL_VERSION: u32 = 2;
 const REMOTE_DB_SQL: &str = "db.sql";
 const REMOTE_SKILLS_ZIP: &str = "skills.zip";
@@ -339,7 +339,7 @@ fn sha256_hex(bytes: &[u8]) -> String {
 }
 
 fn detect_system_device_name() -> Option<String> {
-    let env_name = ["CC_SWITCH_DEVICE_NAME", "COMPUTERNAME", "HOSTNAME"]
+    let env_name = ["ZX_CODE_DEVICE_NAME", "COMPUTERNAME", "HOSTNAME"]
         .iter()
         .filter_map(|key| std::env::var(key).ok())
         .find_map(|value| normalize_device_name(&value));
@@ -581,12 +581,12 @@ mod tests {
     #[test]
     fn remote_dir_segments_uses_v2() {
         let settings = WebDavSyncSettings {
-            remote_root: "cc-switch-sync".to_string(),
+            remote_root: "zx-code-sync".to_string(),
             profile: "default".to_string(),
             ..WebDavSyncSettings::default()
         };
         let segs = remote_dir_segments(&settings);
-        assert_eq!(segs, vec!["cc-switch-sync", "v2", "default"]);
+        assert_eq!(segs, vec!["zx-code-sync", "v2", "default"]);
     }
 
     #[test]

@@ -1,13 +1,13 @@
-//! Deep link import functionality for CC Switch
+//! Deep link import functionality for ZX Code
 //!
-//! This module implements the ccswitch:// protocol for importing configurations
+//! This module implements the zxcode:// protocol for importing configurations
 //! via deep links. Supports importing:
 //! - Provider configurations (Claude/Codex/Gemini)
 //! - MCP server configurations
 //! - Prompts
 //! - Skills
 //!
-//! See docs/ccswitch-deeplink-design.md for detailed design.
+//! See docs/zxcode-deeplink-design.md for detailed design.
 
 mod mcp;
 mod parser;
@@ -30,7 +30,7 @@ pub use skill::import_skill_from_deeplink;
 
 /// Deep link import request model
 ///
-/// Represents a parsed ccswitch:// URL ready for processing.
+/// Represents a parsed zxcode:// URL ready for processing.
 /// This struct contains all possible fields for all resource types.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]

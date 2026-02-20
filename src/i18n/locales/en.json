@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "CC Switch",
+    "title": "ZX Code",
     "description": "All-in-One Assistant for Claude Code, Codex & Gemini CLI"
   },
   "common": {
@@ -177,7 +177,7 @@
     "deleteProvider": "Delete Provider",
     "deleteProviderMessage": "Are you sure you want to delete provider \"{{name}}\"? This action cannot be undone.",
     "removeProvider": "Remove Provider",
-    "removeProviderMessage": "Are you sure you want to remove provider \"{{name}}\" from the configuration?\n\nAfter removal, this provider will no longer be active, but the configuration data will be retained in CC Switch. You can re-add it at any time."
+    "removeProviderMessage": "Are you sure you want to remove provider \"{{name}}\" from the configuration?\n\nAfter removal, this provider will no longer be active, but the configuration data will be retained in ZX Code. You can re-add it at any time."
   },
   "settings": {
     "title": "Settings",
@@ -209,7 +209,7 @@
       },
       "globalProxy": {
         "title": "Global Outbound Proxy",
-        "description": "Configure proxy for CC Switch to access external APIs"
+        "description": "Configure proxy for ZX Code to access external APIs"
       },
       "data": {
         "title": "Data Management",
@@ -259,7 +259,7 @@
     "themeDark": "Dark",
     "themeSystem": "System",
     "importExport": "SQL Import/Export",
-    "importExportHint": "Import or export database SQL backups for migration or restore (import supports only backups exported by CC Switch).",
+    "importExportHint": "Import or export database SQL backups for migration or restore (import supports only backups exported by ZX Code).",
     "exportConfig": "Export SQL Backup",
     "selectConfigFile": "Select SQL File",
     "noFileSelected": "No configuration file selected.",
@@ -318,7 +318,7 @@
         "synologyHint": "Install and enable the WebDAV Server package in Synology Package Center first.",
         "custom": "Custom"
       },
-      "remoteRootDefault": "Default: cc-switch-sync",
+      "remoteRootDefault": "Default: zx-code-sync",
       "profileDefault": "Default: default",
       "saveAndTestSuccess": "Config saved, connection OK",
       "saveAndTestFailed": "Config saved, but connection test failed: {{error}}",
@@ -358,7 +358,7 @@
     "windowBehavior": "Window Behavior",
     "windowBehaviorHint": "Configure window minimize and Claude plugin integration policies.",
     "launchOnStartup": "Launch on Startup",
-    "launchOnStartupDescription": "Automatically run CC Switch when system starts",
+    "launchOnStartupDescription": "Automatically run ZX Code when system starts",
     "silentStartup": "Silent Startup",
     "silentStartupDescription": "Start in background mode without showing main window",
     "autoLaunchFailed": "Failed to set auto-launch",
@@ -413,9 +413,9 @@
     },
     "configDirectoryOverride": "Configuration Directory Override (Advanced)",
     "configDirectoryDescription": "When using Claude Code or Codex in environments like WSL, you can manually specify the configuration directory to the one in WSL to keep provider data consistent with the main environment.",
-    "appConfigDir": "CC Switch Configuration Directory",
-    "appConfigDirDescription": "Customize the storage location for CC Switch configuration (point to cloud sync folder to enable config sync)",
-    "browsePlaceholderApp": "e.g., C:\\Users\\Administrator\\.cc-switch",
+    "appConfigDir": "ZX Code Configuration Directory",
+    "appConfigDirDescription": "Customize the storage location for ZX Code configuration (point to cloud sync folder to enable config sync)",
+    "browsePlaceholderApp": "e.g., C:\\Users\\Administrator\\.zx-code",
     "claudeConfigDir": "Claude Code Configuration Directory",
     "claudeConfigDirDescription": "Override Claude configuration directory (settings.json) and keep claude.json (MCP) alongside it.",
     "codexConfigDir": "Codex Configuration Directory",
@@ -453,7 +453,7 @@
     "importFailedError": "Import config failed: {{message}}",
     "exportFailedError": "Export config failed:",
     "restartRequired": "Restart Required",
-    "restartRequiredMessage": "Modifying the CC Switch configuration directory requires restarting the application to take effect. Restart now?",
+    "restartRequiredMessage": "Modifying the ZX Code configuration directory requires restarting the application to take effect. Restart now?",
     "restartNow": "Restart Now",
     "restartLater": "Restart Later",
     "restartFailed": "Application restart failed, please manually close and reopen.",
@@ -575,16 +575,7 @@
     "omoHint": "💡 OMO config manages Agent model assignments and writes to oh-my-opencode.jsonc",
     "officialHint": "💡 Official provider uses browser login, no API Key needed",
     "getApiKey": "Get API Key",
-    "partnerPromotion": {
-      "packycode": "PackyCode is an official partner of CC Switch. Register using this link and enter \"cc-switch\" promo code during recharge to get 10% off",
-      "minimax_cn": "MiniMax Coding Plan Special Offer, Starter from ¥9.9",
-      "minimax_en": "MiniMax Coding Plan Black Friday, Starter is now $2/mo (80% OFF!)",
-      "dmxapi": "Claude Code exclusive model 66% OFF now!",
-      "cubence": "Cubence is an official partner of CC Switch. Register using this link and enter \"CCSWITCH\" promo code during recharge to get 10% off every top-up",
-      "aigocode": "AIGoCode is an official partner of CC Switch. Register using this link and get 10% bonus credit on your first top-up!",
-      "rightcode": "RightCode is an official partner of CC Switch. Register using this link and get 5% bonus credit on every top-up!",
-      "aicodemirror": "AICodeMirror is an official partner of CC Switch. Register using this link to get 20% off!"
-    },
+    "partnerPromotion": {},
     "parameterConfig": "Parameter Config - {{name}} *",
     "mainModel": "Main Model (optional)",
     "mainModelPlaceholder": "e.g., GLM-4.6",
@@ -967,7 +958,7 @@
       "deleteConfirm": "Are you sure you want to delete server \"{{id}}\"? This action cannot be undone.",
       "noServers": "No servers yet",
       "enabledApps": "Enabled Apps",
-      "noImportFound": "No MCP servers to import found. All servers are already managed by CC Switch.",
+      "noImportFound": "No MCP servers to import found. All servers are already managed by ZX Code.",
       "importSuccess": "Successfully imported {{count}} MCP servers",
       "apps": {
         "claude": "Claude",
@@ -1344,10 +1335,10 @@
     "noInstalledDescription": "Discover and install skills from repositories, or import existing skills",
     "discover": "Discover Skills",
     "import": "Import Existing",
-    "importDescription": "Select skills to import into CC Switch unified management",
+    "importDescription": "Select skills to import into ZX Code unified management",
     "importSuccess": "Successfully imported {{count}} skills",
     "importSelected": "Import Selected ({{count}})",
-    "noUnmanagedFound": "No skills to import found. All skills are already managed by CC Switch.",
+    "noUnmanagedFound": "No skills to import found. All skills are already managed by ZX Code.",
     "foundIn": "Found in",
     "local": "Local",
     "uninstallConfirm": "Are you sure you want to uninstall \"{{name}}\"? This will remove the skill from all apps.",
@@ -1370,7 +1361,7 @@
   },
   "deeplink": {
     "confirmImport": "Confirm Import Provider",
-    "confirmImportDescription": "The following configuration will be imported from deep link into CC Switch",
+    "confirmImportDescription": "The following configuration will be imported from deep link into ZX Code",
     "importPrompt": "Import Prompt",
     "importPromptDescription": "Please confirm whether to import this system prompt",
     "importMcp": "Import MCP Servers",

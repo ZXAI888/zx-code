@@ -1,8 +1,8 @@
-# CC Switch v3.6.1
+# ZX Code v3.6.1
 
 > Stability improvements and user experience optimization (based on v3.6.0)
 
-**[中文更新说明 Chinese Documentation →](https://github.com/farion1231/cc-switch/blob/main/docs/release-note-v3.6.1-zh.md)**
+**[中文更新说明 Chinese Documentation →](https://github.com/farion1231/zx-code/blob/main/docs/release-note-v3.6.1-zh.md)**
 
 ---
 
@@ -123,32 +123,32 @@ Contributors: Jason (16), ZyphrZero (1)
 
 ```bash
 brew tap farion1231/ccswitch
-brew install --cask cc-switch
+brew install --cask zx-code
 ```
 
 **Manual Download:**
 
-- Download `CC-Switch-v3.6.1-macOS.zip` from [Assets](#assets) below
+- Download `ZX-Code-v3.6.1-macOS.zip` from [Assets](#assets) below
 
 > **Note**: Due to lack of Apple Developer account, you may see "unidentified developer" warning. Go to System Settings → Privacy & Security → Click "Open Anyway"
 
 #### Windows
 
-- **Installer**: `CC-Switch-v3.6.1-Windows.msi`
-- **Portable**: `CC-Switch-v3.6.1-Windows-Portable.zip`
+- **Installer**: `ZX-Code-v3.6.1-Windows.msi`
+- **Portable**: `ZX-Code-v3.6.1-Windows-Portable.zip`
 
 #### Linux
 
-- **AppImage**: `CC-Switch-v3.6.1-Linux.AppImage`
-- **Debian**: `CC-Switch-v3.6.1-Linux.deb`
+- **AppImage**: `ZX-Code-v3.6.1-Linux.AppImage`
+- **Debian**: `ZX-Code-v3.6.1-Linux.deb`
 
 ---
 
 ### 📚 Documentation
 
-- [中文文档 (Chinese)](https://github.com/farion1231/cc-switch/blob/main/README_ZH.md)
-- [English Documentation](https://github.com/farion1231/cc-switch/blob/main/README.md)
-- [完整更新日志 (Full Changelog)](https://github.com/farion1231/cc-switch/blob/main/CHANGELOG.md)
+- [中文文档 (Chinese)](https://github.com/farion1231/zx-code/blob/main/README_ZH.md)
+- [English Documentation](https://github.com/farion1231/zx-code/blob/main/README.md)
+- [完整更新日志 (Full Changelog)](https://github.com/farion1231/zx-code/blob/main/CHANGELOG.md)
 
 ---
 
@@ -161,7 +161,7 @@ Special thanks to:
 
 ---
 
-**Full Changelog**: https://github.com/farion1231/cc-switch/compare/v3.6.0...v3.6.1
+**Full Changelog**: https://github.com/farion1231/zx-code/compare/v3.6.0...v3.6.1
 
 ---
 ---
@@ -195,7 +195,7 @@ Special thanks to:
 
 ### Custom Configuration Directory (Cloud Sync)
 
-- **Customizable Storage Location** - Customize CC Switch's configuration storage directory
+- **Customizable Storage Location** - Customize ZX Code's configuration storage directory
 - **Cloud Sync Support** - Point to cloud sync folders (Dropbox, OneDrive, iCloud Drive, etc.) to enable automatic config synchronization across devices
 - **Independent Management** - Managed via Tauri Store for better isolation and reliability
   Thanks to @ZyphrZero
@@ -374,9 +374,9 @@ Backend unified to use `app` parameter (values: `claude` or `codex`):
 
 ---
 
-## 🌟 About CC Switch
+## 🌟 About ZX Code
 
-CC Switch is a cross-platform desktop application for managing and switching between different provider configurations for Claude Code and Codex. Built with Tauri 2.0 + React 18 + TypeScript, supporting Windows, macOS, and Linux.
+ZX Code is a cross-platform desktop application for managing and switching between different provider configurations for Claude Code and Codex. Built with Tauri 2.0 + React 18 + TypeScript, supporting Windows, macOS, and Linux.
 
 **Core Features**:
 - 🔄 One-click switching between multiple AI providers
@@ -388,4 +388,4 @@ CC Switch is a cross-platform desktop application for managing and switching bet
 
 ---
 
-**Project Repository**: https://github.com/farion1231/cc-switch
+**Project Repository**: https://github.com/farion1231/zx-code

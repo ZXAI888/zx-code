@@ -44,7 +44,7 @@ if (!fs.existsSync(OUTPUT_DIR)) {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 }
 
-console.log('🎨 CC-Switch Icon Extractor\n');
+console.log('🎨 ZX-Code Icon Extractor\n');
 console.log('========================================');
 console.log('📦 Extracting icons...\n');
 
