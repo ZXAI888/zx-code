@@ -206,7 +206,7 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           name: ZX Code ${{ github.ref_name }}
-          prerelease: true
+          prerelease: false
           body: |
             ## ZX Code ${{ github.ref_name }}
 
