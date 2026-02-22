@@ -6,6 +6,7 @@ const INPUT_ICON = path.join(__dirname, '../src-tauri/icons/icon.png');
 const OUTPUT_DIR = path.join(__dirname, '../src-tauri/icons');
 const ASSETS_ICON = path.join(__dirname, '../src/assets/icons/app-icon.png');
 const ASSETS_ICON_WHITE = path.join(__dirname, '../src/assets/icons/app-icon-white.png');
+const ASSETS_ICON_BLACK = path.join(__dirname, '../src/assets/icons/app-icon-black.png');
 
 // 需要生成的图标尺寸
 const SIZES = [
@@ -85,6 +86,30 @@ async function makeWhiteVersion(baseImage) {
   });
 }
 
+// 生成黑色前景版本（透明背景，所有不透明像素变为黑色）
+// 用于浅色模式下 About 页面 logo 可见
+async function makeBlackVersion(baseImage) {
+  const { data, info } = await baseImage
+    .clone()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  const pixels = new Uint8ClampedArray(data);
+
+  for (let i = 0; i < pixels.length; i += 4) {
+    const alpha = pixels[i + 3];
+    if (alpha > 0) {
+      pixels[i] = 0;       // R
+      pixels[i + 1] = 0;   // G
+      pixels[i + 2] = 0;   // B
+    }
+  }
+
+  return sharp(Buffer.from(pixels), {
+    raw: { width: info.width, height: info.height, channels: 4 }
+  });
+}
+
 async function generateIcons() {
   console.log('🎨 Generating app icons with transparency...\n');
 
@@ -146,6 +171,15 @@ async function generateIcons() {
     .png()
     .toFile(ASSETS_ICON_WHITE);
   console.log('  ✓ app-icon-white.png (128x128, white, for dark mode)');
+
+  // 生成黑色版本（用于浅色模式下的 About 页面 logo）
+  const blackImage = await makeBlackVersion(baseImage);
+  await blackImage
+    .clone()
+    .resize(128, 128, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .png()
+    .toFile(ASSETS_ICON_BLACK);
+  console.log('  ✓ app-icon-black.png (128x128, black, for light mode)');
 
   console.log('\n✅ All icons generated successfully!\n');
 }
