@@ -875,7 +875,7 @@ function App() {
               <div className="flex items-center gap-2">
                 <div className="relative inline-flex items-center">
                   <a
-                    href="https://github.com/farion1231/zx-code"
+                    href="https://github.com/ZXAI888/zx-code"
                     target="_blank"
                     rel="noreferrer"
                     className={cn(

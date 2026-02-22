@@ -116,13 +116,13 @@ export function AboutSection({ isPortable }: AboutSectionProps) {
 
       if (!displayVersion) {
         await settingsApi.openExternal(
-          "https://github.com/farion1231/zx-code/releases",
+          "https://github.com/ZXAI888/zx-code/releases",
         );
         return;
       }
 
       await settingsApi.openExternal(
-        `https://github.com/farion1231/zx-code/releases/tag/${displayVersion}`,
+        `https://github.com/ZXAI888/zx-code/releases/tag/${displayVersion}`,
       );
     } catch (error) {
       console.error("[AboutSection] Failed to open release notes", error);
