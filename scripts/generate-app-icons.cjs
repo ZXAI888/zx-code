@@ -5,8 +5,9 @@ const path = require('path');
 const INPUT_ICON = path.join(__dirname, '../src-tauri/icons/icon.png');
 const OUTPUT_DIR = path.join(__dirname, '../src-tauri/icons');
 const ASSETS_ICON = path.join(__dirname, '../src/assets/icons/app-icon.png');
-const ASSETS_ICON_WHITE = path.join(__dirname, '../src/assets/icons/app-icon-white.png');
-const ASSETS_ICON_BLACK = path.join(__dirname, '../src/assets/icons/app-icon-black.png');
+
+// 统一橙色（参考 Claude 图标色）
+const ORANGE = { r: 217, g: 119, b: 87 };
 
 // 需要生成的图标尺寸
 const SIZES = [
@@ -61,9 +62,9 @@ async function prepareTransparentImage(inputPath) {
   return sharp(inputPath);
 }
 
-// 生成白色前景版本（透明背景，所有不透明像素变为白色）
-// 用于 Windows 任务栏深色模式下图标可见
-async function makeWhiteVersion(baseImage) {
+// 生成橙色前景版本（透明背景，所有不透明像素变为统一橙色）
+// 在浅色/深色模式下都清晰可见
+async function makeOrangeVersion(baseImage) {
   const { data, info } = await baseImage
     .clone()
     .raw()
@@ -74,34 +75,9 @@ async function makeWhiteVersion(baseImage) {
   for (let i = 0; i < pixels.length; i += 4) {
     const alpha = pixels[i + 3];
     if (alpha > 0) {
-      // 保留透明度，将颜色替换为白色
-      pixels[i] = 255;     // R
-      pixels[i + 1] = 255; // G
-      pixels[i + 2] = 255; // B
-    }
-  }
-
-  return sharp(Buffer.from(pixels), {
-    raw: { width: info.width, height: info.height, channels: 4 }
-  });
-}
-
-// 生成黑色前景版本（透明背景，所有不透明像素变为黑色）
-// 用于浅色模式下 About 页面 logo 可见
-async function makeBlackVersion(baseImage) {
-  const { data, info } = await baseImage
-    .clone()
-    .raw()
-    .toBuffer({ resolveWithObject: true });
-
-  const pixels = new Uint8ClampedArray(data);
-
-  for (let i = 0; i < pixels.length; i += 4) {
-    const alpha = pixels[i + 3];
-    if (alpha > 0) {
-      pixels[i] = 0;       // R
-      pixels[i + 1] = 0;   // G
-      pixels[i + 2] = 0;   // B
+      pixels[i] = ORANGE.r;
+      pixels[i + 1] = ORANGE.g;
+      pixels[i + 2] = ORANGE.b;
     }
   }
 
@@ -122,12 +98,15 @@ async function generateIcons() {
   // 准备透明底图
   const baseImage = await prepareTransparentImage(INPUT_ICON);
 
-  // 生成所有 PNG 尺寸图标
-  console.log('📦 Generating PNG icons:\n');
+  // 生成橙色版本（所有图标统一使用橙色）
+  const orangeImage = await makeOrangeVersion(baseImage);
+
+  // 生成所有 PNG 尺寸图标（橙色）
+  console.log('📦 Generating PNG icons (orange):\n');
   for (const { name, size } of SIZES) {
     const outputPath = path.join(OUTPUT_DIR, name);
     const tmpPath = outputPath + '.tmp.png';
-    await baseImage
+    await orangeImage
       .clone()
       .resize(size, size, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
       .png()
@@ -136,12 +115,12 @@ async function generateIcons() {
     console.log(`  ✓ ${name} (${size}x${size})`);
   }
 
-  // 生成 ICO（使用原始颜色，Windows 会自动处理任务栏对比度）
+  // 生成 ICO（橙色）
   console.log('\n🪟 Generating ICO for Windows:\n');
   const icoSizes = [16, 24, 32, 48, 64, 128, 256];
   const icoBuffers = [];
   for (const sz of icoSizes) {
-    const buf = await baseImage
+    const buf = await orangeImage
       .clone()
       .resize(sz, sz, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
       .png()
@@ -152,34 +131,16 @@ async function generateIcons() {
   // 手动写 ICO 格式（支持多分辨率 + alpha 通道）
   const icoPath = path.join(OUTPUT_DIR, 'icon.ico');
   writeIco(icoBuffers, icoPath);
-  console.log('  ✓ icon.ico (original color, multi-size: 16/24/32/48/64/128/256)');
+  console.log('  ✓ icon.ico (orange, multi-size: 16/24/32/48/64/128/256)');
 
-  // 同步更新 About 页面用的 app-icon.png（用透明版本的 128x128）
+  // 同步更新 About 页面用的 app-icon.png（橙色 128x128）
   console.log('\n📱 Updating src/assets/icons/app-icon.png:\n');
-  await baseImage
+  await orangeImage
     .clone()
     .resize(128, 128, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
     .png()
     .toFile(ASSETS_ICON);
-  console.log('  ✓ app-icon.png (128x128, transparent)');
-
-  // 生成白色版本（用于深色模式下的 About 页面 logo）
-  const whiteImage = await makeWhiteVersion(baseImage);
-  await whiteImage
-    .clone()
-    .resize(128, 128, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
-    .png()
-    .toFile(ASSETS_ICON_WHITE);
-  console.log('  ✓ app-icon-white.png (128x128, white, for dark mode)');
-
-  // 生成黑色版本（用于浅色模式下的 About 页面 logo）
-  const blackImage = await makeBlackVersion(baseImage);
-  await blackImage
-    .clone()
-    .resize(128, 128, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
-    .png()
-    .toFile(ASSETS_ICON_BLACK);
-  console.log('  ✓ app-icon-black.png (128x128, black, for light mode)');
+  console.log('  ✓ app-icon.png (128x128, orange)');
 
   console.log('\n✅ All icons generated successfully!\n');
 }
