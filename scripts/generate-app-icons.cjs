@@ -5,6 +5,7 @@ const path = require('path');
 const INPUT_ICON = path.join(__dirname, '../src-tauri/icons/icon.png');
 const OUTPUT_DIR = path.join(__dirname, '../src-tauri/icons');
 const ASSETS_ICON = path.join(__dirname, '../src/assets/icons/app-icon.png');
+const ASSETS_ICON_WHITE = path.join(__dirname, '../src/assets/icons/app-icon-white.png');
 
 // 需要生成的图标尺寸
 const SIZES = [
@@ -110,16 +111,12 @@ async function generateIcons() {
     console.log(`  ✓ ${name} (${size}x${size})`);
   }
 
-  // 生成白色版本的 ICO（用于 Windows 深色模式任务栏/标题栏）
-  console.log('\n🪟 Generating white ICO for Windows dark theme:\n');
-  const whiteImage = await makeWhiteVersion(baseImage);
-  // 以 256x256 PNG 写入临时文件，再由 Tauri CLI 打包为 ICO
-  // 注意：Tauri CLI 负责最终 ICO 的打包，这里只替换 icon.png 为白色版本后调用 CLI 会覆盖所有图标
-  // 所以改为：先生成白色 PNG 临时文件，再用 sharp 的多分辨率输出写 ICO
+  // 生成 ICO（使用原始颜色，Windows 会自动处理任务栏对比度）
+  console.log('\n🪟 Generating ICO for Windows:\n');
   const icoSizes = [16, 24, 32, 48, 64, 128, 256];
   const icoBuffers = [];
   for (const sz of icoSizes) {
-    const buf = await whiteImage
+    const buf = await baseImage
       .clone()
       .resize(sz, sz, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
       .png()
@@ -130,7 +127,7 @@ async function generateIcons() {
   // 手动写 ICO 格式（支持多分辨率 + alpha 通道）
   const icoPath = path.join(OUTPUT_DIR, 'icon.ico');
   writeIco(icoBuffers, icoPath);
-  console.log('  ✓ icon.ico (white, multi-size: 16/24/32/48/64/128/256)');
+  console.log('  ✓ icon.ico (original color, multi-size: 16/24/32/48/64/128/256)');
 
   // 同步更新 About 页面用的 app-icon.png（用透明版本的 128x128）
   console.log('\n📱 Updating src/assets/icons/app-icon.png:\n');
@@ -140,6 +137,15 @@ async function generateIcons() {
     .png()
     .toFile(ASSETS_ICON);
   console.log('  ✓ app-icon.png (128x128, transparent)');
+
+  // 生成白色版本（用于深色模式下的 About 页面 logo）
+  const whiteImage = await makeWhiteVersion(baseImage);
+  await whiteImage
+    .clone()
+    .resize(128, 128, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .png()
+    .toFile(ASSETS_ICON_WHITE);
+  console.log('  ✓ app-icon-white.png (128x128, white, for dark mode)');
 
   console.log('\n✅ All icons generated successfully!\n');
 }

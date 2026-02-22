@@ -20,6 +20,7 @@ import { relaunchApp } from "@/lib/updater";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import appIcon from "@/assets/icons/app-icon.png";
+import appIconWhite from "@/assets/icons/app-icon-white.png";
 
 interface AboutSectionProps {
   isPortable: boolean;
@@ -209,7 +210,8 @@ export function AboutSection({ isPortable }: AboutSectionProps) {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <img src={appIcon} alt="ZX Code" className="h-5 w-5" />
+              <img src={appIcon} alt="ZX Code" className="h-5 w-5 dark:hidden" />
+              <img src={appIconWhite} alt="ZX Code" className="h-5 w-5 hidden dark:block" />
               <h4 className="text-lg font-semibold text-foreground">
                 ZX Code
               </h4>
@@ -244,6 +246,24 @@ export function AboutSection({ isPortable }: AboutSectionProps) {
             >
               <ExternalLink className="h-3.5 w-3.5" />
               {t("settings.releaseNotes")}
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={async () => {
+                try {
+                  await settingsApi.openExternal(
+                    "https://github.com/ZXAI888/zx-code/releases"
+                  );
+                } catch (error) {
+                  console.error("[AboutSection] Failed to open releases", error);
+                }
+              }}
+              className="h-8 gap-1.5 text-xs"
+            >
+              <Download className="h-3.5 w-3.5" />
+              {t("settings.checkForUpdates")}
             </Button>
           </div>
         </div>
