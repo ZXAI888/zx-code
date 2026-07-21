@@ -1,0 +1,31 @@
+{
+  "version": "3.17.2",
+  "notes": "ZX Code v3.17.2",
+  "pub_date": "2026-07-21T16:55:57.311Z",
+  "platforms": {
+    "windows-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTNTNkdDh4clpkdk1DZFJYYVNtYUlVRmZ5ZUlTZTkrRmZPWmlyclpkM2k4aGo2UEo3dm5UeThYYXJ1NUs2V3Rwc1FlbmJSMlg1eGxSeU41SW1uYTlTQkVLNWNIUi9QL2dZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg0NjUyNzgzCWZpbGU6WlggQ29kZV8zLjE3LjJfeDY0X2VuLVVTLm1zaQpGdW1CWjNLLzVLV3Fvd0RkU3hWeEY2Z2NUamhDdThUalRnVU9LbldjVndsWis5VDVKWjVDbnp0azBPUDk3bTJwUHB2bmxwVUFqUU1Ub3QremZxc0pBdz09Cg==",
+      "url": "https://github.com/ZXAI888/zx-code/releases/download/v3.17.2/ZX-Code-v3.17.2-Windows.msi"
+    },
+    "windows-aarch64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTNTNkdDh4clpkdkFROXl6QXZTMG1IWkE2MUFSa3BFSXlTbldseG9uQzdDYVVidnU4MXRGOEhDazQ3YkdQb1RleWtwK2d5S3ZsQmlnZnFjSnNJSFVvV2RFbEJWOFBXdkE0PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg0NjUyODQ0CWZpbGU6WlggQ29kZV8zLjE3LjJfYXJtNjRfZW4tVVMubXNpClk4WmpuaVpoK1hvMVk3Nzg4TkVQQkU3bWdoVnhndXFzVURweXdRek5wY0xuUGNUcEt3OEdHMzQ2U2dkVmt5THEzdUFkeURyV0tZSTNEc2JzcTlwWUNRPT0K",
+      "url": "https://github.com/ZXAI888/zx-code/releases/download/v3.17.2/ZX-Code-v3.17.2-Windows-arm64.msi"
+    },
+    "darwin-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTNTNkdDh4clpkdkVJWE9ETFozREt6R0paUDR4dXppRVZUQnExR3ZNQndpYTZuaG54R0VIVDBLYlVQTCtsOXE5SHNCRVU5bTZkTHFKdGYzdU9va0VpZnRBU1ErQmtjMVFzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg0NjUyOTM3CWZpbGU6WlggQ29kZS5hcHAudGFyLmd6CjVKTnFuVlFQSDQzRlpENmhUMUFjK3V4T3JKU01BdnVTbU51Y0ZyT3ViZWRYL2NINlBrOFFzZ0lmNERXd096VlNXRDcxUnRBcVY4NE1wV0E2OFBCSURRPT0K",
+      "url": "https://github.com/ZXAI888/zx-code/releases/download/v3.17.2/ZX-Code-v3.17.2-macOS.app.tar.gz"
+    },
+    "darwin-aarch64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTNTNkdDh4clpkdkVJWE9ETFozREt6R0paUDR4dXppRVZUQnExR3ZNQndpYTZuaG54R0VIVDBLYlVQTCtsOXE5SHNCRVU5bTZkTHFKdGYzdU9va0VpZnRBU1ErQmtjMVFzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg0NjUyOTM3CWZpbGU6WlggQ29kZS5hcHAudGFyLmd6CjVKTnFuVlFQSDQzRlpENmhUMUFjK3V4T3JKU01BdnVTbU51Y0ZyT3ViZWRYL2NINlBrOFFzZ0lmNERXd096VlNXRDcxUnRBcVY4NE1wV0E2OFBCSURRPT0K",
+      "url": "https://github.com/ZXAI888/zx-code/releases/download/v3.17.2/ZX-Code-v3.17.2-macOS.app.tar.gz"
+    },
+    "linux-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTNTNkdDh4clpkdk81ZmRYUDlaNnVzVmh0TlVrL2YvS1dNSVlGZUQ2c1kxcmtSVFd6RDBFMlJreTY3U094QWowdEZVSitta21PMFZPS3RFa0ZWNGZXdHFOSERmL0Y0RVFVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg0NjUyNjMzCWZpbGU6WlggQ29kZV8zLjE3LjJfYW1kNjQuQXBwSW1hZ2UKbEtNUkFMQjh2UXJlSStPeGliMWFPRDlCNFlWcjRNWmRnY2M4Y0kxWmx0b0hZeWRtQnpJbUJ2TUlsN01ZZEcrRXRrNnVTeFIvVXhSZFhidWlVMFNnQUE9PQo=",
+      "url": "https://github.com/ZXAI888/zx-code/releases/download/v3.17.2/ZX-Code-v3.17.2-Linux-x86_64.AppImage"
+    },
+    "linux-aarch64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTNTNkdDh4clpkdkhNN2NCWHpid1R2eDVyZzBIazJpRmZSa1h3V2Z5MmkyTkU0VEhoZW1zRm03eWo2enVuaWZKSlY3clR0a1M2TERRck1uTG9mZ0RqWi9ULzBva1VrWGdBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg0NjUyNjkwCWZpbGU6WlggQ29kZV8zLjE3LjJfYWFyY2g2NC5BcHBJbWFnZQpJUnRwL20wbkxCN1NQaE5IUFdONDN0TGVld1lZcXNpSVlXM094bUNIbEFydW12UDM4Nll4Z3BnQzRFV2w0RFQ2aHFIOGlkRWZhRlU1WlROUTJGYnlCUT09Cg==",
+      "url": "https://github.com/ZXAI888/zx-code/releases/download/v3.17.2/ZX-Code-v3.17.2-Linux-arm64.AppImage"
+    }
+  }
+}
