@@ -73,7 +73,10 @@ import { CommonConfigEditor } from "./CommonConfigEditor";
 import GeminiConfigEditor from "./GeminiConfigEditor";
 import JsonEditor from "@/components/JsonEditor";
 import { Label } from "@/components/ui/label";
-import { ProviderPresetSelector } from "./ProviderPresetSelector";
+import {
+  getOfficialPresetEntries,
+  ProviderPresetSelector,
+} from "./ProviderPresetSelector";
 import { BasicFormFields } from "./BasicFormFields";
 import { ClaudeFormFields } from "./ClaudeFormFields";
 import { ClaudeDesktopProviderForm } from "./ClaudeDesktopProviderForm";
@@ -666,38 +669,42 @@ function ProviderFormFull({
   );
 
   const presetEntries = useMemo(() => {
+    let entries: PresetEntry[];
     if (appId === "codex") {
-      return codexProviderPresets.map<PresetEntry>((preset, index) => ({
+      entries = codexProviderPresets.map<PresetEntry>((preset, index) => ({
         id: `codex-${index}`,
         preset,
       }));
     } else if (appId === "gemini") {
-      return geminiProviderPresets.map<PresetEntry>((preset, index) => ({
+      entries = geminiProviderPresets.map<PresetEntry>((preset, index) => ({
         id: `gemini-${index}`,
         preset,
       }));
     } else if (appId === "opencode") {
-      return opencodeProviderPresets.map<PresetEntry>((preset, index) => ({
+      entries = opencodeProviderPresets.map<PresetEntry>((preset, index) => ({
         id: `opencode-${index}`,
         preset,
       }));
     } else if (appId === "openclaw") {
-      return openclawProviderPresets.map<PresetEntry>((preset, index) => ({
+      entries = openclawProviderPresets.map<PresetEntry>((preset, index) => ({
         id: `openclaw-${index}`,
         preset,
       }));
     } else if (appId === "hermes") {
-      return hermesProviderPresets.map<PresetEntry>((preset, index) => ({
+      entries = hermesProviderPresets.map<PresetEntry>((preset, index) => ({
         id: `hermes-${index}`,
         preset,
       }));
+    } else {
+      entries = providerPresets
+        .filter((preset) => !preset.hidden)
+        .map<PresetEntry>((preset, index) => ({
+          id: `claude-${index}`,
+          preset,
+        }));
     }
-    return providerPresets
-      .filter((p) => !p.hidden)
-      .map<PresetEntry>((preset, index) => ({
-        id: `claude-${index}`,
-        preset,
-      }));
+
+    return getOfficialPresetEntries(entries);
   }, [appId]);
 
   const {

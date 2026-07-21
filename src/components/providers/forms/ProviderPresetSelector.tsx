@@ -51,6 +51,12 @@ export type PresetEntry = {
   preset: AnyPreset;
 };
 
+export function getOfficialPresetEntries<T extends PresetEntry>(
+  entries: T[],
+): T[] {
+  return entries.filter((entry) => entry.preset.category === "official");
+}
+
 export function getPresetDisplayName(
   preset: AnyPreset,
   t: PresetTranslator,

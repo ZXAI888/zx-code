@@ -42,7 +42,10 @@ import { CopilotAuthSection } from "./CopilotAuthSection";
 import { ApiKeySection } from "./shared/ApiKeySection";
 import { EndpointField } from "./shared/EndpointField";
 import { ModelDropdown } from "./shared/ModelDropdown";
-import { ProviderPresetSelector } from "./ProviderPresetSelector";
+import {
+  getOfficialPresetEntries,
+  ProviderPresetSelector,
+} from "./ProviderPresetSelector";
 import { useApiKeyLink } from "./hooks/useApiKeyLink";
 import { providerSchema, type ProviderFormData } from "@/lib/schemas/provider";
 import type {
@@ -353,10 +356,12 @@ export function ClaudeDesktopProviderForm({
 
   const presetEntries = useMemo<PresetEntry[]>(
     () =>
-      claudeDesktopProviderPresets.map((preset, index) => ({
-        id: `claude-desktop-${index}`,
-        preset,
-      })),
+      getOfficialPresetEntries(
+        claudeDesktopProviderPresets.map((preset, index) => ({
+          id: `claude-desktop-${index}`,
+          preset,
+        })),
+      ),
     [],
   );
 

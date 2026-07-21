@@ -861,9 +861,7 @@ export function AboutSection({ isPortable }: AboutSectionProps) {
               variant="outline"
               size="sm"
               onClick={() =>
-                settingsApi.openExternal(
-                  "https://github.com/ZXAI888/zx-code/releases",
-                )
+                settingsApi.openExternal("https://zxai888.github.io/zx-code/")
               }
               className="h-8 gap-1.5 text-xs"
             >

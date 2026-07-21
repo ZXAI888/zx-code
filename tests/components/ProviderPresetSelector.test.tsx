@@ -8,6 +8,7 @@ import type { ProviderCategory } from "@/types";
 import {
   ProviderPresetSelector,
   filterPresetEntries,
+  getOfficialPresetEntries,
   getPresetDisplayName,
   getPresetSearchText,
   getVisiblePresetEntries,
@@ -168,6 +169,10 @@ function getSearchInput() {
 }
 
 describe("ProviderPresetSelector pure helpers", () => {
+  it("只保留官方分类的内置预设", () => {
+    expect(getIds(getOfficialPresetEntries(presetEntries))).toEqual(["alpha"]);
+  });
+
   it("优先使用 nameKey 翻译作为显示名，否则使用原始 name", () => {
     expect(getPresetDisplayName(presetEntries[1].preset, t)).toBe(
       "Alpha 本地名",
