@@ -182,16 +182,12 @@ jobs:
           arch="${{ matrix.arch }}"
           bundle="src-tauri/target/release/bundle"
 
-          updater=$(find "$bundle" -name "*.AppImage.tar.gz" -type f | head -1)
-          test -n "$updater"
-          test -f "$updater.sig"
-          updater_name="ZX-Code-${tag}-Linux-${arch}.AppImage.tar.gz"
-          cp "$updater" "release-assets/$updater_name"
-          cp "$updater.sig" "release-assets/$updater_name.sig"
-
           appimage=$(find "$bundle" -name "*.AppImage" -type f | head -1)
           test -n "$appimage"
-          cp "$appimage" "release-assets/ZX-Code-${tag}-Linux-${arch}.AppImage"
+          test -f "$appimage.sig"
+          appimage_name="ZX-Code-${tag}-Linux-${arch}.AppImage"
+          cp "$appimage" "release-assets/$appimage_name"
+          cp "$appimage.sig" "release-assets/$appimage_name.sig"
           deb=$(find "$bundle" -name "*.deb" -type f | head -1 || true)
           rpm=$(find "$bundle" -name "*.rpm" -type f | head -1 || true)
           [ -z "$deb" ] || cp "$deb" "release-assets/ZX-Code-${tag}-Linux-${arch}.deb"

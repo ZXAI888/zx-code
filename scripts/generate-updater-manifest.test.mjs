@@ -9,8 +9,8 @@ const ARTIFACTS = [
   "Windows.msi",
   "Windows-arm64.msi",
   "macOS.app.tar.gz",
-  "Linux-x86_64.AppImage.tar.gz",
-  "Linux-arm64.AppImage.tar.gz",
+  "Linux-x86_64.AppImage",
+  "Linux-arm64.AppImage",
 ];
 
 test("generates a complete Tauri updater manifest", async () => {

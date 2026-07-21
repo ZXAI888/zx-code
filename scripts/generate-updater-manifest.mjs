@@ -9,8 +9,8 @@ const PLATFORM_ARTIFACTS = [
     suffix: "macOS.app.tar.gz",
     platforms: ["darwin-x86_64", "darwin-aarch64"],
   },
-  { suffix: "Linux-x86_64.AppImage.tar.gz", platforms: ["linux-x86_64"] },
-  { suffix: "Linux-arm64.AppImage.tar.gz", platforms: ["linux-aarch64"] },
+  { suffix: "Linux-x86_64.AppImage", platforms: ["linux-x86_64"] },
+  { suffix: "Linux-arm64.AppImage", platforms: ["linux-aarch64"] },
 ];
 
 export async function generateManifest({
