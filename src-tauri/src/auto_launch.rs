@@ -70,6 +70,7 @@ pub fn is_auto_launch_enabled() -> Result<bool, AppError> {
 
 #[cfg(test)]
 mod tests {
+    #[allow(unused_imports)]
     use super::*;
 
     #[cfg(target_os = "macos")]
@@ -91,9 +92,7 @@ mod tests {
         let result = get_macos_app_bundle_path(exe_path);
         assert_eq!(
             result,
-            Some(std::path::PathBuf::from(
-                "/Users/test/My Apps/ZX Code.app"
-            ))
+            Some(std::path::PathBuf::from("/Users/test/My Apps/ZX Code.app"))
         );
     }
 

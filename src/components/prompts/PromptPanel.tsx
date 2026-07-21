@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FileText } from "lucide-react";
 import { type AppId } from "@/lib/api";
 import { usePromptActions } from "@/hooks/usePromptActions";
+import { useTauriEvent } from "@/hooks/useTauriEvent";
 import PromptListItem from "./PromptListItem";
 import PromptFormPanel from "./PromptFormPanel";
 import { ConfirmDialog } from "../ConfirmDialog";
@@ -59,6 +60,9 @@ const PromptPanel = React.forwardRef<PromptPanelHandle, PromptPanelProps>(
       };
     }, [appId, reload]);
 
+    // 应用项目 Profile 会切换激活的 prompt（prompts 非 react-query，需主动 reload）
+    useTauriEvent("profile-applied", reload);
+
     const handleAdd = () => {
       setEditingId(null);
       setIsFormOpen(true);
@@ -96,7 +100,7 @@ const PromptPanel = React.forwardRef<PromptPanelHandle, PromptPanelProps>(
     const enabledPrompt = promptEntries.find(([_, p]) => p.enabled);
 
     return (
-      <div className="flex flex-col h-[calc(100vh-8rem)] px-6">
+      <div className="flex flex-col flex-1 min-h-0 px-6">
         <div className="flex-shrink-0 py-4 glass rounded-xl border border-white/10 mb-4 px-6">
           <div className="text-sm text-muted-foreground">
             {t("prompts.count", { count: promptEntries.length })} ·{" "}

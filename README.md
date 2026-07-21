@@ -2,8 +2,8 @@
 
 # All-in-One Assistant for Claude Code, Codex & Gemini CLI
 
-[![Version](https://img.shields.io/badge/version-3.10.2-blue.svg)](https://github.com/farion1231/zx-code/releases)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/farion1231/zx-code/releases)
+[![Version](https://img.shields.io/badge/version-3.17.0-blue.svg)](https://github.com/ZXAI888/zx-code/releases)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/ZXAI888/zx-code/releases)
 [![Built with Tauri](https://img.shields.io/badge/built%20with-Tauri%202-orange.svg)](https://tauri.app/)
 
 English | [中文](README_ZH.md) | [日本語](README_JA.md) | [Changelog](CHANGELOG.md)
@@ -18,7 +18,9 @@ English | [中文](README_ZH.md) | [日本語](README_JA.md) | [Changelog](CHANG
 
 ## Features
 
-### Current Version: v3.10.2 | [Full Changelog](CHANGELOG.md) | [Release Notes](docs/release-note-v3.9.0-en.md)
+### Current Version: v3.17.0 | [Full Changelog](CHANGELOG.md) | [Release Notes](docs/release-notes/v3.17.0-en.md)
+
+ZX Code v3.17.0 incorporates the upstream CC Switch v3.17.0 release while preserving the ZX Code identity, data directory, deep links, and existing user configuration compatibility. This update adds project snapshots, expanded Codex account routing, newer model support, proxy and usage-accounting fixes, and database schema upgrades.
 
 **v3.8.0 Major Update (2025-11-28)**
 
@@ -124,26 +126,11 @@ English | [中文](README_ZH.md) | [日本語](README_JA.md) | [Changelog](CHANG
 
 ### Windows Users
 
-Download the latest `ZX-Code-v{version}-Windows.msi` installer or `ZX-Code-v{version}-Windows-Portable.zip` portable version from the [Releases](../../releases) page.
+Download the latest Windows x64 or ARM64 MSI installer or portable ZIP from the [Releases](https://github.com/ZXAI888/zx-code/releases) page.
 
 ### macOS Users
 
-**Method 1: Install via Homebrew (Recommended)**
-
-```bash
-brew tap farion1231/zxcode
-brew install --cask zx-code
-```
-
-Update:
-
-```bash
-brew upgrade --cask zx-code
-```
-
-**Method 2: Manual Download**
-
-Download `ZX-Code-v{version}-macOS.zip` from the [Releases](../../releases) page and extract to use.
+Download the universal DMG or ZIP from the [Releases](https://github.com/ZXAI888/zx-code/releases) page. The universal build supports both Apple Silicon and Intel Macs.
 
 > **Note**: Since the author doesn't have an Apple Developer account, you may see an "unidentified developer" warning on first launch. Please close it first, then go to "System Settings" → "Privacy & Security" → click "Open Anyway", and you'll be able to open it normally afterwards.
 
@@ -157,12 +144,11 @@ paru -S zx-code-bin
 
 ### Linux Users
 
-Download the latest Linux build from the [Releases](../../releases) page:
+Download the latest x64 or ARM64 Linux build from the [Releases](https://github.com/ZXAI888/zx-code/releases) page:
 
-- `ZX-Code-v{version}-Linux.deb` (Debian/Ubuntu)
-- `ZX-Code-v{version}-Linux.rpm` (Fedora/RHEL/openSUSE)
-- `ZX-Code-v{version}-Linux.AppImage` (Universal)
-- `ZX-Code-v{version}-Linux.flatpak` (Flatpak)
+- `.deb` (Debian/Ubuntu)
+- `.rpm` (Fedora/RHEL/openSUSE)
+- `.AppImage` (Universal)
 
 Flatpak install & run:
 

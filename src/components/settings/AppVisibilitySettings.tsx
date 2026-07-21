@@ -1,5 +1,7 @@
 import { useTranslation } from "react-i18next";
+import { FolderOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ToggleRow } from "@/components/ui/toggle-row";
 import { cn } from "@/lib/utils";
 import { ProviderIcon } from "@/components/ProviderIcon";
 import type { SettingsFormState } from "@/hooks/useSettings";
@@ -16,11 +18,17 @@ const APP_CONFIG: Array<{
   icon: string;
   nameKey: string;
 }> = [
-  { id: "claude", icon: "claude", nameKey: "apps.claude" },
+  { id: "claude", icon: "claude", nameKey: "apps.claudeCode" },
+  {
+    id: "claude-desktop",
+    icon: "claude",
+    nameKey: "apps.claudeDesktop",
+  },
   { id: "codex", icon: "openai", nameKey: "apps.codex" },
   { id: "gemini", icon: "gemini", nameKey: "apps.gemini" },
   { id: "opencode", icon: "opencode", nameKey: "apps.opencode" },
   { id: "openclaw", icon: "openclaw", nameKey: "apps.openclaw" },
+  { id: "hermes", icon: "hermes", nameKey: "apps.hermes" },
 ];
 
 export function AppVisibilitySettings({
@@ -31,10 +39,12 @@ export function AppVisibilitySettings({
 
   const visibleApps: VisibleApps = settings.visibleApps ?? {
     claude: true,
+    "claude-desktop": true,
     codex: true,
     gemini: true,
     opencode: true,
     openclaw: true,
+    hermes: true,
   };
 
   // Count how many apps are currently visible
@@ -83,6 +93,13 @@ export function AppVisibilitySettings({
           );
         })}
       </div>
+      <ToggleRow
+        icon={<FolderOpen className="h-4 w-4 text-emerald-500" />}
+        title={t("settings.appVisibility.showProfileSwitcher")}
+        description={t("settings.appVisibility.showProfileSwitcherDescription")}
+        checked={settings.showProfileSwitcher ?? true}
+        onCheckedChange={(value) => onChange({ showProfileSwitcher: value })}
+      />
     </section>
   );
 }
@@ -112,7 +129,7 @@ function AppButton({
       size="sm"
       variant={active ? "default" : "ghost"}
       className={cn(
-        "w-[90px] gap-1.5",
+        "min-w-[90px] w-auto gap-1.5 px-3",
         active
           ? "shadow-sm"
           : "text-muted-foreground hover:text-foreground hover:bg-muted",

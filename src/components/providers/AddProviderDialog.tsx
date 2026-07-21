@@ -17,6 +17,8 @@ import { UniversalProviderPanel } from "@/components/universal";
 import { providerPresets } from "@/config/claudeProviderPresets";
 import { codexProviderPresets } from "@/config/codexProviderPresets";
 import { geminiProviderPresets } from "@/config/geminiProviderPresets";
+import { claudeDesktopProviderPresets } from "@/config/claudeDesktopProviderPresets";
+import { extractCodexBaseUrl } from "@/utils/providerConfigUtils";
 import type { OpenClawSuggestedDefaults } from "@/config/openclawProviderPresets";
 import type { UniversalProviderPreset } from "@/config/universalProviderPresets";
 
@@ -28,6 +30,8 @@ interface AddProviderDialogProps {
     provider: Omit<Provider, "id"> & {
       providerKey?: string;
       suggestedDefaults?: OpenClawSuggestedDefaults;
+      ensureClaudeDesktopOfficialSeed?: boolean;
+      ensureCodexOfficialSeed?: boolean;
     },
   ) => Promise<void> | void;
 }
@@ -40,26 +44,23 @@ export function AddProviderDialog({
 }: AddProviderDialogProps) {
   const { t } = useTranslation();
   // OpenCode and OpenClaw don't support universal providers
-  const showUniversalTab = appId !== "opencode" && appId !== "openclaw";
+  const showUniversalTab =
+    appId !== "opencode" &&
+    appId !== "openclaw" &&
+    appId !== "hermes" &&
+    appId !== "claude-desktop";
   const [activeTab, setActiveTab] = useState<"app-specific" | "universal">(
     "app-specific",
   );
   const [universalFormOpen, setUniversalFormOpen] = useState(false);
   const [selectedUniversalPreset, setSelectedUniversalPreset] =
     useState<UniversalProviderPreset | null>(null);
+  const [isFormSubmitting, setIsFormSubmitting] = useState(false);
 
   const handleUniversalProviderSave = useCallback(
     async (provider: UniversalProvider) => {
       try {
         await universalProvidersApi.upsert(provider);
-        toast.success(
-          t("universalProvider.addSuccess", {
-            defaultValue: "统一供应商添加成功",
-          }),
-        );
-        setUniversalFormOpen(false);
-        setSelectedUniversalPreset(null);
-        onOpenChange(false);
       } catch (error) {
         console.error(
           "[AddProviderDialog] Failed to save universal provider",
@@ -70,7 +71,31 @@ export function AddProviderDialog({
             defaultValue: "统一供应商添加失败",
           }),
         );
+        return;
       }
+
+      try {
+        await universalProvidersApi.sync(provider.id);
+        toast.success(
+          t("universalProvider.addedAndSynced", {
+            defaultValue: "统一供应商已添加并同步",
+          }),
+        );
+      } catch (error) {
+        console.error(
+          "[AddProviderDialog] Provider saved but sync failed",
+          error,
+        );
+        toast.warning(
+          t("universalProvider.addedButSyncFailed", {
+            defaultValue: "统一供应商已添加，但同步失败",
+          }),
+        );
+      }
+
+      setUniversalFormOpen(false);
+      setSelectedUniversalPreset(null);
+      onOpenChange(false);
     },
     [t, onOpenChange],
   );
@@ -91,6 +116,8 @@ export function AddProviderDialog({
       const providerData: Omit<Provider, "id"> & {
         providerKey?: string;
         suggestedDefaults?: OpenClawSuggestedDefaults;
+        ensureClaudeDesktopOfficialSeed?: boolean;
+        ensureCodexOfficialSeed?: boolean;
       } = {
         name: values.name.trim(),
         notes: values.notes?.trim() || undefined,
@@ -102,9 +129,27 @@ export function AddProviderDialog({
         ...(values.meta ? { meta: values.meta } : {}),
       };
 
+      if (appId === "claude-desktop" && values.presetId) {
+        const presetIndex = parseInt(
+          values.presetId.replace("claude-desktop-", ""),
+        );
+        const preset = claudeDesktopProviderPresets[presetIndex];
+        providerData.ensureClaudeDesktopOfficialSeed =
+          values.presetCategory === "official" &&
+          preset?.category === "official";
+      }
+
+      if (appId === "codex" && values.presetId) {
+        const presetIndex = parseInt(values.presetId.replace("codex-", ""));
+        const preset = codexProviderPresets[presetIndex];
+        providerData.ensureCodexOfficialSeed =
+          values.presetCategory === "official" &&
+          preset?.category === "official";
+      }
+
       // OpenCode/OpenClaw: pass providerKey for ID generation
       if (
-        (appId === "opencode" || appId === "openclaw") &&
+        (appId === "opencode" || appId === "openclaw" || appId === "hermes") &&
         values.providerKey
       ) {
         providerData.providerKey = values.providerKey;
@@ -168,6 +213,22 @@ export function AddProviderDialog({
                 preset.endpointCandidates.forEach(addUrl);
               }
             }
+          } else if (appId === "claude-desktop") {
+            const presets = claudeDesktopProviderPresets;
+            const presetIndex = parseInt(
+              values.presetId.replace("claude-desktop-", ""),
+            );
+            if (
+              !isNaN(presetIndex) &&
+              presetIndex >= 0 &&
+              presetIndex < presets.length
+            ) {
+              const preset = presets[presetIndex];
+              if (Array.isArray(preset.endpointCandidates)) {
+                preset.endpointCandidates.forEach(addUrl);
+              }
+              addUrl(preset.baseUrl);
+            }
           }
         }
 
@@ -176,14 +237,17 @@ export function AddProviderDialog({
           if (env?.ANTHROPIC_BASE_URL) {
             addUrl(env.ANTHROPIC_BASE_URL);
           }
+        } else if (appId === "claude-desktop") {
+          const env = parsedConfig.env as Record<string, any> | undefined;
+          if (env?.ANTHROPIC_BASE_URL) {
+            addUrl(env.ANTHROPIC_BASE_URL);
+          }
         } else if (appId === "codex") {
           const config = parsedConfig.config as string | undefined;
           if (config) {
-            const baseUrlMatch = config.match(
-              /base_url\s*=\s*["']([^"']+)["']/,
-            );
-            if (baseUrlMatch?.[1]) {
-              addUrl(baseUrlMatch[1]);
+            const extractedBaseUrl = extractCodexBaseUrl(config);
+            if (extractedBaseUrl) {
+              addUrl(extractedBaseUrl);
             }
           }
         } else if (appId === "gemini") {
@@ -202,6 +266,10 @@ export function AddProviderDialog({
           // OpenClaw uses baseUrl directly
           if (parsedConfig.baseUrl) {
             addUrl(parsedConfig.baseUrl as string);
+          }
+        } else if (appId === "hermes") {
+          if (parsedConfig.base_url) {
+            addUrl(parsedConfig.base_url as string);
           }
         }
 
@@ -238,6 +306,9 @@ export function AddProviderDialog({
   const footer =
     !showUniversalTab || activeTab === "app-specific" ? (
       <>
+        <span className="mr-auto min-w-0 text-xs text-muted-foreground truncate">
+          {t("provider.addFooterHint")}
+        </span>
         <Button
           variant="outline"
           onClick={() => onOpenChange(false)}
@@ -248,6 +319,7 @@ export function AddProviderDialog({
         <Button
           type="submit"
           form="provider-form"
+          disabled={isFormSubmitting}
           className="bg-primary text-primary-foreground hover:bg-primary/90"
         >
           <Plus className="h-4 w-4 mr-2" />
@@ -279,6 +351,7 @@ export function AddProviderDialog({
       title={t("provider.addNewProvider")}
       onClose={() => onOpenChange(false)}
       footer={footer}
+      contentClassName="pt-3"
     >
       {showUniversalTab ? (
         <Tabs
@@ -300,6 +373,7 @@ export function AddProviderDialog({
               submitLabel={t("common.add")}
               onSubmit={handleSubmit}
               onCancel={() => onOpenChange(false)}
+              onSubmittingChange={setIsFormSubmitting}
               showButtons={false}
             />
           </TabsContent>
@@ -315,6 +389,7 @@ export function AddProviderDialog({
           submitLabel={t("common.add")}
           onSubmit={handleSubmit}
           onCancel={() => onOpenChange(false)}
+          onSubmittingChange={setIsFormSubmitting}
           showButtons={false}
         />
       )}

@@ -2,11 +2,11 @@
 
 # Claude Code / Codex / Gemini CLI 全方位辅助工具
 
-[![Version](https://img.shields.io/badge/version-3.10.2-blue.svg)](https://github.com/farion1231/zx-code/releases)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/farion1231/zx-code/releases)
+[![Version](https://img.shields.io/badge/version-3.17.0-blue.svg)](https://github.com/ZXAI888/zx-code/releases)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/ZXAI888/zx-code/releases)
 [![Built with Tauri](https://img.shields.io/badge/built%20with-Tauri%202-orange.svg)](https://tauri.app/)
 
-[English](README.md) | 中文 | [日本語](README_JA.md) | [更新日志](CHANGELOG.md) | [v3.9.0 发布说明](docs/release-note-v3.9.0-zh.md)
+[English](README.md) | 中文 | [日本語](README_JA.md) | [更新日志](CHANGELOG.md) | [v3.17.0 发布说明](docs/release-notes/v3.17.0-zh.md)
 
 </div>
 
@@ -18,7 +18,9 @@
 
 ## 功能特性
 
-### 当前版本：v3.10.2 | [完整更新日志](CHANGELOG.md) | [发布说明](docs/release-note-v3.9.0-zh.md)
+### 当前版本：v3.17.0 | [完整更新日志](CHANGELOG.md) | [发布说明](docs/release-notes/v3.17.0-zh.md)
+
+ZX Code v3.17.0 已同步 CC Switch v3.17.0 上游能力，同时保留 ZX Code 品牌、数据目录、深度链接和现有用户配置兼容性。本次更新包含项目快照、Codex 账号代理路由、新模型支持、代理与用量计费修复以及数据库结构升级。
 
 **v3.8.0 重大更新（2025-11-28）**
 
@@ -124,26 +126,11 @@
 
 ### Windows 用户
 
-从 [Releases](../../releases) 页面下载最新版本的 `ZX-Code-v{版本号}-Windows.msi` 安装包或者 `ZX-Code-v{版本号}-Windows-Portable.zip` 绿色版。
+从 [Releases](https://github.com/ZXAI888/zx-code/releases) 页面下载 Windows x64 或 ARM64 的 MSI 安装包或便携版 ZIP。
 
 ### macOS 用户
 
-**方式一：通过 Homebrew 安装（推荐）**
-
-```bash
-brew tap farion1231/zxcode
-brew install --cask zx-code
-```
-
-更新：
-
-```bash
-brew upgrade --cask zx-code
-```
-
-**方式二：手动下载**
-
-从 [Releases](../../releases) 页面下载 `ZX-Code-v{版本号}-macOS.zip` 解压使用。
+从 [Releases](https://github.com/ZXAI888/zx-code/releases) 页面下载通用版 DMG 或 ZIP，同时支持 Apple Silicon 和 Intel Mac。
 
 > **注意**：由于作者没有苹果开发者账号，首次打开可能出现"未知开发者"警告，请先关闭，然后前往"系统设置" → "隐私与安全性" → 点击"仍要打开"，之后便可以正常打开
 
@@ -157,12 +144,11 @@ paru -S zx-code-bin
 
 ### Linux 用户
 
-从 [Releases](../../releases) 页面下载最新版本的 Linux 安装包：
+从 [Releases](https://github.com/ZXAI888/zx-code/releases) 页面下载 x64 或 ARM64 Linux 构建：
 
-- `ZX-Code-v{版本号}-Linux.deb`（Debian/Ubuntu）
-- `ZX-Code-v{版本号}-Linux.rpm`（Fedora/RHEL/openSUSE）
-- `ZX-Code-v{版本号}-Linux.AppImage`（通用）
-- `ZX-Code-v{版本号}-Linux.flatpak`（Flatpak）
+- `.deb`（Debian/Ubuntu）
+- `.rpm`（Fedora/RHEL/openSUSE）
+- `.AppImage`（通用）
 
 Flatpak 安装与运行：
 

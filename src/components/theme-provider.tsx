@@ -17,7 +17,7 @@ interface ThemeProviderProps {
 
 interface ThemeContextValue {
   theme: Theme;
-  setTheme: (theme: Theme, event?: React.MouseEvent) => void;
+  setTheme: (theme: Theme) => void;
 }
 
 const ThemeProviderContext = createContext<ThemeContextValue | undefined>(
@@ -113,63 +113,26 @@ export function ThemeProvider({
       }
     };
 
-    // Determine current effective theme
+    // When "system", pass "system" so Tauri uses None (follows OS theme natively).
+    // This keeps the WebView's prefers-color-scheme in sync with the real OS theme,
+    // allowing effect #3's media query listener to fire on system theme changes.
     if (theme === "system") {
-      const isDark =
-        window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches;
-      updateNativeTheme(isDark ? "dark" : "light");
+      updateNativeTheme("system");
     } else {
       updateNativeTheme(theme);
     }
 
-    // Listen to system theme changes for native window when in "system" mode
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleChange = () => {
-      if (theme === "system" && !isCancelled) {
-        updateNativeTheme(mediaQuery.matches ? "dark" : "light");
-      }
-    };
-
-    if (theme === "system") {
-      mediaQuery.addEventListener("change", handleChange);
-    }
-
     return () => {
       isCancelled = true;
-      if (theme === "system") {
-        mediaQuery.removeEventListener("change", handleChange);
-      }
     };
   }, [theme]);
 
   const value = useMemo<ThemeContextValue>(
     () => ({
       theme,
-      setTheme: (nextTheme: Theme, event?: React.MouseEvent) => {
-        // Skip if same theme
+      setTheme: (nextTheme: Theme) => {
         if (nextTheme === theme) return;
-
-        // Set transition origin coordinates from click event
-        const x = event?.clientX ?? window.innerWidth / 2;
-        const y = event?.clientY ?? window.innerHeight / 2;
-        document.documentElement.style.setProperty(
-          "--theme-transition-x",
-          `${x}px`,
-        );
-        document.documentElement.style.setProperty(
-          "--theme-transition-y",
-          `${y}px`,
-        );
-
-        // Use View Transitions API if available, otherwise fall back to instant change
-        if (document.startViewTransition) {
-          document.startViewTransition(() => {
-            setThemeState(nextTheme);
-          });
-        } else {
-          setThemeState(nextTheme);
-        }
+        setThemeState(nextTheme);
       },
     }),
     [theme],

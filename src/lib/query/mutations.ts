@@ -1,11 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { providersApi, settingsApi, type AppId } from "@/lib/api";
-import type { Provider, Settings } from "@/types";
+import { providersApi, sessionsApi, settingsApi, type AppId } from "@/lib/api";
+import type { DeleteSessionOptions } from "@/lib/api/sessions";
+import type { SwitchResult } from "@/lib/api/providers";
+import type { Provider, SessionMeta, Settings } from "@/types";
 import { extractErrorMessage } from "@/utils/errorUtils";
 import { generateUUID } from "@/utils/uuid";
 import { openclawKeys } from "@/hooks/useOpenClaw";
+import { invalidateHermesProviderCaches } from "@/hooks/useHermes";
+import { usageKeys } from "@/lib/query/usage";
+import { CODEX_OFFICIAL_PROVIDER_ID } from "@/utils/providerCapabilities";
 
 export const useAddProviderMutation = (appId: AppId) => {
   const queryClient = useQueryClient();
@@ -13,13 +18,50 @@ export const useAddProviderMutation = (appId: AppId) => {
 
   return useMutation({
     mutationFn: async (
-      providerInput: Omit<Provider, "id"> & { providerKey?: string },
+      providerInput: Omit<Provider, "id"> & {
+        providerKey?: string;
+        addToLive?: boolean;
+        ensureClaudeDesktopOfficialSeed?: boolean;
+        ensureCodexOfficialSeed?: boolean;
+      },
     ) => {
+      const {
+        providerKey: _providerKey,
+        addToLive,
+        ensureClaudeDesktopOfficialSeed,
+        ensureCodexOfficialSeed,
+        ...rest
+      } = providerInput;
+
+      if (appId === "claude-desktop" && ensureClaudeDesktopOfficialSeed) {
+        await providersApi.ensureClaudeDesktopOfficialProvider();
+        const providers = await providersApi.getAll(appId);
+        const officialProvider = providers["claude-desktop-official"];
+        if (!officialProvider) {
+          throw new Error("Claude Desktop official provider was not created");
+        }
+        return officialProvider;
+      }
+
+      if (appId === "codex" && ensureCodexOfficialSeed) {
+        await providersApi.ensureCodexOfficialProvider();
+        const providers = await providersApi.getAll(appId);
+        const officialProvider = providers[CODEX_OFFICIAL_PROVIDER_ID];
+        if (!officialProvider) {
+          throw new Error("Codex official provider was not created");
+        }
+        return officialProvider;
+      }
+
       let id: string;
 
-      if (appId === "opencode" || appId === "openclaw") {
-        if (providerInput.category === "omo") {
-          id = `omo-${generateUUID()}`;
+      if (appId === "opencode" || appId === "openclaw" || appId === "hermes") {
+        if (
+          providerInput.category === "omo" ||
+          providerInput.category === "omo-slim"
+        ) {
+          const prefix = providerInput.category === "omo" ? "omo" : "omo-slim";
+          id = `${prefix}-${generateUUID()}`;
         } else {
           if (!providerInput.providerKey) {
             throw new Error(`Provider key is required for ${appId}`);
@@ -30,8 +72,6 @@ export const useAddProviderMutation = (appId: AppId) => {
         id = generateUUID();
       }
 
-      const { providerKey: _providerKey, ...rest } = providerInput;
-
       const newProvider: Provider = {
         ...rest,
         id,
@@ -39,7 +79,7 @@ export const useAddProviderMutation = (appId: AppId) => {
       };
       delete (newProvider as any).providerKey;
 
-      await providersApi.add(newProvider, appId);
+      await providersApi.add(newProvider, appId, addToLive);
       return newProvider;
     },
     onSuccess: async () => {
@@ -52,6 +92,22 @@ export const useAddProviderMutation = (appId: AppId) => {
         await queryClient.invalidateQueries({
           queryKey: ["omo", "provider-count"],
         });
+        await queryClient.invalidateQueries({
+          queryKey: ["omo-slim", "current-provider-id"],
+        });
+        await queryClient.invalidateQueries({
+          queryKey: ["omo-slim", "provider-count"],
+        });
+      }
+
+      if (appId === "openclaw") {
+        await queryClient.invalidateQueries({
+          queryKey: openclawKeys.health,
+        });
+      }
+
+      if (appId === "hermes") {
+        await invalidateHermesProviderCaches(queryClient);
       }
 
       try {
@@ -89,12 +145,34 @@ export const useUpdateProviderMutation = (appId: AppId) => {
   const { t } = useTranslation();
 
   return useMutation({
-    mutationFn: async (provider: Provider) => {
-      await providersApi.update(provider, appId);
+    mutationFn: async ({
+      provider,
+      originalId,
+    }: {
+      provider: Provider;
+      originalId?: string;
+    }) => {
+      await providersApi.update(provider, appId, originalId);
       return provider;
     },
-    onSuccess: async () => {
+    onSuccess: async (provider, variables) => {
       await queryClient.invalidateQueries({ queryKey: ["providers", appId] });
+      await queryClient.invalidateQueries({
+        queryKey: usageKeys.script(provider.id, appId),
+      });
+      if (variables.originalId && variables.originalId !== provider.id) {
+        await queryClient.invalidateQueries({
+          queryKey: usageKeys.script(variables.originalId, appId),
+        });
+      }
+      if (appId === "openclaw") {
+        await queryClient.invalidateQueries({
+          queryKey: openclawKeys.health,
+        });
+      }
+      if (appId === "hermes") {
+        await invalidateHermesProviderCaches(queryClient);
+      }
       toast.success(
         t("notifications.updateSuccess", {
           defaultValue: "供应商更新成功",
@@ -134,6 +212,22 @@ export const useDeleteProviderMutation = (appId: AppId) => {
         await queryClient.invalidateQueries({
           queryKey: ["omo", "provider-count"],
         });
+        await queryClient.invalidateQueries({
+          queryKey: ["omo-slim", "current-provider-id"],
+        });
+        await queryClient.invalidateQueries({
+          queryKey: ["omo-slim", "provider-count"],
+        });
+      }
+
+      if (appId === "openclaw") {
+        await queryClient.invalidateQueries({
+          queryKey: openclawKeys.health,
+        });
+      }
+
+      if (appId === "hermes") {
+        await invalidateHermesProviderCaches(queryClient);
       }
 
       try {
@@ -171,11 +265,17 @@ export const useSwitchProviderMutation = (appId: AppId) => {
   const { t } = useTranslation();
 
   return useMutation({
-    mutationFn: async (providerId: string) => {
+    mutationFn: async (providerId: string): Promise<SwitchResult> => {
       return await providersApi.switch(providerId, appId);
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["providers", appId] });
+      if (appId === "claude-desktop") {
+        await queryClient.invalidateQueries({ queryKey: ["proxyStatus"] });
+        await queryClient.invalidateQueries({
+          queryKey: ["claudeDesktopStatus"],
+        });
+      }
 
       // OpenCode/OpenClaw: also invalidate live provider IDs cache to update button state
       if (appId === "opencode") {
@@ -185,6 +285,9 @@ export const useSwitchProviderMutation = (appId: AppId) => {
         await queryClient.invalidateQueries({
           queryKey: ["omo", "current-provider-id"],
         });
+        await queryClient.invalidateQueries({
+          queryKey: ["omo-slim", "current-provider-id"],
+        });
       }
       if (appId === "openclaw") {
         await queryClient.invalidateQueries({
@@ -193,6 +296,12 @@ export const useSwitchProviderMutation = (appId: AppId) => {
         await queryClient.invalidateQueries({
           queryKey: openclawKeys.defaultModel,
         });
+        await queryClient.invalidateQueries({
+          queryKey: openclawKeys.health,
+        });
+      }
+      if (appId === "hermes") {
+        await invalidateHermesProviderCaches(queryClient);
       }
 
       try {
@@ -222,6 +331,50 @@ export const useSwitchProviderMutation = (appId: AppId) => {
             },
           },
         },
+      );
+    },
+  });
+};
+
+export const useDeleteSessionMutation = () => {
+  const queryClient = useQueryClient();
+  const { t } = useTranslation();
+
+  return useMutation({
+    mutationFn: async (input: DeleteSessionOptions) => {
+      await sessionsApi.delete(input);
+      return input;
+    },
+    onSuccess: async (input) => {
+      queryClient.setQueryData<SessionMeta[]>(["sessions"], (current) =>
+        (current ?? []).filter(
+          (session) =>
+            !(
+              session.providerId === input.providerId &&
+              session.sessionId === input.sessionId &&
+              session.sourcePath === input.sourcePath
+            ),
+        ),
+      );
+      queryClient.removeQueries({
+        queryKey: ["sessionMessages", input.providerId, input.sourcePath],
+      });
+
+      await queryClient.invalidateQueries({ queryKey: ["sessions"] });
+
+      toast.success(
+        t("sessionManager.sessionDeleted", {
+          defaultValue: "会话已删除",
+        }),
+      );
+    },
+    onError: (error: Error) => {
+      const detail = extractErrorMessage(error) || t("common.unknown");
+      toast.error(
+        t("sessionManager.deleteFailed", {
+          defaultValue: "删除会话失败: {{error}}",
+          error: detail,
+        }),
       );
     },
   });

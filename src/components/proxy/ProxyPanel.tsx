@@ -7,11 +7,14 @@ import {
   ListOrdered,
   Save,
   Loader2,
+  Zap,
+  Power,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { ToggleRow } from "@/components/ui/toggle-row";
 import { useProxyStatus } from "@/hooks/useProxyStatus";
 import { toast } from "sonner";
 import { useFailoverQueue } from "@/lib/query/failover";
@@ -25,8 +28,22 @@ import {
 } from "@/lib/query/proxy";
 import type { ProxyStatus } from "@/types/proxy";
 import { useTranslation } from "react-i18next";
+import { AnimatePresence, motion } from "framer-motion";
+import { extractErrorMessage } from "@/utils/errorUtils";
 
-export function ProxyPanel() {
+interface ProxyPanelProps {
+  enableLocalProxy: boolean;
+  onEnableLocalProxyChange: (checked: boolean) => void;
+  onToggleProxy: (checked: boolean) => Promise<void>;
+  isProxyPending: boolean;
+}
+
+export function ProxyPanel({
+  enableLocalProxy,
+  onEnableLocalProxyChange,
+  onToggleProxy,
+  isProxyPending,
+}: ProxyPanelProps) {
   const { t } = useTranslation();
   const { status, isRunning } = useProxyStatus();
 
@@ -72,8 +89,12 @@ export function ProxyPanel() {
         { closeButton: true },
       );
     } catch (error) {
+      const detail =
+        extractErrorMessage(error) ||
+        t("common.unknown", { defaultValue: "未知错误" });
       toast.error(
         t("proxy.takeover.failed", {
+          detail,
           defaultValue: "切换接管状态失败",
         }),
       );
@@ -103,22 +124,38 @@ export function ProxyPanel() {
   const handleSaveBasicConfig = async () => {
     if (!globalConfig) return;
 
-    // 校验地址格式（简单的 IP 地址或 localhost 校验）
+    // 校验地址格式（IPv4 / IPv6 字面量 / localhost）
     const addressTrimmed = listenAddress.trim();
     const ipv4Regex = /^(\d{1,3}\.){3}\d{1,3}$/;
+    const isValidIpv4 = (addr: string): boolean =>
+      ipv4Regex.test(addr) &&
+      addr.split(".").every((n) => {
+        const num = parseInt(n, 10);
+        return num >= 0 && num <= 255;
+      });
+    // IPv6 字面量校验：必须含 `:` 且能在 [..] 包装后被 URL 解析器接受。
+    // 后端 (services/proxy.rs) 会把 `::` 改写成 `::1`，所以这里也接受 `::`。
+    const isValidIpv6 = (addr: string): boolean => {
+      if (!addr.includes(":")) return false;
+      try {
+        new URL(`http://[${addr}]/`);
+        return true;
+      } catch {
+        return false;
+      }
+    };
+    const normalizedAddress =
+      addressTrimmed === "localhost" ? "127.0.0.1" : addressTrimmed;
     const isValidAddress =
       addressTrimmed === "localhost" ||
       addressTrimmed === "0.0.0.0" ||
-      (ipv4Regex.test(addressTrimmed) &&
-        addressTrimmed.split(".").every((n) => {
-          const num = parseInt(n);
-          return num >= 0 && num <= 255;
-        }));
+      isValidIpv4(addressTrimmed) ||
+      isValidIpv6(addressTrimmed);
     if (!isValidAddress) {
       toast.error(
         t("proxy.settings.invalidAddress", {
           defaultValue:
-            "地址无效，请输入有效的 IP 地址（如 127.0.0.1）或 localhost",
+            "地址无效，请输入 IPv4（如 127.0.0.1）、IPv6（如 ::1）或 localhost",
         }),
       );
       return;
@@ -146,7 +183,7 @@ export function ProxyPanel() {
     try {
       await updateGlobalConfig.mutateAsync({
         ...globalConfig,
-        listenAddress: addressTrimmed,
+        listenAddress: normalizedAddress,
         listenPort: port,
       });
       toast.success(
@@ -183,9 +220,98 @@ export function ProxyPanel() {
 
   return (
     <>
-      <section className="space-y-6">
+      <section className="space-y-4">
+        {/* [1] Enable proxy button on main page — always visible */}
+        <ToggleRow
+          icon={<Zap className="h-4 w-4 text-green-500" />}
+          title={t("settings.advanced.proxy.enableFeature")}
+          description={t("settings.advanced.proxy.enableFeatureDescription")}
+          checked={enableLocalProxy}
+          onCheckedChange={onEnableLocalProxyChange}
+        />
+
+        {/* [2] Proxy service toggle — always visible */}
+        <div className="flex items-center justify-between rounded-xl border border-border bg-card/50 p-4 transition-colors hover:bg-muted/50">
+          <div className="flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-background ring-1 ring-border">
+              <Power className="h-4 w-4 text-green-500" />
+            </div>
+            <div className="space-y-1">
+              <p className="text-sm font-medium leading-none">
+                {t("proxyConfig.proxyEnabled", {
+                  defaultValue: "代理服务",
+                })}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {isRunning
+                  ? t("settings.advanced.proxy.running")
+                  : t("settings.advanced.proxy.stopped")}
+              </p>
+            </div>
+          </div>
+          <Switch
+            checked={isRunning}
+            onCheckedChange={onToggleProxy}
+            disabled={isProxyPending}
+          />
+        </div>
+
+        {/* [3] App takeover switches — animated, visible only when proxy is running */}
+        <AnimatePresence>
+          {isRunning && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              className="overflow-hidden"
+            >
+              <div className="rounded-xl border-2 border-primary/20 bg-primary/5 p-4 space-y-3">
+                <p className="text-xs font-medium text-primary">
+                  {t("proxyConfig.appTakeover", {
+                    defaultValue: "应用接管",
+                  })}
+                </p>
+                <div className="grid gap-2 sm:grid-cols-3">
+                  {(["claude", "codex", "gemini"] as const).map((appType) => {
+                    const isEnabled =
+                      takeoverStatus?.[
+                        appType as keyof typeof takeoverStatus
+                      ] ?? false;
+                    return (
+                      <div
+                        key={appType}
+                        className="flex items-center justify-between rounded-md border border-primary/20 bg-background/60 px-3 py-2"
+                      >
+                        <span className="text-sm font-medium capitalize">
+                          {appType}
+                        </span>
+                        <Switch
+                          checked={isEnabled}
+                          onCheckedChange={(checked) =>
+                            handleTakeoverChange(appType, checked)
+                          }
+                          disabled={setTakeoverForApp.isPending}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {t("proxy.takeover.hint", {
+                    defaultValue:
+                      "选择要接管的应用，启用后该应用的请求将通过本地代理转发",
+                  })}
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Running state: service info + stats */}
         {isRunning && status ? (
           <div className="space-y-6">
+            {/* [4] Running info: address + current provider */}
             <div className="rounded-lg border border-border bg-muted/40 p-4 space-y-4">
               <div>
                 <p className="text-xs text-muted-foreground mb-2">
@@ -263,41 +389,7 @@ export function ProxyPanel() {
                 )}
               </div>
 
-              {/* 应用接管开关 */}
-              <div className="pt-3 border-t border-border space-y-3">
-                <p className="text-xs text-muted-foreground">
-                  {t("proxyConfig.appTakeover", {
-                    defaultValue: "应用接管",
-                  })}
-                </p>
-                <div className="grid gap-2 sm:grid-cols-3">
-                  {(["claude", "codex", "gemini"] as const).map((appType) => {
-                    const isEnabled =
-                      takeoverStatus?.[
-                        appType as keyof typeof takeoverStatus
-                      ] ?? false;
-                    return (
-                      <div
-                        key={appType}
-                        className="flex items-center justify-between rounded-md border border-border bg-background/60 px-3 py-2"
-                      >
-                        <span className="text-sm font-medium capitalize">
-                          {appType}
-                        </span>
-                        <Switch
-                          checked={isEnabled}
-                          onCheckedChange={(checked) =>
-                            handleTakeoverChange(appType, checked)
-                          }
-                          disabled={setTakeoverForApp.isPending}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* 日志记录开关 */}
+              {/* [5] Logging toggle */}
               <div className="pt-3 border-t border-border">
                 <div className="flex items-center justify-between rounded-md border border-border bg-background/60 px-3 py-2">
                   <div className="space-y-0.5">
@@ -320,7 +412,7 @@ export function ProxyPanel() {
                 </div>
               </div>
 
-              {/* 供应商队列 - 按应用类型分组展示 */}
+              {/* [6] Provider queues */}
               {(claudeQueue.length > 0 ||
                 codexQueue.length > 0 ||
                 geminiQueue.length > 0) && (
@@ -332,7 +424,6 @@ export function ProxyPanel() {
                     </p>
                   </div>
 
-                  {/* Claude 队列 */}
                   {claudeQueue.length > 0 && (
                     <ProviderQueueGroup
                       appType="claude"
@@ -345,7 +436,6 @@ export function ProxyPanel() {
                     />
                   )}
 
-                  {/* Codex 队列 */}
                   {codexQueue.length > 0 && (
                     <ProviderQueueGroup
                       appType="codex"
@@ -358,7 +448,6 @@ export function ProxyPanel() {
                     />
                   )}
 
-                  {/* Gemini 队列 */}
                   {geminiQueue.length > 0 && (
                     <ProviderQueueGroup
                       appType="gemini"
@@ -374,6 +463,7 @@ export function ProxyPanel() {
               )}
             </div>
 
+            {/* [7] Stats cards */}
             <div className="grid gap-3 md:grid-cols-4">
               <StatCard
                 icon={<Activity className="h-4 w-4" />}
@@ -408,10 +498,7 @@ export function ProxyPanel() {
           </div>
         ) : (
           <div className="space-y-6">
-            {/* 空白区域避免冲突 */}
-            <div className="h-4"></div>
-
-            {/* 基础设置 - 监听地址/端口 */}
+            {/* [8] Basic settings — address/port (only when stopped) */}
             <div className="rounded-lg border border-border bg-muted/40 p-4 space-y-4">
               <div>
                 <h4 className="text-sm font-semibold">
@@ -499,7 +586,7 @@ export function ProxyPanel() {
               </div>
             </div>
 
-            {/* 代理服务已停止提示 */}
+            {/* Stopped hint */}
             <div className="text-center py-6 text-muted-foreground">
               <div className="mx-auto w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
                 <Server className="h-8 w-8" />
@@ -511,7 +598,7 @@ export function ProxyPanel() {
               </p>
               <p className="text-sm text-muted-foreground">
                 {t("proxy.panel.stoppedDescription", {
-                  defaultValue: "使用右上角开关即可启动服务",
+                  defaultValue: "使用上方开关即可启动服务",
                 })}
               </p>
             </div>
@@ -645,6 +732,7 @@ function ProviderQueueItem({
       {/* 健康徽章 */}
       <ProviderHealthBadge
         consecutiveFailures={health?.consecutive_failures ?? 0}
+        isHealthy={health?.is_healthy}
       />
     </div>
   );

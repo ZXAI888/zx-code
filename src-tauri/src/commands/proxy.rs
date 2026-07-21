@@ -6,6 +6,7 @@ use crate::error::AppError;
 use crate::proxy::types::*;
 use crate::proxy::{CircuitBreakerConfig, CircuitBreakerStats};
 use crate::store::AppState;
+use std::str::FromStr;
 
 /// 启动代理服务器（仅启动服务，不接管 Live 配置）
 #[tauri::command]
@@ -13,6 +14,24 @@ pub async fn start_proxy_server(
     state: tauri::State<'_, AppState>,
 ) -> Result<ProxyServerInfo, String> {
     state.proxy_service.start().await
+}
+
+/// 停止代理服务器（仅停止服务，不恢复/清理 Live 接管状态）
+#[tauri::command]
+pub async fn stop_proxy_server(state: tauri::State<'_, AppState>) -> Result<(), String> {
+    let takeover = state.proxy_service.get_takeover_status().await?;
+    if takeover.claude
+        || takeover.codex
+        || takeover.gemini
+        || takeover.opencode
+        || takeover.openclaw
+    {
+        return Err(
+            "仍有应用处于代理接管状态，请先在设置中关闭对应应用接管后再停止本地路由。".to_string(),
+        );
+    }
+
+    state.proxy_service.stop().await
 }
 
 /// 停止代理服务器（恢复 Live 配置）
@@ -115,9 +134,17 @@ pub async fn update_proxy_config_for_app(
     config: AppProxyConfig,
 ) -> Result<(), String> {
     let db = &state.db;
+    let app_type = config.app_type.clone();
+    let circuit_config = CircuitBreakerConfig::from(&config);
+
     db.update_proxy_config_for_app(config)
         .await
-        .map_err(|e| e.to_string())
+        .map_err(|e| e.to_string())?;
+
+    state
+        .proxy_service
+        .update_circuit_breaker_config_for_app(&app_type, circuit_config)
+        .await
 }
 
 async fn get_default_cost_multiplier_internal(
@@ -253,6 +280,24 @@ pub async fn switch_proxy_provider(
     app_type: String,
     provider_id: String,
 ) -> Result<(), String> {
+    // Codex's built-in official provider can use the client's native OpenAI
+    // login through takeover. Other official providers remain blocked.
+    let provider = state
+        .db
+        .get_provider_by_id(&provider_id, &app_type)
+        .map_err(|e| format!("读取供应商失败: {e}"))?
+        .ok_or_else(|| format!("供应商不存在: {provider_id}"))?;
+    let app = crate::app_config::AppType::from_str(&app_type)
+        .map_err(|e| format!("无效的应用类型: {e}"))?;
+    if provider.category.as_deref() == Some("official")
+        && !crate::services::provider::official_provider_supports_proxy_takeover(&app, &provider)
+    {
+        return Err(
+            "代理接管模式下不能切换到官方供应商 (Cannot switch to official provider during proxy takeover)"
+                .to_string(),
+        );
+    }
+
     state
         .proxy_service
         .switch_proxy_target(&app_type, &provider_id)

@@ -2,11 +2,11 @@
 
 # Claude Code / Codex / Gemini CLI オールインワン・アシスタント
 
-[![Version](https://img.shields.io/badge/version-3.10.2-blue.svg)](https://github.com/farion1231/zx-code/releases)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/farion1231/zx-code/releases)
+[![Version](https://img.shields.io/badge/version-3.17.0-blue.svg)](https://github.com/ZXAI888/zx-code/releases)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/ZXAI888/zx-code/releases)
 [![Built with Tauri](https://img.shields.io/badge/built%20with-Tauri%202-orange.svg)](https://tauri.app/)
 
-[English](README.md) | [中文](README_ZH.md) | 日本語 | [Changelog](CHANGELOG.md) | [v3.9.0 リリースノート](docs/release-note-v3.9.0-ja.md)
+[English](README.md) | [中文](README_ZH.md) | 日本語 | [Changelog](CHANGELOG.md) | [v3.17.0 リリースノート](docs/release-notes/v3.17.0-ja.md)
 
 </div>
 
@@ -18,7 +18,9 @@
 
 ## 特長
 
-### 現在のバージョン：v3.10.2 | [完全な更新履歴](CHANGELOG.md) | [リリースノート](docs/release-note-v3.9.0-ja.md)
+### 現在のバージョン：v3.17.0 | [完全な更新履歴](CHANGELOG.md) | [リリースノート](docs/release-notes/v3.17.0-ja.md)
+
+ZX Code v3.17.0 は CC Switch v3.17.0 のアップストリーム機能を取り込みながら、ZX Code のブランド、データディレクトリ、ディープリンク、既存設定との互換性を維持しています。プロジェクトスナップショット、Codex アカウントのプロキシルーティング、新モデル対応、プロキシと使用量計算の修正、データベース更新を含みます。
 
 **v3.8.0 メジャーアップデート (2025-11-28)**
 
@@ -124,26 +126,11 @@
 
 ### Windows ユーザー
 
-[Releases](../../releases) ページから最新版の `ZX-Code-v{version}-Windows.msi` インストーラー、またはポータブル版 `ZX-Code-v{version}-Windows-Portable.zip` をダウンロード。
+[Releases](https://github.com/ZXAI888/zx-code/releases) ページから Windows x64 または ARM64 の MSI インストーラー／ポータブル ZIP をダウンロードしてください。
 
 ### macOS ユーザー
 
-**方法 1: Homebrew でインストール（推奨）**
-
-```bash
-brew tap farion1231/zxcode
-brew install --cask zx-code
-```
-
-アップデート:
-
-```bash
-brew upgrade --cask zx-code
-```
-
-**方法 2: 手動ダウンロード**
-
-[Releases](../../releases) から `ZX-Code-v{version}-macOS.zip` をダウンロードして展開。
+[Releases](https://github.com/ZXAI888/zx-code/releases) ページから Universal DMG または ZIP をダウンロードしてください。Apple Silicon と Intel Mac の両方に対応します。
 
 > **注意**: 開発者アカウント未登録のため、初回起動時に「開発元を確認できません」と表示される場合があります。一度閉じてから「システム設定」→「プライバシーとセキュリティ」→「このまま開く」をクリックしてください。以降は通常通り起動できます。
 
@@ -157,12 +144,11 @@ paru -S zx-code-bin
 
 ### Linux ユーザー
 
-[Releases](../../releases) から最新版の Linux ビルドをダウンロード：
+[Releases](https://github.com/ZXAI888/zx-code/releases) ページから x64 または ARM64 の Linux ビルドをダウンロード：
 
-- `ZX-Code-v{version}-Linux.deb`（Debian/Ubuntu）
-- `ZX-Code-v{version}-Linux.rpm`（Fedora/RHEL/openSUSE）
-- `ZX-Code-v{version}-Linux.AppImage`（汎用）
-- `ZX-Code-v{version}-Linux.flatpak`（Flatpak）
+- `.deb`（Debian/Ubuntu）
+- `.rpm`（Fedora/RHEL/openSUSE）
+- `.AppImage`（汎用）
 
 Flatpak のインストールと起動：
 
