@@ -51,6 +51,7 @@ import { extractErrorMessage } from "@/utils/errorUtils";
 import { isTextEditableTarget } from "@/utils/domUtils";
 import { deepClone } from "@/utils/deepClone";
 import { cn } from "@/lib/utils";
+import { DOWNLOAD_PAGE_URL } from "@/config/constants";
 import {
   isWindows,
   isLinux,
@@ -1190,7 +1191,7 @@ function App() {
               <div className="flex items-center gap-2">
                 <div className="relative inline-flex items-center">
                   <a
-                    href="https://github.com/ZXAI888/zx-code/releases"
+                    href={DOWNLOAD_PAGE_URL}
                     target="_blank"
                     rel="noreferrer"
                     className={cn(

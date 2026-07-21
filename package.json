@@ -1,6 +1,6 @@
 {
   "name": "zx-code",
-  "version": "3.17.1",
+  "version": "3.17.2",
   "description": "All-in-One Assistant for Claude Code, Codex & Gemini CLI",
   "type": "module",
   "scripts": {
@@ -13,13 +13,14 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,json}\"",
     "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,css,json}\"",
     "test:unit": "vitest run",
-    "test:unit:watch": "vitest watch"
+    "test:unit:watch": "vitest watch",
+    "test:updater-manifest": "node --test scripts/generate-updater-manifest.test.mjs"
   },
   "keywords": [],
   "author": "Jason Young",
   "license": "MIT",
   "devDependencies": {
-    "@tauri-apps/cli": "^2.8.0",
+    "@tauri-apps/cli": "2.10.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
@@ -68,11 +69,11 @@
     "@radix-ui/react-visually-hidden": "^1.2.4",
     "@tanstack/react-query": "^5.90.3",
     "@tanstack/react-virtual": "^3.13.23",
-    "@tauri-apps/api": "^2.8.0",
-    "@tauri-apps/plugin-dialog": "^2.4.0",
-    "@tauri-apps/plugin-process": "^2.0.0",
-    "@tauri-apps/plugin-store": "^2.0.0",
-    "@tauri-apps/plugin-updater": "^2.0.0",
+    "@tauri-apps/api": "2.10.1",
+    "@tauri-apps/plugin-dialog": "2.6.0",
+    "@tauri-apps/plugin-process": "2.3.1",
+    "@tauri-apps/plugin-store": "2.4.2",
+    "@tauri-apps/plugin-updater": "2.10.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",

@@ -919,10 +919,10 @@ pub fn handle_tray_menu_event(app: &tauri::AppHandle, event_id: &str) {
             }
         }
         "open_website" => {
-            if let Err(e) = app.opener().open_url(
-                "https://github.com/ZXAI888/zx-code/releases",
-                None::<String>,
-            ) {
+            if let Err(e) = app
+                .opener()
+                .open_url("https://zxai888.github.io/zx-code/", None::<String>)
+            {
                 log::error!("打开官方网站失败: {e}");
             }
         }

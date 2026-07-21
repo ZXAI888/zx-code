@@ -93,6 +93,20 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Configure updater signing
+        shell: bash
+        env:
+          SIGNING_KEY_B64: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_B64 }}
+        run: |
+          set -euo pipefail
+          if [ -z "$SIGNING_KEY_B64" ]; then
+            echo "TAURI_SIGNING_PRIVATE_KEY_B64 is not configured" >&2
+            exit 1
+          fi
+          key_path="$RUNNER_TEMP/zx-code-updater.key"
+          node -e "require('fs').writeFileSync(process.argv[1], Buffer.from(process.env.SIGNING_KEY_B64, 'base64'))" "$key_path"
+          echo "TAURI_SIGNING_PRIVATE_KEY=$key_path" >> "$GITHUB_ENV"
+
       - name: Build macOS Universal
         if: matrix.target == 'macos-universal'
         run: pnpm tauri build --target universal-apple-darwin
@@ -119,9 +133,14 @@ jobs:
           $isArm64 = '${{ matrix.target }}' -eq 'windows-arm64'
           $root = if ($isArm64) { 'src-tauri/target/aarch64-pc-windows-msvc/release' } else { 'src-tauri/target/release' }
           $suffix = if ($isArm64) { '-arm64' } else { '' }
+
           $msi = Get-ChildItem -Path (Join-Path $root 'bundle') -Recurse -Filter *.msi | Select-Object -First 1
           if ($null -eq $msi) { throw 'Windows MSI installer was not generated' }
-          Copy-Item $msi.FullName "release-assets/ZX-Code-$tag-Windows$suffix.msi"
+          if (-not (Test-Path "$($msi.FullName).sig")) { throw 'Windows updater signature was not generated' }
+          $msiName = "ZX-Code-$tag-Windows$suffix.msi"
+          Copy-Item $msi.FullName "release-assets/$msiName"
+          Copy-Item "$($msi.FullName).sig" "release-assets/$msiName.sig"
+
           $exe = Join-Path $root 'zx-code.exe'
           if (-not (Test-Path $exe)) { throw 'Windows executable was not generated' }
           $portableDir = 'release-assets/ZX-Code-Portable'
@@ -138,16 +157,20 @@ jobs:
           set -euxo pipefail
           mkdir -p release-assets
           tag="${GITHUB_REF_NAME}"
-          app=$(find src-tauri/target/universal-apple-darwin/release/bundle -name "*.app" -type d | head -1)
-          if [ -z "$app" ]; then
-            echo "macOS app bundle was not generated" >&2
-            exit 1
-          fi
+          bundle="src-tauri/target/universal-apple-darwin/release/bundle"
+
+          updater=$(find "$bundle" -name "*.app.tar.gz" -type f | head -1)
+          test -n "$updater"
+          test -f "$updater.sig"
+          updater_name="ZX-Code-${tag}-macOS.app.tar.gz"
+          cp "$updater" "release-assets/$updater_name"
+          cp "$updater.sig" "release-assets/$updater_name.sig"
+
+          app=$(find "$bundle" -name "*.app" -type d | head -1)
+          test -n "$app"
           ditto -c -k --sequesterRsrc --keepParent "$app" "release-assets/ZX-Code-${tag}-macOS.zip"
-          dmg=$(find src-tauri/target/universal-apple-darwin/release/bundle -name "*.dmg" -type f | head -1 || true)
-          if [ -n "$dmg" ]; then
-            cp "$dmg" "release-assets/ZX-Code-${tag}-macOS.dmg"
-          fi
+          dmg=$(find "$bundle" -name "*.dmg" -type f | head -1 || true)
+          [ -z "$dmg" ] || cp "$dmg" "release-assets/ZX-Code-${tag}-macOS.dmg"
 
       - name: Prepare Linux assets
         if: runner.os == 'Linux'
@@ -157,14 +180,20 @@ jobs:
           mkdir -p release-assets
           tag="${GITHUB_REF_NAME}"
           arch="${{ matrix.arch }}"
-          appimage=$(find src-tauri/target/release/bundle -name "*.AppImage" | head -1)
-          if [ -z "$appimage" ]; then
-            echo "Linux AppImage was not generated" >&2
-            exit 1
-          fi
+          bundle="src-tauri/target/release/bundle"
+
+          updater=$(find "$bundle" -name "*.AppImage.tar.gz" -type f | head -1)
+          test -n "$updater"
+          test -f "$updater.sig"
+          updater_name="ZX-Code-${tag}-Linux-${arch}.AppImage.tar.gz"
+          cp "$updater" "release-assets/$updater_name"
+          cp "$updater.sig" "release-assets/$updater_name.sig"
+
+          appimage=$(find "$bundle" -name "*.AppImage" -type f | head -1)
+          test -n "$appimage"
           cp "$appimage" "release-assets/ZX-Code-${tag}-Linux-${arch}.AppImage"
-          deb=$(find src-tauri/target/release/bundle -name "*.deb" | head -1 || true)
-          rpm=$(find src-tauri/target/release/bundle -name "*.rpm" | head -1 || true)
+          deb=$(find "$bundle" -name "*.deb" -type f | head -1 || true)
+          rpm=$(find "$bundle" -name "*.rpm" -type f | head -1 || true)
           [ -z "$deb" ] || cp "$deb" "release-assets/ZX-Code-${tag}-Linux-${arch}.deb"
           [ -z "$rpm" ] || cp "$rpm" "release-assets/ZX-Code-${tag}-Linux-${arch}.rpm"
 
@@ -176,16 +205,29 @@ jobs:
           if-no-files-found: error
 
   publish:
-    name: Publish GitHub Release
+    name: Publish release and updater manifest
     runs-on: ubuntu-22.04
     needs: build
     steps:
+      - name: Checkout master
+        uses: actions/checkout@v6
+        with:
+          ref: master
+
       - name: Download build artifacts
         uses: actions/download-artifact@v8
         with:
           pattern: release-assets-*
           path: release-assets
           merge-multiple: true
+
+      - name: Generate updater manifest
+        run: |
+          node scripts/generate-updater-manifest.mjs \
+            --assets release-assets \
+            --repo "$GITHUB_REPOSITORY" \
+            --tag "$GITHUB_REF_NAME" \
+            --output latest.json
 
       - name: Publish stable release
         uses: softprops/action-gh-release@v3
@@ -197,7 +239,10 @@ jobs:
           body: |
             ## ZX Code ${{ github.ref_name }}
 
-            v3.17.1 将应用内官方网站更新为 ZX Code 下载页，并将内置供应商预设精简为官方服务与自定义配置。用户已添加的供应商不受影响。
+            - 新增启动时的新版本提醒，可直接下载、安装并重启。
+            - 自动更新失败或使用便携版时，统一前往 ZX Code 官方下载页。
+            - 关于页移除 GitHub 与更新日志按钮。
+            - 由于更新签名密钥已更换，v3.17.1 用户需从官网下载并手动安装本版本一次；从本版本开始支持后续应用内自动更新。
 
             ### 下载
 
@@ -205,8 +250,21 @@ jobs:
             - Windows ARM64：文件名带 `Windows-arm64`
             - macOS Intel / Apple Silicon：Universal DMG 或 ZIP
             - Linux x64 / ARM64：AppImage、DEB 或 RPM
-
-            本次发布未配置代码签名。Windows 和 macOS 可能显示系统安全提示。
           files: release-assets/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish manifest to GitHub Pages
+        shell: bash
+        run: |
+          set -euxo pipefail
+          git pull --rebase origin master
+          cp latest.json docs/latest.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/latest.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "docs: publish updater manifest for ${GITHUB_REF_NAME}"
+          git push origin HEAD:master

@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { DatabaseUpgrade } from "./components/DatabaseUpgrade";
+import { UpdatePrompt } from "./components/UpdatePrompt";
 import { UpdateProvider } from "./contexts/UpdateContext";
 import "./index.css";
 // 导入国际化配置
@@ -107,6 +108,7 @@ async function bootstrap() {
         <ThemeProvider defaultTheme="system" storageKey="zx-code-theme">
           <UpdateProvider>
             <App />
+            <UpdatePrompt />
             <Toaster />
           </UpdateProvider>
         </ThemeProvider>

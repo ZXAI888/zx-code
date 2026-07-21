@@ -725,7 +725,7 @@
 
       const cards = [
         { key: 'win',   icon: SVG_WIN,   title: 'Windows', desc: 'Windows 10 / 11（x64 和 ARM64）' },
-        { key: 'mac',   icon: SVG_MAC,   title: 'macOS',   desc: 'macOS 10.15+（Intel & Apple Silicon）' },
+        { key: 'mac',   icon: SVG_MAC,   title: 'macOS',   desc: 'macOS 12+（Intel & Apple Silicon）' },
         { key: 'linux', icon: SVG_LINUX, title: 'Linux',   desc: 'x86_64 和 ARM64 架构' },
       ];
 
@@ -761,10 +761,10 @@
     } catch (e) {
       content.innerHTML = `
         <div class="error-msg">
-          <p>获取版本信息失败，请直接前往 GitHub Releases 下载</p>
-          <a class="btn-primary" href="https://github.com/${REPO}/releases" target="_blank" rel="noopener">
-            ${SVG_DOWNLOAD} 前往 GitHub Releases
-          </a>
+          <p>暂时无法获取版本信息，请稍后重试</p>
+          <button class="btn-primary" type="button" onclick="load()">
+            ${SVG_DOWNLOAD} 重新获取
+          </button>
         </div>`;
       versionText.textContent = '获取失败';
       document.getElementById('install-tip').style.display = 'flex';

@@ -13,8 +13,7 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const RELEASES_URL = "https://github.com/ZXAI888/zx-code/releases";
+import { DOWNLOAD_PAGE_URL } from "@/config/constants";
 
 interface DatabaseUpgradeProps {
   payload: {
@@ -268,11 +267,11 @@ export function DatabaseUpgrade({ payload }: DatabaseUpgradeProps) {
               variant="outline"
               className="gap-2"
               onClick={() =>
-                void invoke("open_external", { url: RELEASES_URL })
+                void invoke("open_external", { url: DOWNLOAD_PAGE_URL })
               }
             >
               <ExternalLink className="h-4 w-4" />
-              {t("dbUpgrade.openReleases", "打开发布页")}
+              {t("dbUpgrade.openDownloadPage", "打开下载页")}
             </Button>
           )}
 

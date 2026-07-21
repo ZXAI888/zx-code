@@ -4,6 +4,8 @@ export const PROVIDER_TYPES = {
   CODEX_OAUTH: "codex_oauth",
 } as const;
 
+export const DOWNLOAD_PAGE_URL = "https://zxai888.github.io/zx-code/";
+
 // 用量脚本模板类型常量
 export const TEMPLATE_TYPES = {
   CUSTOM: "custom",

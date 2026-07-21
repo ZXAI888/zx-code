@@ -5,6 +5,7 @@ release/
 *.log
 .env
 .env.local
+.zx-code-updater.key*
 *.tsbuildinfo
 .npmrc
 CLAUDE.md

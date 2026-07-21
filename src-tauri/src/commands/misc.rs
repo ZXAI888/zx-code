@@ -55,10 +55,7 @@ pub async fn copy_text_to_clipboard(text: String) -> Result<bool, String> {
 pub async fn check_for_updates(handle: AppHandle) -> Result<bool, String> {
     handle
         .opener()
-        .open_url(
-            "https://github.com/ZXAI888/zx-code/releases/latest",
-            None::<String>,
-        )
+        .open_url("https://zxai888.github.io/zx-code/", None::<String>)
         .map_err(|e| format!("打开更新页面失败: {e}"))?;
 
     Ok(true)
