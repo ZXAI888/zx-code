@@ -1,0 +1,19 @@
+{
+  "version": "4.0.39",
+  "items": [
+    {
+      "type": "new",
+      "zh": "可为备份目录设置容量上限，并可在供应商表单中复制 API 密钥。",
+      "zh-TW": "可為備份目錄設定容量上限，並可在供應商表單中複製 API 金鑰。",
+      "en": "Set a storage limit for backups and copy API keys from provider forms.",
+      "ja": "バックアップ容量の上限を設定し、プロバイダーのフォームから API キーをコピーできます。"
+    },
+    {
+      "type": "fix",
+      "zh": "修复流式请求卡住时的故障切换，以及长时间运行时的内存占用问题。",
+      "zh-TW": "修正串流請求停滯時的故障切換與長時間執行時的記憶體占用問題。",
+      "en": "Fixed failover for stalled streams and bounded memory use during long streams.",
+      "ja": "ストリーム停止時の切り替えと長時間のストリーミングにおけるメモリ使用量を改善しました。"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
  * 统一供应商（Universal Provider）预设配置
  *
  * 统一供应商是跨应用共享的配置，修改后会自动同步到 Claude、Codex、Gemini 三个应用。
- * 用于创建支持多种协议的自定义 API 网关。
+ * 适用于 NewAPI 等支持多种协议的 API 网关。
  */
 
 import type {
@@ -37,21 +37,21 @@ export interface UniversalProviderPreset {
 }
 
 /**
- * 自定义网关默认模型配置
+ * NewAPI 默认模型配置
  */
-const DEFAULT_UNIVERSAL_MODELS: UniversalProviderModels = {
+const NEWAPI_DEFAULT_MODELS: UniversalProviderModels = {
   claude: {
     model: "claude-sonnet-5",
     haikuModel: "claude-haiku-4-5-20251001",
     sonnetModel: "claude-sonnet-5",
-    opusModel: "claude-opus-4-8",
+    opusModel: "claude-opus-5",
   },
   codex: {
-    model: "gpt-5.5",
+    model: "gpt-5.6-sol",
     reasoningEffort: "high",
   },
   gemini: {
-    model: "gemini-3.5-flash",
+    model: "gemini-3.6-flash",
   },
 };
 
@@ -67,7 +67,7 @@ export const universalProviderPresets: UniversalProviderPreset[] = [
       codex: true,
       gemini: true,
     },
-    defaultModels: DEFAULT_UNIVERSAL_MODELS,
+    defaultModels: NEWAPI_DEFAULT_MODELS,
     icon: "openai",
     iconColor: "#6366F1",
     description: "自定义配置的 API 网关",
@@ -98,20 +98,4 @@ export function createUniversalProviderFromPreset(
     iconColor: preset.iconColor,
     createdAt: Date.now(),
   };
-}
-
-/**
- * 获取预设的显示名称（用于 UI）
- */
-export function getPresetDisplayName(preset: UniversalProviderPreset): string {
-  return preset.name;
-}
-
-/**
- * 根据类型查找预设
- */
-export function findPresetByType(
-  providerType: string,
-): UniversalProviderPreset | undefined {
-  return universalProviderPresets.find((p) => p.providerType === providerType);
 }

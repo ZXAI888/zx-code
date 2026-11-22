@@ -24,8 +24,15 @@ interface DownloadProgress {
 
 export function UpdatePrompt() {
   const { t } = useTranslation();
-  const { hasUpdate, updateInfo, isDismissed, dismissUpdate, resetDismiss } =
-    useUpdate();
+  const {
+    hasUpdate,
+    updateInfo,
+    readyUpdate,
+    autoUpdateDownloading,
+    isDismissed,
+    dismissUpdate,
+    resetDismiss,
+  } = useUpdate();
   const [isPortable, setIsPortable] = useState<boolean | null>(null);
   const [isInstalling, setIsInstalling] = useState(false);
   const [progress, setProgress] = useState<DownloadProgress | null>(null);
@@ -40,7 +47,7 @@ export function UpdatePrompt() {
       })
       .catch((error) => {
         console.error("[UpdatePrompt] Failed to detect portable mode", error);
-        if (active) setIsPortable(false);
+        if (active) setIsPortable(true);
       });
     return () => {
       active = false;
@@ -108,7 +115,12 @@ export function UpdatePrompt() {
       : null;
   const formatMB = (bytes: number) => (bytes / 1024 / 1024).toFixed(1);
   const isOpen = Boolean(
-    hasUpdate && updateInfo && !isDismissed && isPortable !== null,
+    hasUpdate &&
+      updateInfo &&
+      !readyUpdate &&
+      !autoUpdateDownloading &&
+      !isDismissed &&
+      isPortable !== null,
   );
 
   return (

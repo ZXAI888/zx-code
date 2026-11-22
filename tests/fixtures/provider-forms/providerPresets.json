@@ -1,0 +1,651 @@
+[
+  {
+    "name": "Kimi",
+    "family": "kimi",
+    "planKey": "payg",
+    "regionKey": "cn",
+    "websiteUrl": "https://platform.kimi.com.example",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://api.moonshot.cn.example/anthropic",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "kimi-k3.1-pro",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "kimi-k3.1-pro",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "kimi-k3.1-pro",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "kimi-k3.1-pro"
+      }
+    },
+    "category": "cn_official",
+    "icon": "kimi",
+    "iconColor": "#6366F1"
+  },
+  {
+    "name": "Kimi Global",
+    "family": "kimi",
+    "planKey": "payg",
+    "regionKey": "intl",
+    "websiteUrl": "https://platform.kimi.ai.example",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://api.moonshot.ai.example/anthropic",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "kimi-k3.1-pro",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "kimi-k3.1-pro",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "kimi-k3.1-pro",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "kimi-k3.1-pro"
+      }
+    },
+    "category": "cn_official",
+    "icon": "kimi",
+    "iconColor": "#6366F1"
+  },
+  {
+    "name": "Kimi For Coding",
+    "family": "kimi",
+    "planKey": "coding",
+    "regionKey": "cn",
+    "websiteUrl": "https://www.kimi.com.example/code/",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://api.kimi.com.example/coding/",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "kimi-for-coding",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "kimi-for-coding",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "kimi-for-coding",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "kimi-for-coding",
+        "CLAUDE_CODE_MAX_CONTEXT_TOKENS": "262144",
+        "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "262144"
+      }
+    },
+    "category": "cn_official",
+    "icon": "kimi",
+    "iconColor": "#6366F1"
+  },
+  {
+    "name": "Kimi For Coding Global",
+    "family": "kimi",
+    "planKey": "coding",
+    "regionKey": "intl",
+    "websiteUrl": "https://www.kimi.ai.example/code",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://api.kimi.ai.example/coding/",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "kimi-for-coding",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "kimi-for-coding",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "kimi-for-coding",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "kimi-for-coding",
+        "CLAUDE_CODE_MAX_CONTEXT_TOKENS": "262144",
+        "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "262144"
+      }
+    },
+    "category": "cn_official",
+    "icon": "kimi",
+    "iconColor": "#6366F1"
+  },
+  {
+    "name": "火山 Agent Plan",
+    "family": "volcengine",
+    "planKey": "agentPlan",
+    "websiteUrl": "https://www.volcengine.com.example/activity/agentplan",
+    "apiKeyUrl": "https://www.volcengine.com.example/activity/agentplan",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://ark.cn-beijing.volces.com.example/api/plan",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "ark-code-latest",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "ark-code-latest",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "ark-code-latest",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "ark-code-latest"
+      }
+    },
+    "category": "cn_official",
+    "icon": "huoshan",
+    "iconColor": "#3370FF"
+  },
+  {
+    "name": "火山 Coding Plan",
+    "family": "volcengine",
+    "planKey": "codingPlan",
+    "websiteUrl": "https://www.volcengine.com.example/activity/codingplan",
+    "apiKeyUrl": "https://www.volcengine.com.example/activity/codingplan",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://ark.cn-beijing.volces.com.example/api/coding",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "ark-code-latest",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "ark-code-latest",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "ark-code-latest",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "ark-code-latest"
+      }
+    },
+    "category": "cn_official",
+    "icon": "huoshan",
+    "iconColor": "#3370FF"
+  },
+  {
+    "name": "Volcengine Doubao",
+    "family": "volcengine",
+    "planKey": "payg",
+    "nameKey": "providerForm.presets.doubaoseed",
+    "websiteUrl": "https://console.volcengine.com.example/ark/region:ark+cn-beijing/apiKey",
+    "apiKeyUrl": "https://console.volcengine.com.example/ark/region:ark+cn-beijing/apiKey",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://ark.cn-beijing.volces.com.example/api/compatible",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "doubao-seed-2-1-pro-260915",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "doubao-seed-2-1-pro-260915",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "doubao-seed-2-1-pro-260915",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "doubao-seed-2-1-pro-260915"
+      }
+    },
+    "category": "cn_official",
+    "icon": "doubao",
+    "iconColor": "#3370FF"
+  },
+  {
+    "name": "Gemini Native",
+    "websiteUrl": "https://ai.google.dev.example/gemini-api",
+    "apiKeyUrl": "https://aistudio.google.com.example/app/apikey",
+    "apiKeyField": "ANTHROPIC_API_KEY",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://generativelanguage.googleapis.com.example",
+        "ANTHROPIC_API_KEY": "",
+        "ANTHROPIC_MODEL": "gemini-3.8-flash",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "gemini-3.8-flash",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "gemini-3.8-flash",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "gemini-3.8-flash"
+      }
+    },
+    "category": "third_party",
+    "apiFormat": "gemini_native",
+    "endpointCandidates": [
+      "https://generativelanguage.googleapis.com.example"
+    ],
+    "icon": "gemini",
+    "iconColor": "#4285F4"
+  },
+  {
+    "name": "DeepSeek",
+    "websiteUrl": "https://platform.deepseek.com.example",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://api.deepseek.com.example/anthropic",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "deepseek-flash[1m]",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "deepseek-flash[1m]",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "deepseek-flash[1m]",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "deepseek-flash[1m]"
+      }
+    },
+    "category": "cn_official",
+    "modelsUrl": "https://api.deepseek.com.example/models",
+    "icon": "deepseek",
+    "iconColor": "#1E88E5"
+  },
+  {
+    "name": "Zhipu GLM",
+    "family": "zhipu",
+    "regionKey": "cn",
+    "websiteUrl": "https://open.bigmodel.cn.example",
+    "apiKeyUrl": "https://www.bigmodel.cn.example/claude-code",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://open.bigmodel.cn.example/api/anthropic",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "glm-5.3[1m]",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-5.3[1m]",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-5.3[1m]",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-5.3[1m]"
+      }
+    },
+    "category": "cn_official",
+    "icon": "zhipu",
+    "iconColor": "#0F62FE"
+  },
+  {
+    "name": "RelaxyCode",
+    "websiteUrl": "https://www.relaxycode.com.example",
+    "apiKeyUrl": "https://www.relaxycode.com.example/register",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://www.relaxycode.com.example",
+        "ANTHROPIC_AUTH_TOKEN": ""
+      }
+    },
+    "category": "third_party",
+    "icon": "relaxcode"
+  },
+  {
+    "name": "E-FlowCode",
+    "websiteUrl": "https://e-flowcode.cc.example",
+    "apiKeyUrl": "https://e-flowcode.cc.example",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_BASE_URL": "https://e-flowcode.cc.example",
+        "ENABLE_TOOL_SEARCH": "true"
+      }
+    },
+    "category": "third_party",
+    "endpointCandidates": [
+      "https://e-flowcode.cc.example"
+    ],
+    "icon": "eflowcode",
+    "iconColor": "#000000"
+  },
+  {
+    "name": "OpenRouter",
+    "websiteUrl": "https://openrouter.ai.example",
+    "apiKeyUrl": "https://openrouter.ai.example/keys",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://openrouter.ai.example/api",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "anthropic/claude-sonnet-5.5",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "anthropic/claude-haiku-5.5",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "anthropic/claude-sonnet-5.5",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "anthropic/claude-opus-5.5"
+      }
+    },
+    "category": "aggregator",
+    "icon": "openrouter",
+    "iconColor": "#6566F1"
+  },
+  {
+    "name": "Ollama",
+    "websiteUrl": "https://ollama.com.example",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "http://localhost:11434",
+        "ANTHROPIC_AUTH_TOKEN": "ollama",
+        "ANTHROPIC_API_KEY": "",
+        "ANTHROPIC_MODEL": "qwen3.5",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "qwen3.5",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "qwen3.5",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "qwen3.5"
+      }
+    },
+    "category": "local",
+    "endpointCandidates": [
+      "http://localhost:11434",
+      "http://127.0.0.1:11434"
+    ],
+    "icon": "ollama"
+  },
+  {
+    "name": "GitHub Copilot",
+    "websiteUrl": "https://github.com.example/features/copilot",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://api.githubcopilot.com.example",
+        "ANTHROPIC_MODEL": "claude-sonnet-5",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4.5",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-5",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-sonnet-5"
+      }
+    },
+    "category": "third_party",
+    "apiFormat": "openai_chat",
+    "providerType": "github_copilot",
+    "requiresOAuth": true,
+    "icon": "github",
+    "iconColor": "#000000"
+  },
+  {
+    "name": "Codex",
+    "websiteUrl": "https://openai.com.example/chatgpt/pricing",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://chatgpt.com.example/backend-api/codex",
+        "ANTHROPIC_MODEL": "gpt-5.6-sol",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "gpt-5.6-luna",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "gpt-5.6-sol",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "gpt-5.6-sol",
+        "CLAUDE_CODE_MAX_CONTEXT_TOKENS": "272000",
+        "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "272000"
+      }
+    },
+    "category": "third_party",
+    "apiFormat": "openai_responses",
+    "providerType": "codex_oauth",
+    "requiresOAuth": true,
+    "icon": "openai",
+    "iconColor": "#000000"
+  },
+  {
+    "name": "xAI (Grok)",
+    "websiteUrl": "https://x.ai.example/grok",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://api.x.ai.example/v1",
+        "ANTHROPIC_MODEL": "grok-4.7",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "grok-4.7",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "grok-4.7",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "grok-4.7",
+        "CLAUDE_CODE_MAX_CONTEXT_TOKENS": "500000"
+      }
+    },
+    "category": "third_party",
+    "apiFormat": "openai_responses",
+    "providerType": "xai_oauth",
+    "requiresOAuth": true,
+    "icon": "xai",
+    "iconColor": "#000000"
+  },
+  {
+    "name": "Nvidia",
+    "websiteUrl": "https://build.nvidia.com.example",
+    "apiKeyUrl": "https://build.nvidia.com.example/settings/api-keys",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://integrate.api.nvidia.com.example",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "moonshotai/kimi-k2.6",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "moonshotai/kimi-k2.6",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "moonshotai/kimi-k2.6",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "moonshotai/kimi-k2.6"
+      }
+    },
+    "category": "aggregator",
+    "apiFormat": "openai_chat",
+    "icon": "nvidia",
+    "iconColor": "#000000"
+  },
+  {
+    "name": "AWS Bedrock (API Key)",
+    "family": "aws-bedrock",
+    "planKey": "apiKey",
+    "websiteUrl": "https://aws.amazon.com.example/bedrock/",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://bedrock-runtime..example${AWS_REGION}.amazonaws.com",
+        "AWS_BEARER_TOKEN_BEDROCK": "",
+        "AWS_REGION": "${AWS_REGION}",
+        "ANTHROPIC_MODEL": "global.anthropic.claude-opus-5",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "global.anthropic.claude-sonnet-5",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "global.anthropic.claude-opus-5",
+        "CLAUDE_CODE_USE_BEDROCK": "1"
+      }
+    },
+    "category": "cloud_provider",
+    "templateValues": {
+      "AWS_REGION": {
+        "label": "AWS Region",
+        "placeholder": "us-west-2",
+        "editorValue": "us-west-2"
+      }
+    },
+    "icon": "aws",
+    "iconColor": "#FF9900"
+  },
+  {
+    "name": "Genesis",
+    "websiteUrl": "https://genesis.moi.matrixorigin.cn.example/taas/",
+    "apiKeyUrl": "https://uc.moi.matrixorigin.cn.example/account/credentials",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://token.moi.matrixorigin.cn.example",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "kimi-k3",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "kimi-k3",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "kimi-k3",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "kimi-k3"
+      }
+    },
+    "modelsUrl": "https://token.moi.matrixorigin.cn.example/v1/models",
+    "endpointCandidates": [
+      "https://token.moi.matrixorigin.cn.example"
+    ],
+    "category": "aggregator",
+    "icon": "genesis",
+    "apiFormat": "openai_chat"
+  },
+  {
+    "name": "SudoCode.chat",
+    "family": "sudocode",
+    "websiteUrl": "https://sudocode.chat.example",
+    "apiKeyUrl": "https://sudocode.chat.example/sign-up",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://api.sudocode.chat.example",
+        "ANTHROPIC_AUTH_TOKEN": ""
+      }
+    },
+    "endpointCandidates": [
+      "https://api.sudocode.chat.example",
+      "https://api.sudorelay.com.example"
+    ],
+    "category": "third_party",
+    "icon": "sudocode"
+  },
+  {
+    "name": "SudoCode.us",
+    "family": "sudocode",
+    "websiteUrl": "https://sudocode.us.example",
+    "apiKeyUrl": "https://sudocode.us.example",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://sudocode.us.example",
+        "ANTHROPIC_AUTH_TOKEN": ""
+      }
+    },
+    "endpointCandidates": [
+      "https://sudocode.us.example",
+      "https://sudocode.run.example"
+    ],
+    "category": "third_party",
+    "icon": "sudocode-us"
+  },
+  {
+    "name": "Tencent Token Plan",
+    "family": "tencent",
+    "planKey": "tokenPlan",
+    "regionKey": "cn",
+    "websiteUrl": "https://cloud.tencent.com.example/product/tokenhub",
+    "apiKeyUrl": "https://console.cloud.tencent.com.example/tokenhub/tokenplan",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://api.lkeap.cloud.tencent.com.example/plan/anthropic",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "tc-code-latest",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "tc-code-latest",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "tc-code-latest",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "tc-code-latest"
+      }
+    },
+    "category": "cn_official",
+    "endpointCandidates": [
+      "https://api.lkeap.cloud.tencent.com.example/plan/anthropic"
+    ],
+    "modelsUrl": "https://api.lkeap.cloud.tencent.com.example/plan/v3/models",
+    "icon": "tencent",
+    "iconColor": "#0052D9"
+  },
+  {
+    "name": "Tencent Token Plan (Intl)",
+    "family": "tencent",
+    "planKey": "tokenPlan",
+    "regionKey": "intl",
+    "websiteUrl": "https://www.tencentcloud.com.example/products/tokenhub",
+    "apiKeyUrl": "https://console.tencentcloud.com.example/tokenhub/tokenplan",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://tokenhub-intl.tencentcloudmaas.com.example/plan/anthropic",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "auto",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "auto",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "auto",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "auto"
+      }
+    },
+    "category": "cn_official",
+    "endpointCandidates": [
+      "https://tokenhub-intl.tencentcloudmaas.com.example/plan/anthropic"
+    ],
+    "icon": "tencent",
+    "iconColor": "#0052D9"
+  },
+  {
+    "name": "Tencent Token Plan Enterprise Pro",
+    "family": "tencent",
+    "planKey": "enterprisePro",
+    "regionKey": "cn",
+    "websiteUrl": "https://cloud.tencent.com.example/product/tokenhub",
+    "apiKeyUrl": "https://console.cloud.tencent.com.example/tokenhub/tokenplan-e",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://tokenhub.tencentmaas.com.example/plan/anthropic",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "auto",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "auto",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "auto",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "auto"
+      }
+    },
+    "category": "cn_official",
+    "endpointCandidates": [
+      "https://tokenhub.tencentmaas.com.example/plan/anthropic",
+      "https://tokenhub-intl.tencentmaas.com.example/plan/anthropic"
+    ],
+    "icon": "tencent",
+    "iconColor": "#0052D9"
+  },
+  {
+    "name": "Tencent Token Plan Enterprise Pro (Intl)",
+    "family": "tencent",
+    "planKey": "enterprisePro",
+    "regionKey": "intl",
+    "websiteUrl": "https://www.tencentcloud.com.example/products/tokenhub",
+    "apiKeyUrl": "https://console.tencentcloud.com.example/tokenhub/tokenplan-e",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://tokenhub-intl.tencentcloudmaas.com.example/plan/anthropic",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "auto",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "auto",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "auto",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "auto"
+      }
+    },
+    "category": "cn_official",
+    "endpointCandidates": [
+      "https://tokenhub-intl.tencentcloudmaas.com.example/plan/anthropic",
+      "https://tokenhub.tencentcloudmaas.com.example/plan/anthropic"
+    ],
+    "icon": "tencent",
+    "iconColor": "#0052D9"
+  },
+  {
+    "name": "Tencent Token Plan Enterprise Lite",
+    "family": "tencent",
+    "planKey": "enterpriseLite",
+    "regionKey": "cn",
+    "websiteUrl": "https://cloud.tencent.com.example/product/tokenhub",
+    "apiKeyUrl": "https://console.cloud.tencent.com.example/tokenhub/tokenplan-e",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://tokenhub.tencentmaas.com.example/plan/anthropic",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "auto",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "auto",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "auto",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "auto"
+      }
+    },
+    "category": "cn_official",
+    "endpointCandidates": [
+      "https://tokenhub.tencentmaas.com.example/plan/anthropic",
+      "https://tokenhub-intl.tencentmaas.com.example/plan/anthropic"
+    ],
+    "icon": "tencent",
+    "iconColor": "#0052D9"
+  },
+  {
+    "name": "Tencent Token Plan Enterprise Lite (Intl)",
+    "family": "tencent",
+    "planKey": "enterpriseLite",
+    "regionKey": "intl",
+    "websiteUrl": "https://www.tencentcloud.com.example/products/tokenhub",
+    "apiKeyUrl": "https://console.tencentcloud.com.example/tokenhub/tokenplan-e",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://tokenhub-intl.tencentcloudmaas.com.example/plan/anthropic",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "auto",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "auto",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "auto",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "auto"
+      }
+    },
+    "category": "cn_official",
+    "endpointCandidates": [
+      "https://tokenhub-intl.tencentcloudmaas.com.example/plan/anthropic",
+      "https://tokenhub.tencentcloudmaas.com.example/plan/anthropic"
+    ],
+    "icon": "tencent",
+    "iconColor": "#0052D9"
+  },
+  {
+    "name": "Zhipu GLM en",
+    "family": "zhipu",
+    "regionKey": "intl",
+    "websiteUrl": "https://z.ai.example",
+    "apiKeyUrl": "https://z.ai.example/subscribe",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://api.z.ai.example/api/anthropic",
+        "ANTHROPIC_AUTH_TOKEN": "",
+        "ANTHROPIC_MODEL": "glm-5.3[1m]",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-5.3[1m]",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-5.3[1m]",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-5.3[1m]"
+      }
+    },
+    "category": "cn_official",
+    "icon": "zhipu",
+    "iconColor": "#0F62FE"
+  },
+  {
+    "name": "AWS Bedrock (AKSK)",
+    "family": "aws-bedrock",
+    "planKey": "aksk",
+    "websiteUrl": "https://aws.amazon.com.example/bedrock/",
+    "settingsConfig": {
+      "env": {
+        "ANTHROPIC_BASE_URL": "https://bedrock-runtime..example${AWS_REGION}.amazonaws.com",
+        "AWS_ACCESS_KEY_ID": "${AWS_ACCESS_KEY_ID}",
+        "AWS_SECRET_ACCESS_KEY": "${AWS_SECRET_ACCESS_KEY}",
+        "AWS_REGION": "${AWS_REGION}",
+        "ANTHROPIC_MODEL": "global.anthropic.claude-opus-5",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "global.anthropic.claude-sonnet-5",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "global.anthropic.claude-opus-5",
+        "CLAUDE_CODE_USE_BEDROCK": "1"
+      }
+    },
+    "category": "cloud_provider",
+    "templateValues": {
+      "AWS_REGION": {
+        "label": "AWS Region",
+        "placeholder": "us-west-2",
+        "editorValue": "us-west-2"
+      },
+      "AWS_ACCESS_KEY_ID": {
+        "label": "Access Key ID",
+        "placeholder": "AKIA...",
+        "editorValue": ""
+      },
+      "AWS_SECRET_ACCESS_KEY": {
+        "label": "Secret Access Key",
+        "placeholder": "your-secret-key",
+        "editorValue": ""
+      }
+    },
+    "icon": "aws",
+    "iconColor": "#FF9900"
+  }
+]

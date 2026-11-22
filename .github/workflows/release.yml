@@ -30,7 +30,7 @@ jobs:
           - os: ubuntu-22.04-arm
             target: linux-arm64
             arch: arm64
-          - os: macos-14
+          - os: macos-15
             target: macos-universal
             rust-target: universal-apple-darwin
 
@@ -41,7 +41,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: "20"
+          node-version-file: ".node-version"
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
@@ -121,6 +121,8 @@ jobs:
 
       - name: Build Linux
         if: runner.os == 'Linux'
+        env:
+          LINUXDEPLOY_EXCLUDED_LIBRARIES: "libwayland-client.so*"
         run: pnpm tauri build --bundles appimage,deb,rpm
 
       - name: Prepare Windows assets
@@ -146,6 +148,7 @@ jobs:
           $portableDir = 'release-assets/ZX-Code-Portable'
           New-Item -ItemType Directory -Force -Path $portableDir | Out-Null
           Copy-Item $exe $portableDir
+          Copy-Item -LiteralPath LICENSE -Destination $portableDir
           @('# ZX Code portable build marker', 'portable=true') | Set-Content "$portableDir/portable.ini" -Encoding utf8
           Compress-Archive -Path "$portableDir/*" -DestinationPath "release-assets/ZX-Code-$tag-Windows$suffix-Portable.zip"
           Remove-Item -Recurse -Force $portableDir
@@ -235,10 +238,9 @@ jobs:
           body: |
             ## ZX Code ${{ github.ref_name }}
 
-            - 新增启动时的新版本提醒，可直接下载、安装并重启。
-            - 自动更新失败或使用便携版时，统一前往 ZX Code 官方下载页。
-            - 关于页移除 GitHub 与更新日志按钮。
-            - 由于更新签名密钥已更换，v3.17.1 用户需从官网下载并手动安装本版本一次；从本版本开始支持后续应用内自动更新。
+            - 供应商表单支持复制 API 密钥，备份目录支持设置容量上限。
+            - 修复流式连接停滞时的故障切换和长时间运行时的内存占用。
+            - 延续 ZX Code 的官网、官方预设和自定义网关。v3.17.2 安装版可在应用内检查更新，便携版从官网下载。
 
             ### 下载
 

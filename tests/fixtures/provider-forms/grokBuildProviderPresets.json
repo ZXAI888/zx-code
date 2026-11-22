@@ -1,0 +1,49 @@
+[
+  {
+    "name": "PackyCode",
+    "websiteUrl": "https://www.packyapi.ai.example",
+    "apiKeyUrl": "https://www.packyapi.ai.example/register",
+    "auth": {
+      "OPENAI_API_KEY": ""
+    },
+    "config": "model_provider = \"custom\"\nmodel = \"grok-4.7\"\n\n[model_providers.custom]\nname = \"PackyCode\"\nbase_url = \"https://www.packyapi.ai.example/v1\"\nwire_api = \"responses\"\nrequires_openai_auth = true",
+    "endpointCandidates": [
+      "https://www.packyapi.ai.example/v1",
+      "https://cf.api.fan.example/v1",
+      "https://slb-v1.api.fan.example/v1",
+      "https://www.packyapi.com.example/v1"
+    ],
+    "category": "third_party",
+    "icon": "packycode"
+  },
+  {
+    "name": "PatewayAI",
+    "websiteUrl": "https://pateway.ai.example",
+    "apiKeyUrl": "https://pateway.ai.example/",
+    "auth": {
+      "OPENAI_API_KEY": ""
+    },
+    "config": "model_provider = \"custom\"\nmodel = \"grok-4.7\"\n\n[model_providers.custom]\nname = \"PatewayAI\"\nbase_url = \"https://api.pateway.ai.example/v1\"\nwire_api = \"responses\"\nrequires_openai_auth = true",
+    "endpointCandidates": [
+      "https://api.pateway.ai.example/v1"
+    ],
+    "category": "third_party",
+    "icon": "pateway"
+  },
+  {
+    "name": "88API",
+    "websiteUrl": "https://88api.ai.example",
+    "apiKeyUrl": "https://88api.ai.example/sign-up",
+    "auth": {
+      "OPENAI_API_KEY": ""
+    },
+    "config": "model_provider = \"custom\"\nmodel = \"grok-4.7\"\n\n[model_providers.custom]\nname = \"88API\"\nbase_url = \"https://api.88api.ai.example/v1\"\nwire_api = \"responses\"\nrequires_openai_auth = true",
+    "endpointCandidates": [
+      "https://api.88api.ai.example/v1",
+      "https://88api.ai.example/v1"
+    ],
+    "apiFormat": "openai_responses",
+    "category": "aggregator",
+    "icon": "88api"
+  }
+]

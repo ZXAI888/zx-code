@@ -1,0 +1,56 @@
+[
+  {
+    "name": "E-FlowCode",
+    "websiteUrl": "https://e-flowcode.cc.example",
+    "apiKeyUrl": "https://e-flowcode.cc.example",
+    "settingsConfig": {
+      "env": {
+        "GOOGLE_GEMINI_BASE_URL": "https://e-flowcode.cc.example",
+        "GEMINI_API_KEY": "",
+        "GEMINI_MODEL": "gemini-3.8-flash"
+      },
+      "config": {
+        "general": {
+          "previewFeatures": true,
+          "sessionRetention": {
+            "enabled": true,
+            "maxAge": "30d",
+            "warningAcknowledged": true
+          }
+        },
+        "mcpServers": {},
+        "security": {
+          "auth": {
+            "selectedType": "gemini-api-key"
+          }
+        }
+      }
+    },
+    "baseURL": "https://e-flowcode.cc.example",
+    "model": "gemini-3.8-flash",
+    "description": "E-FlowCode",
+    "category": "third_party",
+    "endpointCandidates": [
+      "https://e-flowcode.cc.example"
+    ],
+    "icon": "eflowcode",
+    "iconColor": "#000000"
+  },
+  {
+    "name": "OpenRouter",
+    "websiteUrl": "https://openrouter.ai.example",
+    "apiKeyUrl": "https://openrouter.ai.example/keys",
+    "settingsConfig": {
+      "env": {
+        "GOOGLE_GEMINI_BASE_URL": "https://openrouter.ai.example/api",
+        "GEMINI_MODEL": "gemini-3.8-flash"
+      }
+    },
+    "baseURL": "https://openrouter.ai.example/api",
+    "model": "gemini-3.8-flash",
+    "description": "OpenRouter",
+    "category": "aggregator",
+    "icon": "openrouter",
+    "iconColor": "#6566F1"
+  }
+]

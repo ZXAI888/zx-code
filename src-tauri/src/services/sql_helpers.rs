@@ -16,7 +16,15 @@
 /// style provider not added here) shows up loudly as a too-low cache hit
 /// rate, which is easier to catch than the silent over-deduction that
 /// would happen with the opposite default.
-const CACHE_INCLUSIVE_APP_TYPES: &[&str] = &["codex", "gemini"];
+/// 单一语义集（SSOT）：写入侧（proxy logger/calculator）、回填侧
+/// （usage_stats 成本重算）与展示侧（本文件的 SQL 归一）都必须引用这里，
+/// 防止同一语义散落多处后新增 app 时漏改（grokbuild 曾在回填侧漏掉）。
+pub(crate) const CACHE_INCLUSIVE_APP_TYPES: &[&str] = &["codex", "gemini", "grokbuild"];
+
+/// `app_type` 的存储 `input_tokens` 是否已包含 cache read/write。
+pub(crate) fn is_cache_inclusive_app(app_type: &str) -> bool {
+    CACHE_INCLUSIVE_APP_TYPES.contains(&app_type)
+}
 
 pub(crate) const INPUT_TOKEN_SEMANTICS_LEGACY: i64 = 0;
 pub(crate) const INPUT_TOKEN_SEMANTICS_TOTAL: i64 = 1;
@@ -57,6 +65,23 @@ pub fn fresh_input_sql(alias: &str) -> String {
     )
 }
 
+/// 单行的「真实消耗 Tokens」：新增输入 + 输出 + 缓存写入 + 缓存命中。
+///
+/// 与 `usage_stats::derive_real_total_and_hit_rate`（指标卡 / 趋势图）同口径，
+/// 供应商、模型等分组统计的 `total_tokens` 都用它，保证各行之和等于顶部总数。
+pub fn real_total_tokens_sql(alias: &str) -> String {
+    let prefix = if alias.is_empty() {
+        String::new()
+    } else {
+        format!("{alias}.")
+    };
+    let fresh_input = fresh_input_sql(alias);
+    format!(
+        "(({fresh_input}) + {prefix}output_tokens \
+          + {prefix}cache_creation_tokens + {prefix}cache_read_tokens)"
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -93,6 +118,7 @@ mod tests {
         assert!(!sql.contains("."));
         assert!(sql.contains("'codex'"));
         assert!(sql.contains("'gemini'"));
+        assert!(sql.contains("'grokbuild'"));
     }
 
     #[test]
@@ -112,6 +138,13 @@ mod tests {
             [],
         )
         .unwrap();
+        // Grok Build uses OpenAI Responses semantics too.
+        conn.execute(
+            "INSERT INTO proxy_request_logs (request_id, app_type, input_tokens, cache_read_tokens)
+             VALUES ('grok-1', 'grokbuild', 700, 250)",
+            [],
+        )
+        .unwrap();
         // Claude row: Anthropic semantics — input_tokens already excludes cache.
         conn.execute(
             "INSERT INTO proxy_request_logs (request_id, app_type, input_tokens, cache_read_tokens)
@@ -123,8 +156,8 @@ mod tests {
         let expr = fresh_input_sql("l");
         let sql = format!("SELECT COALESCE(SUM({expr}), 0) FROM proxy_request_logs l");
         let total: i64 = conn.query_row(&sql, [], |r| r.get(0)).unwrap();
-        // Codex: 1000-600=400; Gemini: 800-300=500; Claude: 200 unchanged.
-        assert_eq!(total, 400 + 500 + 200);
+        // Codex: 400; Gemini: 500; Grok Build: 450; Claude: 200 unchanged.
+        assert_eq!(total, 400 + 500 + 450 + 200);
     }
 
     #[test]

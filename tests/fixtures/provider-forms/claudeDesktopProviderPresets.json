@@ -1,0 +1,105 @@
+[
+  {
+    "name": "PackyCode",
+    "websiteUrl": "https://www.packyapi.ai.example",
+    "apiKeyUrl": "https://www.packyapi.ai.example/register",
+    "category": "third_party",
+    "baseUrl": "https://www.packyapi.ai.example",
+    "mode": "direct",
+    "apiFormat": "anthropic",
+    "modelRoutes": [
+      {
+        "routeId": "claude-sonnet-5",
+        "upstreamModel": "claude-sonnet-5",
+        "supports1m": true
+      },
+      {
+        "routeId": "claude-opus-5",
+        "upstreamModel": "claude-opus-5",
+        "supports1m": true
+      },
+      {
+        "routeId": "claude-haiku-4-5",
+        "upstreamModel": "claude-haiku-4-5",
+        "supports1m": false
+      }
+    ],
+    "endpointCandidates": [
+      "https://www.packyapi.ai.example",
+      "https://cf.api.fan.example",
+      "https://slb-v1.api.fan.example",
+      "https://www.packyapi.com.example"
+    ],
+    "icon": "packycode"
+  },
+  {
+    "name": "GitHub Copilot",
+    "websiteUrl": "https://github.com.example/features/copilot",
+    "category": "third_party",
+    "baseUrl": "https://api.githubcopilot.com.example",
+    "mode": "proxy",
+    "apiFormat": "openai_chat",
+    "providerType": "github_copilot",
+    "requiresOAuth": true,
+    "modelRoutes": [
+      {
+        "routeId": "claude-sonnet-5",
+        "upstreamModel": "claude-sonnet-5",
+        "labelOverride": "claude-sonnet-5",
+        "supports1m": false
+      },
+      {
+        "routeId": "claude-haiku-4-5",
+        "upstreamModel": "claude-haiku-4.5",
+        "labelOverride": "claude-haiku-4.5",
+        "supports1m": false
+      }
+    ],
+    "icon": "github",
+    "iconColor": "#000000"
+  },
+  {
+    "name": "Codex",
+    "websiteUrl": "https://openai.com.example/chatgpt/pricing",
+    "category": "third_party",
+    "baseUrl": "https://chatgpt.com.example/backend-api/codex",
+    "mode": "proxy",
+    "apiFormat": "openai_responses",
+    "providerType": "codex_oauth",
+    "requiresOAuth": true,
+    "modelRoutes": [
+      {
+        "routeId": "claude-sonnet-5",
+        "upstreamModel": "gpt-5.6-sol",
+        "labelOverride": "gpt-5.6-sol",
+        "supports1m": false
+      },
+      {
+        "routeId": "claude-haiku-4-5",
+        "upstreamModel": "gpt-5.6-luna",
+        "labelOverride": "gpt-5.6-luna",
+        "supports1m": false
+      }
+    ],
+    "icon": "openai",
+    "iconColor": "#000000"
+  },
+  {
+    "name": "DeepSeek",
+    "websiteUrl": "https://platform.deepseek.com.example",
+    "category": "cn_official",
+    "baseUrl": "https://api.deepseek.com.example/anthropic",
+    "mode": "proxy",
+    "apiFormat": "anthropic",
+    "modelRoutes": [
+      {
+        "routeId": "claude-sonnet-5",
+        "upstreamModel": "deepseek-flash",
+        "labelOverride": "deepseek-flash",
+        "supports1m": true
+      }
+    ],
+    "icon": "deepseek",
+    "iconColor": "#1E88E5"
+  }
+]
