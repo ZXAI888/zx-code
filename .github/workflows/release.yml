@@ -4,13 +4,22 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing version tag to build and publish
+        required: true
+        type: string
 
 permissions:
   contents: write
 
 concurrency:
-  group: release-${{ github.ref_name }}
+  group: release-${{ inputs.tag || github.ref_name }}
   cancel-in-progress: true
+
+env:
+  RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
 
 jobs:
   build:
@@ -35,13 +44,18 @@ jobs:
             rust-target: universal-apple-darwin
 
     steps:
-      - name: Checkout
+      - name: Checkout tagged source
         uses: actions/checkout@v6
+        with:
+          ref: refs/tags/${{ env.RELEASE_TAG }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version-file: ".node-version"
+
+      - name: Verify release version
+        run: node -e "if ('v' + require('./package.json').version !== process.env.RELEASE_TAG) process.exit(1)"
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
@@ -79,8 +93,10 @@ jobs:
         if: matrix.target == 'windows-arm64'
         shell: pwsh
         run: |
-          corepack enable
-          corepack prepare pnpm@10.12.3 --activate
+          $pnpmDir = Join-Path $env:RUNNER_TEMP 'zx-pnpm'
+          npm install --global --prefix "$pnpmDir" pnpm@10.12.3
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $pnpmDir | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
 
       - name: Setup LLVM on Windows ARM64
         if: matrix.target == 'windows-arm64'
@@ -131,7 +147,7 @@ jobs:
         run: |
           $ErrorActionPreference = 'Stop'
           New-Item -ItemType Directory -Force -Path release-assets | Out-Null
-          $tag = $env:GITHUB_REF_NAME
+          $tag = $env:RELEASE_TAG
           $isArm64 = '${{ matrix.target }}' -eq 'windows-arm64'
           $root = if ($isArm64) { 'src-tauri/target/aarch64-pc-windows-msvc/release' } else { 'src-tauri/target/release' }
           $suffix = if ($isArm64) { '-arm64' } else { '' }
@@ -159,7 +175,7 @@ jobs:
         run: |
           set -euxo pipefail
           mkdir -p release-assets
-          tag="${GITHUB_REF_NAME}"
+          tag="${RELEASE_TAG}"
           bundle="src-tauri/target/universal-apple-darwin/release/bundle"
 
           updater=$(find "$bundle" -name "*.app.tar.gz" -type f | head -1)
@@ -181,7 +197,7 @@ jobs:
         run: |
           set -euxo pipefail
           mkdir -p release-assets
-          tag="${GITHUB_REF_NAME}"
+          tag="${RELEASE_TAG}"
           arch="${{ matrix.arch }}"
           bundle="src-tauri/target/release/bundle"
 
@@ -225,18 +241,18 @@ jobs:
           node scripts/generate-updater-manifest.mjs \
             --assets release-assets \
             --repo "$GITHUB_REPOSITORY" \
-            --tag "$GITHUB_REF_NAME" \
+            --tag "$RELEASE_TAG" \
             --output latest.json
 
       - name: Publish stable release
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: ${{ github.ref_name }}
-          name: ZX Code ${{ github.ref_name }}
+          tag_name: ${{ env.RELEASE_TAG }}
+          name: ZX Code ${{ env.RELEASE_TAG }}
           prerelease: false
           generate_release_notes: true
           body: |
-            ## ZX Code ${{ github.ref_name }}
+            ## ZX Code ${{ env.RELEASE_TAG }}
 
             - 供应商表单支持复制 API 密钥，备份目录支持设置容量上限。
             - 修复流式连接停滞时的故障切换和长时间运行时的内存占用。
@@ -244,7 +260,7 @@ jobs:
 
             ### 下载
 
-            - Windows x64：`ZX-Code-${{ github.ref_name }}-Windows.msi` 或便携版 ZIP
+            - Windows x64：`ZX-Code-${{ env.RELEASE_TAG }}-Windows.msi` 或便携版 ZIP
             - Windows ARM64：文件名带 `Windows-arm64`
             - macOS Intel / Apple Silicon：Universal DMG 或 ZIP
             - Linux x64 / ARM64：AppImage、DEB 或 RPM
@@ -264,5 +280,5 @@ jobs:
           if git diff --cached --quiet; then
             exit 0
           fi
-          git commit -m "docs: publish updater manifest for ${GITHUB_REF_NAME}"
+          git commit -m "docs: publish updater manifest for ${RELEASE_TAG}"
           git push origin HEAD:master
