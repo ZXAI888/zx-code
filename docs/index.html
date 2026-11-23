@@ -703,14 +703,19 @@
     return (bytes / 1024).toFixed(0) + ' KB';
   };
 
+  async function getRelease(url) {
+    const res = await fetch(url, { signal: globalThis.AbortSignal?.timeout?.(6000) });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (!data?.tag_name || !Array.isArray(data.assets) || !data.assets.length) throw new Error('No release found');
+    return data;
+  }
+
   async function load() {
     const content = document.getElementById('download-content');
     const versionText = document.getElementById('version-text');
     try {
-      const res = await fetch(API);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      if (!data?.tag_name) throw new Error('No release found');
+      const data = await getRelease(API).catch(() => getRelease('./downloads.json'));
 
       versionText.textContent = data.tag_name;
 

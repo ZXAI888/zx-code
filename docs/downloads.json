@@ -1,0 +1,95 @@
+{
+  "tag_name": "v4.0.39",
+  "assets": [
+    {
+      "name": "ZX-Code-v4.0.39-Linux-arm64.AppImage",
+      "size": 96549384,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-Linux-arm64.AppImage"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-Linux-arm64.AppImage.sig",
+      "size": 444,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-Linux-arm64.AppImage.sig"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-Linux-arm64.deb",
+      "size": 19860162,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-Linux-arm64.deb"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-Linux-arm64.rpm",
+      "size": 19866553,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-Linux-arm64.rpm"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-Linux-x86_64.AppImage",
+      "size": 99375608,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-Linux-x86_64.AppImage"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-Linux-x86_64.AppImage.sig",
+      "size": 440,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-Linux-x86_64.AppImage.sig"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-Linux-x86_64.deb",
+      "size": 20774166,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-Linux-x86_64.deb"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-Linux-x86_64.rpm",
+      "size": 20777351,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-Linux-x86_64.rpm"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-Windows-Portable.zip",
+      "size": 20527217,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-Windows-Portable.zip"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-Windows-arm64-Portable.zip",
+      "size": 19485199,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-Windows-arm64-Portable.zip"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-Windows-arm64.msi",
+      "size": 19558400,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-Windows-arm64.msi"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-Windows-arm64.msi.sig",
+      "size": 440,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-Windows-arm64.msi.sig"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-Windows.msi",
+      "size": 20430848,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-Windows.msi"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-Windows.msi.sig",
+      "size": 440,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-Windows.msi.sig"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-macOS.app.tar.gz",
+      "size": 41708684,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-macOS.app.tar.gz"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-macOS.app.tar.gz.sig",
+      "size": 424,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-macOS.app.tar.gz.sig"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-macOS.dmg",
+      "size": 40568707,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-macOS.dmg"
+    },
+    {
+      "name": "ZX-Code-v4.0.39-macOS.zip",
+      "size": 40596273,
+      "browser_download_url": "https://github.com/ZXAI888/zx-code/releases/download/v4.0.39/ZX-Code-v4.0.39-macOS.zip"
+    }
+  ]
+}
